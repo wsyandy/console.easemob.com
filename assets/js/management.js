@@ -129,16 +129,16 @@ function resetPasswdFormValidate(){
 	var email = $('#email').val();
 	
 	if('' == email){
-		$('#emailEMsg').text('请填写用于找回密码的邮箱地址！');
+		$('#emailEMsg').text('请填写正确的企业管理员用户名！');
 		$('#email').focus();
 		return false;
 	}
-        var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	if(!emailReg.test(email)){
-		$('#emailEMsg').text('请输入有效的邮箱！');
- 		$('#email').focus();
-		return false;
- 	}
+        //var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	//if(!emailReg.test(email)){
+	//	$('#emailEMsg').text('请输入有效的邮箱！');
+ 	//	$('#email').focus();
+	//	return false;
+ 	//}
  	
  	$('#emailEMsg').text();
  	return true;
@@ -430,67 +430,6 @@ function loginFormValidate(){
 	$('#usernameEMsg').text('');
 	$('#passwordEMsg').text('');
 	return true;
-}
-
-// System管理员登录
-function sysAdminLogin() {
-	var d = {
-		'grant_type':'password',
-		'username':$('#username').val(),
-		'password':$('#password').val()
-	};
-	if(loginFormValidate()){
-			// 登录获取token
-			$.ajax({
-				url:baseUrl+'/management/token',
-				type:'POST',
-				data:JSON.stringify(d),
-				headers:{
-					'Content-Type':'application/json'
-				},
-				error: function(respData, textStatus, errorThrown) {
-					var str = JSON.stringify(respData.responseText).replace('}','').replace('{','').split(',');
-					var tmpArr = new Array();
-					var errorMsg = '';
-					for(var i = 0; i < str.length; i++) {
-						tmpArr.push(str[i].replace(/\\/g,'').replace(/\"/g,'').split(':'));
-					}
-					for(var i = 0; i < tmpArr.length; i++) {
-						if('error_description' == tmpArr[i][0]){
-							if(tmpArr[i][1].indexOf("User must be confirmed to authenticate") > -1) {
-								errorMsg = '登陆失败，账户未激活!';
-							}
-							if(tmpArr[i][1].indexOf("invalid username or password") > -1) {
-								errorMsg = '登陆失败，用户名或者密码错误!';
-							}
-						}
-					}
-					alert(errorMsg);
-				},
-				success: function(respData, textStatus, jqXHR) {
-					var access_token = respData.access_token;
-					var cuser = respData.user.username;
-					var cuserName = respData.user.username;
-					var loginuuid = respData.user.uuid;
-					var orgName = '';
-					var json = respData.user.organizations;
-					$.each(json, function(i) {
-					    orgName = i;
-					});
-					
-					var date = new Date();
-					date.setTime(date.getTime()+( 7 * 24 * 60 * 60 * 1000));
-					$.cookie('access_token',access_token,{path:'/',expires:date});
-					$.cookie('cuser',cuser,{path:'/',expires:date});
-					$.cookie('cuserName',cuserName,{path:'/',expires:date});
-				  $.cookie('orgName',orgName,{path:'/',expires:date});
-				  $.cookie('loginuuid',loginuuid,{path:'/',expires:date});
-				  
-					window.location.href = 'app_list.html';
-					location.replace('app_list.html');
-				}
-		});
-	}
 }
 
 // ORG管理员登录
@@ -1738,8 +1677,6 @@ function getAppUserList(appUuid, pageAction){
 						var excute = '';
 						var user_name_show = username;
 						
-								
-								// 20170802 李伟 add
 								selectOptions += '<tr>'+
 									'<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+username+'" />&nbsp;&nbsp;&nbsp;</label></td>'+	
 									'<td class="text-center">'+user_name_show+'</td>'+
@@ -1781,7 +1718,6 @@ function getAppUserList(appUuid, pageAction){
 						$(pageLi[i]).hide();
 					}
 				} else {
-					// 20140810 liwei add
 					var ulB = '<ul>';
 					var ulE = '</ul>';
 					var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppUserList();">上一页</a> </li>';
