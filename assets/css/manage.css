@@ -19,9 +19,9 @@
 .row-fluid .count br{ clear:both; display:block; padding:0; margin:0;}
 
 .container-fluid{ position:relative;}
-.navbar-inner .lianjie{ position:absolute; top:5px; right:600px; width:450px; margin-left:50%;}
+.navbar-inner .lianjie{ position:absolute; top:5px; margin:0 auto; }
 .navbar-inner .lianjie ol{ padding:0; margin:0;}
-.navbar-inner .lianjie ol li{ float:left; list-style:none; width:100px;}
+.navbar-inner .lianjie ol li{ float:left; list-style:none;}
 .navbar-inner .lianjie ol li a{ text-decoration:none; color:#FFF; display:block; padding:10px;}
 .navbar-inner .lianjie ol li a:hover{ text-decoration:underline;}
 

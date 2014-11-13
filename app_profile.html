@@ -26,15 +26,9 @@
 		<![endif]-->
 
 <link href="assets/css/management.css" rel="stylesheet" type="text/css" media="screen"/>
+
 <link href="assets/css/manage.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="assets/css/SpryTabbedPanels.css" rel="stylesheet" type="text/css" media="screen"/>
-
-<!--
-<script src="//cdnjscn.b0.upaiyun.com/libs/jquery/1.7.2/jquery.min.js"></script>
-<script src="//cdnjscn.b0.upaiyun.com/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//cdnjscn.b0.upaiyun.com/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-<script src="//cdnjscn.b0.upaiyun.com/libs/json2/20130526/json2.min.js"></script>
--->
 
 <script src="assets/js/jquery-1.7.2.min.js"></script>
 <script src="assets/js/jquery.cookie-1.3.js"></script>
@@ -62,7 +56,6 @@
 		}
 		
 		getAppProfile(appUuid);
-		
 		showAndoid();
 	});	
 	
@@ -126,22 +119,36 @@
 	function updateImageHTML(){
 		updateImage(appUuid);
 	}
+
+	window.onresize = window.onload = function(){
+		var w,h;
+		if(!!(window.attachEvent && !window.opera)) {
+			h = document.documentElement.clientHeight;
+			w = document.documentElement.clientWidth;
+		}else{
+			h = window.innerHeight;
+			w = window.innerWidth;
+		}
+		$("#headerlogo").width(w/6.5);
+		$("#headerlogo").height(h/16)
+	}
 </script>
 </head>
 
 <body>
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
-    <div class="container-fluid"> <a class="brand" href="javascript:void(0);"> <small> <img style="height:45px;" src="assets/images/home_logo.png" alt="管理后台"/> </small> </a>
-      <div class="lianjie">
+    <div class="container-fluid">
+     <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" alt="管理后台"/></a>
+      <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
         <ol>
-          <li><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
-          <li><a href="http://developer.easemob.com" target="_blank"><h5>文档</h5></a></li>
-          <li><a href="http://www.easemob.com/faq" target="_blank"><h5>帮助</h5></a></li>
-          <li><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
+          <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
+          <li style="width:20%;"><a href="http://developer.easemob.com" target="_blank"><h5>文档</h5></a></li>
+          <li style="width:20%;"><a href="http://www.easemob.com/faq" target="_blank"><h5>帮助</h5></a></li>
+          <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
         </ol>
-    	</div>
-      <ul class="nav ace-nav pull-right">
+      </div>
+      <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
         <li class="light-blue user-profile"> <a class="user-menu dropdown-toggle" href="javascript:void(0);" data-toggle="dropdown"> <span id="user_info"></span> <i class="icon-caret-down"></i> </a>
           <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
             <li class="divider"></li>

@@ -86,6 +86,18 @@
 	function toApppofileCounter(){
 		window.location.href = 'app_profile_counter.html?appUuid='+appUuid;
 	}
+window.onresize = window.onload = function(){
+		var w,h;
+		if(!!(window.attachEvent && !window.opera)) {
+			h = document.documentElement.clientHeight;
+			w = document.documentElement.clientWidth;
+		}else{
+			h = window.innerHeight;
+			w = window.innerWidth;
+		}
+		$("#headerlogo").width(w/6.5);
+		$("#headerlogo").height(h/16)
+	}
 </script>
 </head>
 
