@@ -357,6 +357,7 @@ function formSubmit(){
 	var regPassword = $('#regPassword').val();
 	var regCompanyName = $('#regCompanyName').val();
 	var regTel = $('#regTel').val();
+	var comefrom = $('#comefrom').val();
 	var mailSuffix = regEmail.substring(regEmail.indexOf('@')+1);
 	
 	var d = {
@@ -365,7 +366,8 @@ function formSubmit(){
 		email:regEmail,
 		password:regPassword,
 		companyName:regCompanyName,
-		telephone:regTel
+		telephone:regTel,
+		comefrom:comefrom
 	};
 	
 	if(regsFormValidate()){

@@ -83,7 +83,8 @@
 		
 		// 官网注册链接
 		var QSTR = getQueryString('comeFrom');
-		if(QSTR == 'easemobHome'){
+			alert(QSTR)
+		if(QSTR == 'easemobHome' || QSTR == '51cto'){
 			$('#btnRegist').trigger('click');
 		}
 		var token = $.cookie('access_token');
@@ -489,6 +490,12 @@ function getBrowser() {
                           <i class="icon-dashboard" style="z-index:0;"></i></span>
                           <span id="regTelSEMsg" style="font-size:12px;">固话或者移动电话号码</span>
                           <span id="regTelEMsg" style="font-size:12px;color:red"></span>
+                        </label>
+			<label><span class="block input-icon input-icon-right">
+                          <input type="text" id="comefrom" placeholder="用户来源" class="span12" name="comefrom" value="">
+                          <i class="icon-dashboard" style="z-index:0;"></i></span>
+                          <span id="comefromEMsg" style="font-size:12px;">您是从什么渠道了解环信的?</span>
+                          <span id="comefromEMsg" style="font-size:12px;color:red"></span>
                         </label>
                         <label>
                           <input type="checkbox" id="agreeCBox" checked="checked">
