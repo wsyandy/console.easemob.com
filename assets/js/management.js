@@ -2999,22 +2999,22 @@ function getAppCredentials(appUuid, pageAction){
 							environment = '生产';
 						}
 						
-						$.ajax({
-							async: false, 
-							url:baseUrl + '/' +orgName +'/'+appUuid+'/verify/' + credentialUuid,
-							type:'GET',
-							headers:{
-								'Authorization':'Bearer ' + access_token
-							},
-							error:function(){
-							},
-							success:function(respData){
-								var creStatus = respData.status;
-								if(creStatus == 'ok'){
-									statusStr = "正常";
-								}
-							}
-						});
+						//$.ajax({
+						//	async: false, 
+						//	url:baseUrl + '/' +orgName +'/'+appUuid+'/verify/' + credentialUuid,
+						//	type:'GET',
+						//	headers:{
+						//		'Authorization':'Bearer ' + access_token
+						//	},
+						//	error:function(){
+						//	},
+						//	success:function(respData){
+						//		var creStatus = respData.status;
+						//		if(creStatus == 'ok'){
+						//			statusStr = "正常";
+						//		}
+						//	}
+						//});
 
 						var created = format(this.created);
 						var modified = format(this.modified);
@@ -3023,8 +3023,9 @@ function getAppCredentials(appUuid, pageAction){
 							'<td class="text-center">'+environment+'</td>'+
 							'<td class="text-center">'+created+'</td>'+
 							'<td class="text-center">'+modified+'</td>'+
-							'<td class="text-center" id="'+credentialUuid+'">'+statusStr+'</td>'+
-							'<td class="text-center"><a type="button" href="javascript:verifyCredential(\''+credentialUuid+'\',\''+appUuid+'\')">检测</a>&nbsp;|&nbsp;<a href="javascript:deleteAppCredential(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+							//'<td class="text-center" id="'+credentialUuid+'">'+statusStr+'</td>'+
+							//'<td class="text-center"><a type="button" href="javascript:verifyCredential(\''+credentialUuid+'\',\''+appUuid+'\')">检测</a>&nbsp;|&nbsp;<a href="javascript:deleteAppCredential(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+'<td class="text-center">&nbsp;<a href="javascript:deleteAppCredential(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
 							'</tr>';
 							
 					});
