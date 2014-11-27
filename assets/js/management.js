@@ -258,9 +258,9 @@ function regsFormValidate(){
 	 	$('#regOrgNameEMsg').text('只能使用数字,字母,横线,且不能以横线开头和结尾！');
 		return false;
  	}
- 	if(regOrgName != '' && regOrgName.length < 3 || regOrgName.length > 18){
+ 	if(regOrgName != '' && regOrgName.length < 1){
 		$('#regOrgNameSMsg').css('display','none');
-		$('#regOrgNameEMsg').text('企业ID长度在3-18个字符之间！');	
+		$('#regOrgNameEMsg').text('企业ID长度至少一个字符！');	
 		return false;
 	}
 	$('#regOrgNameSMsg').css('display','block');
@@ -275,9 +275,9 @@ function regsFormValidate(){
 		$('#regUserNameEMsg').text('用户名只能是字母,数字或字母数字组合！');
 		return false;
  	}
- 	if(regUserName != '' && regUserName.length < 1 || regUserName.length > 18){
+ 	if(regUserName != '' && regUserName.length < 1){
 		$('#regUserNameSMsg').css('display','none');
-		$('#regUserNameEMsg').text('用户长度在1-18个字符之间！');	
+		$('#regUserNameEMsg').text('用户长度至少一个字符！');	
 		return false;
 	}
 	$('#regUserNameSMsg').css('display','block');
@@ -286,8 +286,8 @@ function regsFormValidate(){
 		$('#regPasswordEMsg').text('密码不能为空！');
 		return false;
 	}
-	if(regPassword.length < 6 || regPassword.length > 20){
-		$('#regPasswordEMsg').text('密码长度在6-20个字符之间！');
+	if(regPassword.length < 1){
+		$('#regPasswordEMsg').text('密码长度至少一个字符！');
 		return false;
 	}
 	$('#regPasswordSMsg').css('display','block');
@@ -308,10 +308,18 @@ function regsFormValidate(){
 		$('#regEmailEMsg').text('请输入有效的邮箱！');
 		return false;
 	}
-	var regTelReg = /^[0-9]*$/;
-	if(regTel != '' && !regTelReg.test(regTel)){
+	if('' == regTel){
 		$('#regTelSEMsg').css('display','none');
-		$('#regTelEMsg').text('联系电话号码格式不符合要求！');
+		$('#regTelEMsg').text('请输入联系电话！');
+		return false;
+	}
+	if(!checkTel(regTel)){
+		$('#regTelSEMsg').css('display','none');
+		$('#regTelEMsg').text('电话号码格式不正确！');
+		return false;
+	}
+	if(!$("#agreeCBox").prop("checked")) {
+		$('#agreeCBoxEMsg').text('请先同意环信开发者平台服务协议！');
 		return false;
 	}
 		
@@ -322,10 +330,21 @@ function regsFormValidate(){
 	$('#regEmailEMsg').text('');
 	$('#regCompanyNameEMsg').text('');
 	$('#regTelEMsg').text('');
+	$('#agreeCBoxEMsg').text('');
 	
 	return true;
 }
-	
+
+function checkTel(value){
+    var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
+    var isMob = /^((\+?86)|(\(\+86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+    if(isMob.test(value)||isPhone.test(value)) {
+        return true;
+    } else{
+        return false;
+    }
+}
+
 // 用户名重复性校验
 function isUsernameExist(username){
 }	
@@ -1371,14 +1390,14 @@ function changeAllowOpen(){
 // 创建app管理员
 // 用户名
 function onBlurCheckUsername(appAdminUsername){
-	var appAdminUsernameReg =  /^[0-9a-zA-Z]{1,18}$/;
+	var appAdminUsernameReg =  /^[0-9a-zA-Z]{1,1000}$/;
 	if('' == appAdminUsername) {
 		$('#appAdminUsernameMsg').text('请输入用户名');
 		return false;
 	}
 	
 	if(!appAdminUsernameReg.test(appAdminUsername)){
-		$('#appAdminUsernameMsg').text('1-18位长度字符(字母或数字)！');
+		$('#appAdminUsernameMsg').text('用户名至少一个字符(字母或数字)！');
 		return false;
 	}
 	
@@ -1387,13 +1406,13 @@ function onBlurCheckUsername(appAdminUsername){
 }
 // 一次密码
 function onBlurCheckPassword(password){
-	var passwordReg =  /^[\s\S]{6,140}$/;
+	var passwordReg =  /^[\s\S]{1,1000}$/;
 	if('' == password) {
 		$('#passwordMsg').text('请输入密码');
 		return false;
 	}
 	if(!passwordReg.test(password)){
-		$('#passwordMsg').text('长度6位以上任意字符');
+		$('#passwordMsg').text('密码至少一个字符');
 		return false;
 	}
 	$('#passwordMsg').text('');
@@ -1416,38 +1435,21 @@ function onBlurCheckConfirmPassword(confirmPassword){
 	return true;
 }
 
-// 邮箱
-function onBlurCheckEmail(email){
-	var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	if('' == email) {
-		$('#emailMsg').text('请输入邮箱');
-		return false;
-	}
-	if(!emailReg.test(email)){
-		$('#emailMsg').text('邮箱账号格式非法');
-		return false;
-	}
-
-	$('#emailMsg').text('');
-	return true;
-} 
 // 提交表单
 function saveNewAppAdmin(appUuid){
 	var appAdminUsername = $('#appAdminUsername').val();
 	var password = $('#password').val();
 	var confirmPassword = $('#confirmPassword').val();
-	var email = $('#email').val();
 
 	var token = $.cookie('access_token');
 	var orgName = $.cookie('orgName');
 
-	var flag = onBlurCheckUsername(appAdminUsername) && onBlurCheckConfirmPassword(confirmPassword) &&onBlurCheckEmail(email);
+	var flag = onBlurCheckUsername(appAdminUsername) && onBlurCheckPassword(password) && onBlurCheckConfirmPassword(confirmPassword);
 	if(flag){
 		// Create a user
 		var d ={
 			username:appAdminUsername,
-			password:password,
-			email:email
+			password:password
 		};
 		$.ajax({
 			url:baseUrl + '/' + orgName + '/' + appUuid + '/users',
@@ -1491,7 +1493,23 @@ function saveNewAppAdmin(appUuid){
 				});	
 			},
 			error:function(data){
-				alert('提示!\n\n添加管理员失败!');
+				var str = JSON.stringify(data.responseText).replace('}','').replace('{','').split(',');
+				var tmpArr = new Array();
+				var errorMsg = '';
+				for(var i = 0; i < str.length; i++) {
+					tmpArr.push(str[i].replace(/\\/g,'').replace(/\"/g,'').split(':'));
+				}
+				for(var i = 0; i < tmpArr.length; i++) {
+					if('error_description' == tmpArr[i][0]){
+						if(tmpArr[i][1].indexOf("Entity user requires that property named username be unique") > -1) {
+							errorMsg = '提示!\n\n用户名已存在!';
+						} else {
+							errorMsg = '添加APP管理员失败!';
+						}
+					}
+				}
+				alert(errorMsg);
+
 			}
 		});	
 	}
@@ -1503,14 +1521,14 @@ function saveNewAppAdmin(appUuid){
 // 创建IM用户
 // 用户名
 function onBlurCheckIMUsername(imUsername){
-	var imUsernameReg =  /^[0-9a-zA-Z]{1,32}$/;
+	var imUsernameReg =  /^[0-9a-zA-Z]{1,1000}$/;
 	if('' == imUsername) {
 		$('#imUsernameMsg').text('请输入用户名');
 		return false;
 	}
 	
 	if(!imUsernameReg.test(imUsername)){
-		$('#imUsernameMsg').text('1-32位长度字符(字母或数字)！');
+		$('#imUsernameMsg').text('用户名至少一个字符(字母或数字)！');
 		return false;
 	}
 	
@@ -1519,13 +1537,13 @@ function onBlurCheckIMUsername(imUsername){
 }
 // 一次密码
 function onBlurCheckIMPassword(password){
-	var passwordReg =  /^[\s\S]{6,140}$/;
+	var passwordReg =  /^[\s\S]{1,1000}$/;
 	if('' == password) {
 		$('#passwordMsg').text('请输入密码');
 		return false;
 	}
 	if(!passwordReg.test(password)){
-		$('#passwordMsg').text('长度6位以上任意字符');
+		$('#passwordMsg').text('密码至少一个字符');
 		return false;
 	}
 	$('#passwordMsg').text('');
@@ -1553,12 +1571,11 @@ function saveNewIMUser(appUuid){
 	var imUsername = $('#imUsername').val();
 	var password = $('#password').val();
 	var confirmPassword = $('#confirmPassword').val();
-	var email = $('#email').val();
 
 	var token = $.cookie('access_token');
 	var orgName = $.cookie('orgName');
 
-	var flag = onBlurCheckIMUsername(imUsername) && onBlurCheckIMConfirmPassword(confirmPassword) && onBlurCheckIMConfirmPassword(confirmPassword);
+	var flag = onBlurCheckIMUsername(imUsername) && onBlurCheckIMPassword(password) && onBlurCheckIMConfirmPassword(confirmPassword);
 	if(flag){
 		// Create a user
 		var d ={
@@ -1578,7 +1595,22 @@ function saveNewIMUser(appUuid){
 				window.location.href = 'app_users.html?appUuid='+appUuid;
 			},
 			error:function(data){
-				alert('提示!\n\n添加用户失败!');
+				var str = JSON.stringify(data.responseText).replace('}','').replace('{','').split(',');
+				var tmpArr = new Array();
+				var errorMsg = '';
+				for(var i = 0; i < str.length; i++) {
+					tmpArr.push(str[i].replace(/\\/g,'').replace(/\"/g,'').split(':'));
+				}
+				for(var i = 0; i < tmpArr.length; i++) {
+					if('error_description' == tmpArr[i][0]){
+						if(tmpArr[i][1].indexOf("Entity user requires that property named username be unique") > -1) {
+							errorMsg = '提示!\n\n用户名已存在!';
+						} else {
+							errorMsg = '提示!\n\n添加用户失败!';
+						}
+					}
+				}
+				alert(errorMsg);
 			}
 		});	
 	}
@@ -2657,7 +2689,6 @@ function getAppChatroomsuser(appUuid,groupid,pageAction){
 				if(respData.entities.length ==0 && pageAction == 'no'){
 					getAppChatroomsuser(appUuid,groupid,'forward' );
 				}else{
-					$('#showName').text(respData.applicationName);
 					$('#showUsername').text(cuser)
 					$('tbody').html('');
 					$(respData.data).each(function(){
@@ -2999,23 +3030,6 @@ function getAppCredentials(appUuid, pageAction){
 							environment = '生产';
 						}
 						
-						//$.ajax({
-						//	async: false, 
-						//	url:baseUrl + '/' +orgName +'/'+appUuid+'/verify/' + credentialUuid,
-						//	type:'GET',
-						//	headers:{
-						//		'Authorization':'Bearer ' + access_token
-						//	},
-						//	error:function(){
-						//	},
-						//	success:function(respData){
-						//		var creStatus = respData.status;
-						//		if(creStatus == 'ok'){
-						//			statusStr = "正常";
-						//		}
-						//	}
-						//});
-
 						var created = format(this.created);
 						var modified = format(this.modified);
 						option += '<tr>'+
@@ -3063,9 +3077,6 @@ function getAppCredentials(appUuid, pageAction){
 						$('#paginau').append(ulB + textOp1 + textOp2 + ulE);
 					}	
 				}
-				$('#showName').text(respData.applicationName);
-				$('#fileAppKey').text(respData.applicationName);
-				
 				if(respData.entities.length == 0){
 					var option = '<tr><td class="text-center" colspan="6">暂无证书!</td></tr>';
 					$('#appCredentialBody').append(option);
@@ -3489,3 +3500,17 @@ function setUserAdminForSearch(appUuid,user_name){
 		}
 	});
 }
+
+
+String.prototype.Trim = function() { 
+	var m = this.match(/^\s*(\S+(\s+\S+)*)\s*$/); 
+	return (m == null) ? "" : m[1]; 
+} 
+String.prototype.isMobile = function() { 
+	return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/.test(this.Trim())); 
+} 
+String.prototype.isTel = function() { 
+	//"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)" 
+	return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(this.Trim())); 
+}
+

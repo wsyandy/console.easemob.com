@@ -51,11 +51,7 @@
 		if (!getToken() || getToken()==''){
 			logout();
 		}
-		
-		getAppProfile(appUuid);
-		
 		getAppUsersAdminList(appUuid);
-		
 		$('#searchForm').submit(function(){
 				searchUserTmp();
 				return false;

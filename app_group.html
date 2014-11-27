@@ -51,8 +51,8 @@
 			logout();
 		}
 		
-		getAppProfile(appUuid);
-		
+		var Application = $.cookie('Application');
+	    	$('#showName').text(Application);
 		getAppChatrooms(appUuid);
 
 		$('#searchForm').submit(function(){

@@ -49,14 +49,13 @@
 	var Application = $.cookie('Application');
 
 	$(function(){
-	    $('#showName').text(Application);
+	    	$('#showName').text(Application);
 		if (!getToken() || getToken()==''){
 			logout();
 		}
-		
-		getAppProfile(appUuid);
+	
 		getAppUserList(appUuid);
-		
+	
 		$('#searchForm').submit(function(){
 				searchUserTmp();
 				return false;

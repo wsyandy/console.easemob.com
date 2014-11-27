@@ -57,10 +57,8 @@
 		if (!getToken() || getToken()==''){
 			logout();
 		}
-		
-		//getAppList();	
+	    	$('#showName').text($.cookie('Application'));
 		appUuid = getQueryString('appUuid').split(',')[0];
-		//var groupid=getQueryString('appUuid').split(',')[1];
 		var groupid=getQueryString('groupid');
 		
 		getAppChatroomsuser(appUuid,groupid);
@@ -121,7 +119,6 @@
 	//添加好友
   	function showAddFriendHTML(){
 		var appUuid = getQueryString('appUuid').split(',')[0];
-		//var owner_username = getQueryString('appUuid').split(',')[1];
 		var owner_username = getQueryString('groupid');
 		
 		showAddFriend(appUuid,owner_username);

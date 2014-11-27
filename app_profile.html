@@ -41,27 +41,24 @@
 	var appUuid = getQueryString('appUuid');
 	var Application = getQueryString('Application');
 	if(Application!=null){
-       $.cookie('Application',Application);
+       		$.cookie('Application', Application);
 	}
 	if(appUuid == "undefined"){
-      appUuid = $.cookie('appName');
+      		appUuid = $.cookie('appName');
 	}
 	if(Application==null){
-       Application = $.cookie('Application');
+       		Application = $.cookie('Application');
 	}
 	$(function(){
-	$('#showName').text(Application);
+		$('#showName').text(Application);
 		if (!getToken() || getToken()==''){
 			logout();
 		}
-		
 		getAppProfile(appUuid);
-		showAndoid();
 	});	
 	
 	// 应用概述页
 	function toApppofile(){
-	
 		window.location.href = 'app_profile.html?appUuid='+appUuid;
 	}
 	
@@ -92,20 +89,6 @@
 	//管理员列表页面
 	function toAppUserAdmin(){
 		window.location.href = 'app_users_admin.html?appUuid='+appUuid;
-	}
-	
-	// 选项卡显示
-	function showAndoid(){
-		$('#androidTab').addClass('active');
-		$('#iosTab').removeClass('active');
-		$('#iosLi').hide();
-		$('#androidLi').show();	
-	}
-	function showIos(){
-		$('#iosTab').addClass('active');
-		$('#androidTab').removeClass('active');
-		$('#androidLi').hide();
-		$('#iosLi').show();
 	}
 	
 	//显示修改缩略图
