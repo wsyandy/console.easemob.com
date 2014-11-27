@@ -1248,6 +1248,8 @@ function getAppProfile(appUuid){
 					$('#allowOpenHdd').val(tag);
 					$('#image_thumbnail_width').text(image_thumbnail_width+'px');
 					$('#image_thumbnail_height').text(image_thumbnail_height+'px');
+					$('#imageHeightHide').val(image_thumbnail_width);
+					$('#imageWidthHide').val(image_thumbnail_height);
 				});
 				
 				$('#showName').text(respData.applicationName);
@@ -1281,10 +1283,23 @@ function updateImage(appUuid){
 	var imgReg =  /^[0-9]*$/;
 	var imgwidth = $('#imageWidth').val();
 	var imgheight = $('#imageHeight').val();
+
+	if(imgwidth == ''){
+		$('#imageWidthSpan').text('缩略图高度不能为空!');
+		return;
+	}
+	if(imgheight == ''){
+		$('#imageHeightSpan').text('缩略图长度不能为空!');
+		return;
+	}
+
+	$('#imageWidthSpan').text('');
+	$('#imageHeightSpan').text('');
+
 	if(!imgReg.test(imgheight)){
-		alert('缩略图长宽格式不对!');
+		$('#imageHeightSpan').text('缩略图长宽只能是正整数');
 	}else if(!imgReg.test(imgwidth)){
-		alert('缩略图长宽格式不对!');
+		$('#imageWidthSpan').text('缩略图长宽只能是正整数');
 	}else{
 		
 		var d ={

@@ -93,8 +93,8 @@
 	
 	//显示修改缩略图
 	function showImage(){
-		$('#imageWidth').val('');
-		$('#imageHeight').val('');
+		$('#imageWidth').val('' + $('#imageHeightHide').val());
+		$('#imageHeight').val('' + $('#imageWidthHide').val());
 		$('#showUpdateImage').click();
 	}
 	
@@ -247,11 +247,12 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="imageHeight">长：</label>
 							<div class="controls" id="div1">
-								<input type="text" id="imageHeight" name="imageHeight" value=""/>
+								长：<input type="text" id="imageHeight" name="imageHeight" value=""/>&nbsp;px
+								<input type="hidden" id="imageHeightHide" name="imageHeightHide" value=""/>
 								<input type="hidden" id="usernameMessage" name="usernameMessage" value=""/>
 								<input type="hidden" id="appUuidMessage" name="appUuidMessage" value=""/>
+								<span style="color: red;" id="imageHeightSpan"></span>
 							</div>
 						</div>
 					</div>
@@ -261,9 +262,10 @@
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="imageWidth">宽：</label>
 							<div class="controls" id="div1">
-								<input type="text" id="imageWidth" name="imageWidth" value=""/>
+								宽：<input type="text" id="imageWidth" name="imageWidth" value=""/>&nbsp;px
+								<input type="hidden" id="imageWidthHide" name="imageWidthHide" value=""/>
+								<span style="color: red;" id="imageWidthSpan"></span>
 							</div>
 						</div>
 					</div>
