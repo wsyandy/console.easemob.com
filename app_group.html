@@ -363,12 +363,12 @@ window.onresize = window.onload = function(){
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="pwdMondify">群组名称：</label>
+							<label class="control-label" for="groupname">群组名称：</label>
 							<div class="controls">
 								<input type="text" id="qunzuname" name="qunzuname" value="" placeholder="请输入群组名称"/>
 								<input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
 								<input type="hidden" id="appUuidHidd" name="appUuidHidd" value=""/>
-								<span style="color: red;" id="pwdMondifySpan"></span>
+								<span style="color: red;" id="groupnameSpan"></span>
 							</div>
 						</div>
 					</div>
@@ -376,10 +376,10 @@ window.onresize = window.onload = function(){
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="pwdMondifytwo">群组描述：</label>
+							<label class="control-label" for="groupdesc">群组描述：</label>
 							<div class="controls">
 								<input type="text" id="qunzumiaosu" name="qunzumiaosu" value="" placeholder="请输入群组描述" />
-								<span style="color: red;" id="pwdMondifytwoSpan"></span>
+								<span style="color: red;" id="groupdescSpan"></span>
 							</div>
 						</div>
 					</div>
@@ -387,11 +387,11 @@ window.onresize = window.onload = function(){
 				<div class="row-fluid">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="pwdMondifytwo">是否公开:</label>
+							<label class="control-label" for="grouppulic">是否公开:</label>
 							<div class="controls"> 
 								<input type="radio" id="nopublic" name="public" onclick="numss();" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
 								<input type="radio" id="public" name="public" onclick="nums();" value="true" checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
-								<span style="color: red;" id="pwdMondifytwoSpan"></span>
+								<span style="color: red;" id="grouppulicSpan"></span>
 							</div>
 						</div>
 					</div>
@@ -399,11 +399,11 @@ window.onresize = window.onload = function(){
 				<div class="row-fluid" id="validation">
 					<div class="span12">
 						<div class="control-group">
-							<label class="control-label" for="pwdMondifytwo">加群是否验证:</label>
+							<label class="control-label" for="groupapproval">加群是否验证:</label>
 							<div class="controls"> 
 								<input type="radio" id="approvals" name="approval" onclick="approvals();" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不验证
 								<input type="radio" id="approval" name="approval" onclick="approvalon();" value="true" checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证
-								<span style="color: red;" id="pwdMondifytwoSpan"></span>
+								<span style="color: red;" id="groupapprovalSpan"></span>
 							</div>
 						</div>
 					</div>
@@ -414,7 +414,7 @@ window.onresize = window.onload = function(){
 							<label class="control-label" for="maxusers">最大成员数：</label>
 							<div class="controls">
 								<input type="text" id="maxusers" name="maxusers" value="" placeholder="请输入最大成员数" />
-								<span style="color: red;" id="pmaxuserSpan"></span>
+								<span style="color: red;" id="groupmaxuserSpan"></span>
 							</div>
 						</div>
 					</div>

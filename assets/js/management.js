@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'https://a1.easemob.com';
+var baseUrl = 'http://a1.sdb.easemob.com';
 
 // 初始化加载
 $(function() {
@@ -826,6 +826,12 @@ function createAppFormValidate(){
  	$('#appNameMsg').text('输入正确！');
 	$('#appNameMsg').css('color','blue');
  	
+	if('' == nick){
+		$('#nickMsg').text('产品名称不能为空！');
+		$('#nickMsg').css('color','red');
+		$('#nick').focus();
+		return false;
+	}
  	var nickRegex = /^[0-9a-zA-Z-_\u4e00-\u9faf]*$/;
  	if(!nickRegex.test(nick)){
 		$('#nickMsg').text('您的这款app对应的产品叫什么? 只能是汉字,字母,数字、横线、下划线及其组合!');
@@ -836,6 +842,12 @@ function createAppFormValidate(){
  	$('#nickMsg').text('输入正确！');
 	$('#nickMsg').css('color','blue');
  
+	if('' == appDesc){
+		$('#appDescMsg').text('应用描述不能为空！');
+		$('#appDescMsg').css('color','red');
+		$('#appDesc').focus();
+		return false;
+	}
  	var appDescReg = /^[0-9a-zA-Z,.?。，？、\/'":\u4e00-\u9faf]{0,100}$/;
 	if(!appDescReg.test(appDesc)){
 		$('#appDescMsg').css('color','red');
@@ -2845,19 +2857,31 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 	var friend_username = $('#friendUsername').val();
 
 	if (qunzuname == ''){
-	    alert('群组名称不能为空!');	
+		$('#groupnameSpan').text('群组名称不能为空!');
+	    return;
 	}else if(qunzumiaosu==''){
-	    alert('群组描述不能为空');
+		$('#groupnameSpan').text('');
+		$('#groupdescSpan').text('群组描述不能为空!');
+	    return;
         }
 	var maxusersReg = /^[0-9]+$/;           
 	if (maxusers == ''){
-	   	$('#pmaxuserSpan').text('请输入群组最大成员数!');
-	} else if(!(maxusersReg.test(maxusers) && parseInt(maxusers)>1 && parseInt(maxusers)<=2000)){
-		$('#pmaxuserSpan').text('群组最大成员数只能是1-2000之内的数值!');
+		$('#groupnameSpan').text('');
+		$('#groupdescSpan').text('');
+	   	$('#groupmaxuserSpan').text('请输入群组最大成员数!');
+		return;
+	} else if(!(maxusersReg.test(maxusers) && parseInt(maxusers)>=1 && parseInt(maxusers)<=2000)){
+		$('#groupmaxuserSpan').text('群组最大成员数只能是1-2000之内的数值!');
 	}else if(qunzuguan==''){
+		$('#groupnameSpan').text('');
+		$('#groupdescSpan').text('');
+	   	$('#groupmaxuserSpan').text('');
 	    	$('#qunzuguanSpan').text('群组管理员不能为空');
+		return;
 	}else{
-		$('#pmaxuserSpan').text('');
+		$('#groupnameSpan').text('');
+		$('#groupdescSpan').text('');
+		$('#groupmaxuserSpan').text('');
 		$('#qunzuguanSpan').text('');
 		var qun={
 	    		"groupname":qunzuname,
@@ -2878,9 +2902,10 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 					'Content-Type':'application/json'
 				},
 				error: function(jqXHR, textStatus, errorThrown) {
-					alert('提示\n\n该用户不存在，请检查用户名!');
+					$('#qunzuguanSpan').text('该用户不存在，请检查用户名!');
 				},
 				success: function(respData, textStatus, jqXHR) {
+					$('#qunzuguanSpan').text('');
 					location.replace(location.href);
 				}
 		});
