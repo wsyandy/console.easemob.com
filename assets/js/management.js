@@ -1499,7 +1499,7 @@ function saveNewAppAdmin(appUuid){
 					success:function(respData){
 						// if success , to app user list
 						alert('添加管理员成功!')
-						toAppUsersPage();
+						toAppUserAdmin();
 					},
 					error:function(data){
 						// if failure , delete the user
@@ -1662,7 +1662,6 @@ function selectAppUser(sel,appUuid,username){
 
 // 获取某个app下的用户
 function getAppUserList(appUuid, pageAction){
-
 	// 获取token
 	document.getElementById('checkAll').checked = false;
 	$('#paginau').html('');
@@ -1683,7 +1682,7 @@ function getAppUserList(appUuid, pageAction){
 			pageNo -= 1;
 		}
 		var temp = '';
-		if(typeof(pageAction)!='undefined' && pageAction != ''){	
+		if(typeof(pageAction)!='undefined' && pageAction != '' || pageAction == 'no'){	
 			temp = '&cursor='+cursors[pageNo];
 		}
 		$.ajax({
@@ -1784,13 +1783,17 @@ function getAppUserList(appUuid, pageAction){
 					var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppUserList();">上一页</a> </li>';
 					var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppUserList();">下一页</a> </li>';
 					$('#paginau').html('');
-						
+				
 					// 首页
 					if(pageNo == 1){
 						if(respData.cursor == null){
 							$('#paginau').append(ulB + ulE);
 						} else {
-							$('#paginau').append(ulB + textOp2 + ulE);
+							if(pageAction == 'no'){
+								$('#paginau1').append(ulB + textOp2 + ulE);
+							} else {
+								$('#paginau').append(ulB + textOp2 + ulE);
+							}
 						}
 						// 尾页
 					} else if(cursors.length != 0 && respData.cursor == null){
@@ -3481,7 +3484,7 @@ function deleteUserAdmin(appUuid,user_name){
 				if(str == 'app_users_admin'){
 					getAppUsersAdminList(appUuid,'no');
 				}else if(str == 'app_users'){
-					getAppUserList(appUuid,'no');
+					getAppUsersAdminList(appUuid,'no');
 				}
 				
 			},
