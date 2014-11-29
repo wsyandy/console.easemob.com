@@ -73,18 +73,18 @@
 	}
 	
 	// 群组页面
-	function togroupAppAdmin(){
-		window.location.href = 'app_group.html?appUuid=' + appUuid;
+	function toAppGroups(){
+		window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
 	}
 	
 	// 推送证书管理页
-	function toAppCredentialsPage(){
-		window.location.href = 'app_credentials.html?appUuid='+appUuid;
+	function toAppNotifiersPage(){
+		window.location.href = 'app_notifiers.html?appUuid='+appUuid;
 	}
 	
 	// 数据统计页面
-	function toApppofileCounter(){
-		window.location.href = 'app_profile_counter.html?appUuid='+appUuid;
+	function toAppCollectionCounters(){
+		window.location.href = 'app_collection_counters.html?appUuid='+appUuid;
 	}
 
 	// 应用管理员创建页面
@@ -104,7 +104,7 @@
 	function preSaveNewIMUser(){
 		saveNewIMUser(appUuid);	
 	}
-window.onresize = window.onload = function(){
+	window.onresize = window.onload = function(){
 		var w,h;
 		if(!!(window.attachEvent && !window.opera)) {
 			h = document.documentElement.clientHeight;
@@ -186,15 +186,15 @@ window.onresize = window.onload = function(){
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:togroupAppAdmin()">群组</a> </li>
+        		<li> <a href="javascript:toAppGroups()">群组</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toAppCredentialsPage()">推送证书</a> </li>
+        		<li> <a href="javascript:toAppNotifiersPage()">推送证书</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toApppofileCounter()">统计数据</a> </li>
+        		<li> <a href="javascript:toAppCollectionCounters()">统计数据</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>

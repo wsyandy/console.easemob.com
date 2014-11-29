@@ -2789,7 +2789,7 @@ function deleteAppChatroom(appUuid,groupuuid){
 			},
 			success:function(respData){
 				alert('提示\n\n删除成功!');
-				window.location.href = 'app_group.html?appUuid='+appUuid;
+				window.location.href = 'app_chatgroups.html?appUuid='+appUuid;
 			}
 		});
 	}
@@ -3023,7 +3023,7 @@ function updatequnzuPageStatus(){
 }
 
 // 查询证书信息
-function getAppCredentials(appUuid, pageAction){
+function getAppNotifiers(appUuid, pageAction){
 	$('#paginau').html('');
 	var access_token = $.cookie('access_token');
 	var orgName = $.cookie('orgName');
@@ -3056,7 +3056,7 @@ function getAppCredentials(appUuid, pageAction){
 					cursors[pageNo+1] = null;
 				}
 				if(respData.entities.length ==0 && pageAction == 'no'){
-					getAppCredentials(appUuid,'forward' );
+					getAppNotifiers(appUuid,'forward' );
 				}else{
 					var option = '';
 					$(respData.entities).each(function(){
@@ -3080,9 +3080,7 @@ function getAppCredentials(appUuid, pageAction){
 							'<td class="text-center">'+environment+'</td>'+
 							'<td class="text-center">'+created+'</td>'+
 							'<td class="text-center">'+modified+'</td>'+
-							//'<td class="text-center" id="'+credentialUuid+'">'+statusStr+'</td>'+
-							//'<td class="text-center"><a type="button" href="javascript:verifyCredential(\''+credentialUuid+'\',\''+appUuid+'\')">检测</a>&nbsp;|&nbsp;<a href="javascript:deleteAppCredential(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
-'<td class="text-center">&nbsp;<a href="javascript:deleteAppCredential(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+							'<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifier(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
 							'</tr>';
 							
 					});
@@ -3102,8 +3100,8 @@ function getAppCredentials(appUuid, pageAction){
 				} else {
 					var ulB = '<ul>';
 					var ulE = '</ul>';
-					var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppUserList();">上一页</a> </li>';
-					var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppUserList();">下一页</a> </li>';
+					var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppNotifiers();">上一页</a> </li>';
+					var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppNotifiers();">下一页</a> </li>';
 					$('#paginau').html('');
 						
 					// 首页
@@ -3154,10 +3152,9 @@ function verifyCredential(credentialUuid,appUuid){
 }
 
 // 删除开发者推送证书
-function deleteAppCredential(credentialId,appUuid){
+function deleteAppNotifiers(credentialId,appUuid){
 	var access_token = $.cookie('access_token');
 	var orgName = $.cookie('orgName');
-	
 	if(confirm('确定删除这个证书吗?')){
 		var layerNum = layer.load('正在删除...');
 		$.ajax({
@@ -3174,7 +3171,7 @@ function deleteAppCredential(credentialId,appUuid){
 			success: function(respData, textStatus, jqXHR) {
 					layer.close(layerNum);
 					alert('证书已删除!')	
-					getAppCredentials(appUuid,'no');
+					getAppNotifiers(appUuid,'no');
 			}
 		});	
 	}
@@ -3183,7 +3180,7 @@ function deleteAppCredential(credentialId,appUuid){
 //==============================================================IM=======================================================================
 // 用户好友列表
 function toAppIMList(owner_username){
-	window.location.href = 'app_IM_list.html?appUuid='+appUuid+'&owner_username='+owner_username;
+	window.location.href = 'app_users_contacts.html?appUuid='+appUuid+'&owner_username='+owner_username;
 }
 //获取用户好友列表
 function getAppIMList(appUuid, owner_username){

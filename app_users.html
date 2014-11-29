@@ -136,19 +136,14 @@ $('#uploadresspan').text('图片上传成功 !');
 		window.location.href = 'app_users.html?appUuid='+appUuid;
 	}
 	
-	// 群组管理页
-	function toAppChatroomsPage(){
-		window.location.href = 'app_chatrooms.html?appUuid='+appUuid;
-	}
-	
 	// 推送证书管理页
-	function toAppCredentialsPage(){
-		window.location.href = 'app_credentials.html?appUuid='+appUuid;
+	function toAppNotifiersPage(){
+		window.location.href = 'app_notifiers.html?appUuid='+appUuid;
 	}
 	
 	// 数据统计页面
-	function toApppofileCounter(){
-		window.location.href = 'app_profile_counter.html?appUuid='+appUuid;
+	function toAppCollectionCounters(){
+		window.location.href = 'app_collection_counters.html?appUuid='+appUuid;
 	}
 
 	// 应用管理员创建页面
@@ -158,10 +153,10 @@ $('#uploadresspan').text('图片上传成功 !');
 	
 	// 群组页面
 	function togroupAppAdmin(){
-		window.location.href = 'app_group.html?appUuid=' + appUuid;
+		window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
 	}
 	
-	//管理员列表页面
+	// app管理员列表页面
 	function toAppUserAdmin(){
 		window.location.href = 'app_users_admin.html?appUuid='+appUuid;
 	}
@@ -297,11 +292,11 @@ $('#uploadresspan').text('图片上传成功 !');
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toAppCredentialsPage()">推送证书</a> </li>
+        		<li> <a href="javascript:toAppNotifiersPage()">推送证书</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toApppofileCounter()">统计数据</a> </li>
+        		<li> <a href="javascript:toAppCollectionCounters()">统计数据</a> </li>
       		</ul>
           &nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>

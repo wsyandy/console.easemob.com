@@ -55,27 +55,24 @@
 			logout();
 		}
 		
-		getAppCredentials(appUuid);
+		getAppNotifiers(appUuid);
 	});	
 	// 上一页数据
-	function getPrevAppUserList(){
-		getAppCredentials(appUuid,'forward');
+	function getPrevAppNotifiers(){
+		getAppNotifiers(appUuid,'forward');
 	}
 	// 下一页数据
-	function getNextAppUserList(){
-		getAppCredentials(appUuid,'next');
+	function getNextAppNotifiers(){
+		getAppNotifiers(appUuid,'next');
 	}
 	function changeform(){
 		var access_token = $.cookie('access_token');
 		var orgName = $.cookie('orgName');
 		
-		//https://api.easemob.com/my-org/my-app/appCredential
-		//var action1 = baseUrl+'/'+orgName+'/'+appUuid+'/notifiers';
-		//$('#myForm').attr('action',action1)
-		var credentialName = $('#name').val();
+		var notifierName = $('#name').val();
 		var passphrase = $('#passphrase').val();
-		var credentialNameRegx = /^[A-Za-z0-9-_]*$/;
-		if(!credentialNameRegx.test(credentialName)){
+		var notifierNameRegx = /^[A-Za-z0-9-_]*$/;
+		if(!notifierNameRegx.test(notifierName)){
 				alert('证书名称只能是字母数字横线下划线的组合!');
 				return ;
 		}
@@ -87,8 +84,6 @@
 			return ;
 		}
 		
-		//var action1 = $('#myForm').attr('action');
-		//$('#myForm').attr('action',action1+''+access_token)
 		var ajax_option = {
 			url:baseUrl + '/' + orgName + '/' + appUuid + '/notifiers',
 			headers:{
@@ -103,7 +98,7 @@
 				$('#name').val('');
 				$('#passphrase').val('');
 				
-				toAppCredentialsPage();
+				toAppNotifiersPage();
 			},
 			error:function(data){
 				layer.close(layerNum);
@@ -119,11 +114,11 @@
 	function validateSuffix(fileName){
 		var fileExt = fileName.substr(fileName.lastIndexOf(".")).toLowerCase();
 		var allowExt ='.p12';
-	   if(allowExt != fileExt){
-	    	alert("警告!\n该文件类型不允许上传。请上传'.p12'类型的文件，当前文件类型为"+fileExt);
-	    	return false; 
-	   }
-	   return true;
+		if(allowExt != fileExt){
+			alert("警告!\n该文件类型不允许上传。请上传'.p12'类型的文件，当前文件类型为"+fileExt);
+		    	return false; 
+		}
+		return true;
 	}
 	// 应用概述页
 	function toApppofile(){
@@ -136,18 +131,18 @@
 	}
 	
 	// 群组页面
-	function togroupAppAdmin(){
-		window.location.href = 'app_group.html?appUuid='+appUuid;
+	function toAppGroups(){
+		window.location.href = 'app_chatgroups.html?appUuid='+appUuid;
 	}
 	
 	// 推送证书管理页
-	function toAppCredentialsPage(){
-		window.location.href = 'app_credentials.html?appUuid='+appUuid;
+	function toAppNotifierPage(){
+		window.location.href = 'app_notifiers.html?appUuid='+appUuid;
 	}
 	
 	// 数据统计页面
-	function toApppofileCounter(){
-		window.location.href = 'app_profile_counter.html?appUuid='+appUuid;
+	function toAppCollectionCounters(){
+		window.location.href = 'app_collection_counters.html?appUuid='+appUuid;
 	}
 	
 	// 应用管理员创建页面
@@ -155,19 +150,19 @@
 		window.location.href = 'app_admin_create.html?appUuid='+appUuid;
 	}
 	
-	//管理员列表页面
+	// APP管理员列表页面
 	function toAppUserAdmin(){
 		window.location.href = 'app_users_admin.html?appUuid='+appUuid;
 	}
 	//显示制作证书按钮
-	function DisplayCertificate(){
-      $('#certificate').show();
-	  document.getElementById("div").style.width=240+"px";
+	function displayCertificate(){
+      		$('#certificate').show();
+	  	document.getElementById("div").style.width=240+"px";
 	}
 	//隐藏制作证书按钮
-	function HiddenCertificate(){
-      $('#certificate').hide();
-	  document.getElementById("div").style.width=80+"px";
+	function hideCertificate(){
+      		$('#certificate').hide();
+	  	document.getElementById("div").style.width=80+"px";
 	}
 	window.onresize = window.onload = function(){
 		var w,h;
@@ -240,15 +235,15 @@
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:togroupAppAdmin()">群组</a> </li>
+        		<li> <a href="javascript:toAppGroups()">群组</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toAppCredentialsPage()"><font color="green">推送证书</font></a> </li>
+        		<li> <a href="javascript:toAppNotifiersPage()"><font color="green">推送证书</font></a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toApppofileCounter()">统计数据</a> </li>
+        		<li> <a href="javascript:toAppCollectionCounters()">统计数据</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
@@ -290,7 +285,7 @@
       <div class="row-fluid">
         <div class="count">
         	<div class="left" style="width:400px;">
-            	<div class="pagination pagination-left" id="div" onMouseOver="DisplayCertificate();" onMouseOut="HiddenCertificate();">
+            	<div class="pagination pagination-left" id="div" onMouseOver="displayCertificate();" onMouseOut="hideCertificate();">
 	            	    <ul>
 			        <li><a href="javascript:void(0);">新增证书</a> </li>
 			    </ul>

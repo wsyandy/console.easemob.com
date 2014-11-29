@@ -59,17 +59,13 @@
 		}
 	    	$('#showName').text($.cookie('Application'));
 		appUuid = getQueryString('appUuid').split(',')[0];
-		var groupid=getQueryString('groupid');
+		var groupid = getQueryString('groupid');
 		
 		getAppChatroomsuser(appUuid,groupid);
 
 		$("#groupName").text(groupid);
 	});
-		//删除选定的用户
-	function deleteAppUsersBox(){
-		deleteAppqunzuCheckBox(appUuid);	
-	}
-	
+
 	// 应用概述页
 	function toApppofile(){
 		window.location.href = 'app_profile.html?appUuid='+appUuid;
@@ -80,30 +76,26 @@
 		window.location.href = 'app_users.html?appUuid='+appUuid;
 	}
 	// 群组页
-	function togroupAppAdmin(){
-		window.location.href = 'app_group.html?appUuid='+appUuid;
+	function toAppGroups(){
+		window.location.href = 'app_chatgroups.html?appUuid='+appUuid;
 	}
 	
 	// 推送证书管理页
 	function toAppCredentialsPage(){
-		window.location.href = 'app_credentials.html?appUuid='+appUuid;
+		window.location.href = 'app_notifiers.html?appUuid='+appUuid;
 	}
 	
 	// 数据统计页面
-	function toApppofileCounter(){
-		window.location.href = 'app_profile_counter.html?appUuid='+appUuid;
+	function toAppCollectionCounters(){
+		window.location.href = 'app_collection_counters.html?appUuid='+appUuid;
 	}
 
 	// 应用管理员创建页面
 	function toCreateAppAdmin(){
 		window.location.href = 'app_admin_create.html?appUuid='+appUuid;
 	}
-	// 添加群组
-	function togroupaddAppAdmin(){
-		window.location.href = 'app_group.html?appUuid='+appUuid;
-	}
-	
-	//管理员列表页面
+		
+	// 管理员列表页面
 	function toAppUserAdmin(){
 		window.location.href = 'app_users_admin.html?appUuid='+appUuid;
 	}
@@ -116,7 +108,7 @@
 		sendMessge(appUuid);	
 	}
 	
-	//添加好友
+	// 添加好友
   	function showAddFriendHTML(){
 		var appUuid = getQueryString('appUuid').split(',')[0];
 		var owner_username = getQueryString('groupid');
@@ -194,7 +186,7 @@
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:togroupAppAdmin()"><font color="green">群组</font></a> </li>
+        		<li> <a href="javascript:toAppGroups()"><font color="green">群组</font></a> </li>
       		</ul>
       	
       		&nbsp;&nbsp;&nbsp;&nbsp;
@@ -203,7 +195,7 @@
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
-        		<li> <a href="javascript:toApppofileCounter()">统计数据</a> </li>
+        		<li> <a href="javascript:toAppCollectionCounters()">统计数据</a> </li>
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
       		<ul>
