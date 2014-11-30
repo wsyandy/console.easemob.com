@@ -912,53 +912,6 @@ cursors[1] = '';
 var total = 0;
 
 // 分页条更新
-function updateChatroomPageStatus(appUuid){
-	var pageLi = $('#pagina').find('li');
-	
-	// 获取token
-	var access_token = $.cookie('access_token');
-	var cuser = $.cookie('cuser');
-	var orgName = $.cookie('orgName');
-	if(!access_token || access_token==''){
-		alert('提示\n\n会话已失效,请重新登录!');
-		window.location.href = 'index.html';
-	} else {
-		$.ajax({
-			url:baseUrl+'/'+ orgName +'/' + appUuid + '/chatrooms?limit=1000',
-			type:'GET',
-			headers:{
-				'Authorization':'Bearer '+access_token,
-				'Content-Type':'application/json'
-			},
-			error: function(respData, textStatus, jqXHR) {
-			},
-			success: function(respData, textStatus, jqXHR) {
-				total = respData.count;
-				var totalPage = (total%10==0)?(parseInt(total/10)):(parseInt(total/10)+1);
-				
-				// 首页
-				if(pageNo == 1){
-					if(totalPage == 1){
-						$(pageLi[0]).hide();
-						$(pageLi[1]).hide();
-					} else {
-						$(pageLi[0]).hide();
-						$(pageLi[1]).show();
-					}
-					// 尾页
-				} else if(totalPage ==  pageNo){
-					$(pageLi[0]).show();
-					$(pageLi[1]).hide();
-				}
-			}
-		});
-	}
-}
-
-
-
-
-// 分页条更新
 function updateUsersPageStatus(){
 	var pageLi = $('#paginau').find('li');
 	
@@ -2594,8 +2547,7 @@ function selectFunqunzu(sel,appUuid,groupid){
 }
 				
 // 搜索app群组列表
-function getqunzuAppChatrooms(appUuid,qunzuid,pageAction){
-	// 获取token
+function getAppChatgroups(appUuid, groupid, pageAction){
 	$('#paginau').html('');
 	var access_token = $.cookie('access_token');
 	var cuser = $.cookie('cuser');
@@ -2618,7 +2570,7 @@ function getqunzuAppChatrooms(appUuid,qunzuid,pageAction){
 		$('#appChatroomBody').empty();
 		$('#appChatroomBody').append(loading);
 		$.ajax({
-			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups/'+qunzuid,
+			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups/'+groupid,
 			type:'GET',
 			headers:{
 				'Authorization':'Bearer '+access_token,
@@ -2763,8 +2715,6 @@ function getAppChatroomsuser(appUuid,groupid,pageAction){
 					for(var i=0;i<pageLi.length;i++){
 						$(pageLi[i]).hide();
 					}
-				} else {
-					updateChatroomPageStatus(appUuid);	
 				}
 			}
 		});
@@ -2817,56 +2767,51 @@ function deleteAppChatroomUsers(appUuid,groupuuid,usersname){
 		});
 	}
 }
-//添加群内成员
-function addIMFriendusers(){
+// 添加群内成员
+function addChatgroupMember(appUuid, groupid, newmember) {
 	var orgName = $.cookie('orgName');
 	var access_token = $.cookie('access_token');
-	var owner_username = $('#usernameFriend').val();
-	var appUuid = $('#appUuidFriend').val();
-	var friend_username = $('#friendUsername').val();
-	if (friend_username == ''){
-		alert('好友名称不能为空!');	
+	if (newmember == ''){
+		$('#newmemberEMsg').text('请输入有效用户名!');	
 	}else{
 		$.ajax({
-				url:baseUrl+'/'+ orgName +'/' + appUuid +'/users/' + friend_username,
-				type:'POST',
-				headers:{
-					'Authorization':'Bearer '+access_token,
-					'Content-Type':'application/json'
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert('提示\n\n该用户不存在，请检查用户名!');
-				},
-				success: function(respData, textStatus, jqXHR) {
-					var owner = $.cookie('owner');
-					if(friend_username != owner){
-					
+			url:baseUrl+'/'+ orgName +'/' + appUuid +'/users/' + newmember,
+			type:'POST',
+			headers:{
+				'Authorization':'Bearer '+access_token,
+				'Content-Type':'application/json'
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+				$('#newmemberEMsg').text('该用户不存在，请检查输入!');
+			},
+			success: function(respData, textStatus, jqXHR) {
+				var owner = $.cookie('owner');
+				if(newmember != owner){
 					$.ajax({
-						url:baseUrl + '/' +orgName +'/'+appUuid+'/chatgroups/' +owner_username+'/users/'+friend_username,
+						url:baseUrl + '/' +orgName +'/' + appUuid+'/chatgroups/' + groupid + '/users/' + newmember,
 						type:'POST',
 						headers:{
 							'Authorization':'Bearer '+access_token,
 							'Content-Type':'application/json'
 						},
 						error: function(jqXHR, textStatus, errorThrown) {
-							
+						
 						},
 						success: function(respData, textStatus, jqXHR) {
-							alert('添加好友成功!');
+							alert('添加成功');
+							//getAppChatroomsuser(appUuid, groupid);
 							location.replace(location.href);
 						}
 					});
-					}else{
-						alert('该用户已经是管理员不能添加!');	
-					}
+				}else{
+					$('#newmemberEMsg').text('该用户已经是管理员不能添加!');
 				}
+			}
 		});
-	
-		
 	}
-	
 }
-//添加群组
+
+// 添加群组
 function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunzuguan){
 	var orgName = $.cookie('orgName');
 	var access_token = $.cookie('access_token');
@@ -2947,31 +2892,32 @@ function deleteAppChatrooms(appUuid,groupuuid){
 			error:function(){
 			},
 			success:function(respData){
+				alert(JSON.stringify(respData));
 			}
 		});
 	
 }
 //批量删除app下的群组调用
-function deleteAppqunzuCheckBox(appUuid){
-		var checkbox=document.getElementsByName("checkbox");
-		var num=0;
-		for (var i=0;i<checkbox.length;i++){
-			if(checkbox[i].checked){
-				num++;
-			}
+function deleteAppChatgroupsCheckBox(appUuid){
+	var checkbox = document.getElementsByName("checkbox");
+	var num = 0;
+	for (var i=0;i<checkbox.length;i++){
+		if(checkbox[i].checked){
+			num++;
 		}
-		if(num>0){
-			if(confirm('确定要删除这些群组吗?')){
-				for (var i=0;i<checkbox.length;i++){
-					if(checkbox[i].checked){
-						deleteAppChatrooms(appUuid,checkbox[i].value);
-					}
+	}
+	if(num>0){
+		if(confirm('确定要删除这些群组吗?')){
+			for (var i=0;i<checkbox.length;i++){
+				if(checkbox[i].checked){
+					deleteAppChatrooms(appUuid, checkbox[i].value);
 				}
-				location.replace(location.href);
 			}
-		}else{
-			alert('至少选择一个群组!');	
+			location.replace(location.href);
 		}
+	}else{
+		alert('至少选择一个群组!');	
+	}
 }
 //============================================================证书 ========================================================================
 // 上传证书
