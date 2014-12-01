@@ -2208,7 +2208,7 @@ function sendUserImgMessage(){
 					$('#closeButn').click();
 					alert('发送成功');
 					// 清空图片元素
-$('#uploadresspan').text('等待上传图片');
+					$('#uploadresspan').text('等待上传图片');
 					$('#img2').attr("src","assets/img/140144.jpg");
 				}
 		 });
@@ -2398,7 +2398,7 @@ function sendUserImgMessages(){
 		var str = $('#share-secret').val().split(',');
 		var d = {
 		  "target_type" : "chatgroups",
-		  "target" : target, //注意这里需要用数组, 即使只有一个用户, 也要用数组 ['u1']
+		  "target" : target,
 		   "msg" : {
 			  "type":"img","filename":str[0], "secret": str[1],"url":$('#imgUuid').val()
 	           }
@@ -2419,6 +2419,7 @@ function sendUserImgMessages(){
 				success:function(respData){
 					layer.close(layerNum);
 					$('#closeButn').click();
+					$('#uploadresspan').text('等待上传图片');
 					alert('发送成功');
 				}
 		 });
