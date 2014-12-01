@@ -67,9 +67,46 @@
 			return false;
 		});
 	});
+
+	function checkMaxusers(){
+		var ii = 0;
+		var maxusers = 0;
+		$('#appIMBody').find("tr").each(function(i) {
+		     ii++;
+		});
+
+		var orgName = $.cookie('orgName');
+		var access_token = $.cookie('access_token');
+		$.ajax({
+			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups/'+groupid,
+			type:'GET',
+			async:false,
+			headers:{
+				'Authorization':'Bearer '+access_token,
+				'Content-Type':'application/json'
+			},		
+			error:function(respData){
+			},
+			success:function(respData){
+				maxusers = respData.data[0].maxusers;
+			}
+		});
+		if(ii >= maxusers){
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	function addChatgroupMemberPre(){
 		var newmember = $('#newmember').val().trim();
-		addChatgroupMember(appUuid, groupid, newmember);	
+		// check 成员数是否已经到达最大
+		if(checkMaxusers()){
+			$('#newmemberEMsg').text('');
+			addChatgroupMember(appUuid, groupid, newmember)
+		} else {
+			$('#newmemberEMsg').text('抱歉，该群已满，不能继续添加成员');
+		}	
 	}
 
 	// 应用概述页
@@ -202,16 +239,9 @@
       	
       		<hr/>
       		
-				</div>
+	</div>
       	<div class="pagination pagination-left">
            <div class="inbox-header">
-		<!--<form id="searchForm" action="#" class="form-search pull-right">
-			<div class="input-append">
-				<input class="m-wrap" value="" id="userInbox" type="text" placeholder="输入完整用户名" />
-				<button class="btn green" id="searchBtn" onClick="searchUserTmp()" type="button">搜索群成员</button>
-				<input value="" id="userInboxBak" type="hidden" />
-			</div>
-		</form>-->
 		<form id="addMemberForm" action="#" class="form-search pull-left">
 			<div class="input-append">
 				<input class="m-wrap" value="" id="newmember" name="newmember" type="text" placeholder="输入完整用户名" />

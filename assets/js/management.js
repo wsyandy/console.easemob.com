@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'http://a1.sdb.easemob.com';
+var baseUrl = 'http://localhost:8088';
 
 // 初始化加载
 $(function() {
