@@ -2893,7 +2893,6 @@ function deleteAppChatrooms(appUuid,groupuuid){
 			error:function(){
 			},
 			success:function(respData){
-				alert(JSON.stringify(respData));
 			}
 		});
 	

@@ -81,16 +81,15 @@
 
 		$('#username').focus();
 		
-		// 官网注册链接
 		var QSTR = getQueryString('comeFrom');
 		if(QSTR == 'easemobHome' || QSTR == '51cto'){
 			$('#btnRegist').trigger('click');
 		}
-		var token = $.cookie('access_token');
-		if(token != null && typeof(token)!='undefined'){
-			window.location.href = 'app_list.html';
-			return;
-		}
+		//var token = $.cookie('access_token');
+		//if(token != null && typeof(token)!='undefined'){
+		//	window.location.href = 'app_list.html';
+		//	return;
+		//}
 		checkBoxStatus();
 	});
 	
