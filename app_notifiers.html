@@ -47,7 +47,9 @@
 <script tyep="text/javascript">
 	var appUuid = getQueryString('appUuid');
 	var Application = $.cookie('Application');
+	var count = 0;
 	$(function(){
+	    count = 0;
 	    $('#showName').text(Application);
 	    $('#fileAppKey').text(Application);
 	    $('#certificate').hide();//页面加载时隐藏掉推送证书
@@ -65,50 +67,60 @@
 	function getNextAppNotifiers(){
 		getAppNotifiers(appUuid,'next');
 	}
+	function check() {
+	 	if(count==0) {
+	  		count++;
+	  		return true;
+	 	} else {
+	  		return false;
+	 	}
+	}
+
 	function changeform(){
-		var access_token = $.cookie('access_token');
-		var orgName = $.cookie('orgName');
+		if(check()){
+			var access_token = $.cookie('access_token');
+			var orgName = $.cookie('orgName');
 		
-		var notifierName = $('#name').val();
-		var passphrase = $('#passphrase').val();
-		var notifierNameRegx = /^[A-Za-z0-9-_]*$/;
-		if(!notifierNameRegx.test(notifierName)){
-				alert('证书名称只能是字母数字横线下划线的组合!');
-				return ;
-		}
-		if(!validateSuffix($('#file').val())){
-			return ;
-		}
-		if(passphrase == ''){
-			alert('请填写证书密码!');
-			return ;
-		}
-		
-		var ajax_option = {
-			url:baseUrl + '/' + orgName + '/' + appUuid + '/notifiers',
-			headers:{
-				'Accept':'application/json',
-				'Accept-Encoding':'gzip,deflate',
-				'Authorization':'Bearer ' + access_token,
-			},
-			success:function(data){
-				layer.close(layerNum);
-				alert("证书添加成功!");
-				//clear form
-				$('#name').val('');
-				$('#passphrase').val('');
-				
-				toAppNotifiersPage();
-			},
-			error:function(data){
-				layer.close(layerNum);
-				alert("证书添加失败!");
+			var notifierName = $('#name').val();
+			var passphrase = $('#passphrase').val();
+			var notifierNameRegx = /^[A-Za-z0-9-_]*$/;
+			if(!notifierNameRegx.test(notifierName)){
+					alert('证书名称只能是字母数字横线下划线的组合!');
+					return ;
 			}
-		}
-		var layerNum = layer.load('正在上传...',3);
-		$('#myForm').ajaxSubmit(ajax_option);
+			if(!validateSuffix($('#file').val())){
+				return ;
+			}
+			if(passphrase == ''){
+				alert('请填写证书密码!');
+				return ;
+			}
 		
-  }  
+			var ajax_option = {
+				url:baseUrl + '/' + orgName + '/' + appUuid + '/notifiers',
+				headers:{
+					'Accept':'application/json',
+					'Accept-Encoding':'gzip,deflate',
+					'Authorization':'Bearer ' + access_token,
+				},
+				success:function(data){
+					layer.close(layerNum);
+					alert("证书添加成功!");
+					//clear form
+					$('#name').val('');
+					$('#passphrase').val('');
+				
+					toAppNotifiersPage();
+				},
+				error:function(data){
+					layer.close(layerNum);
+					alert("证书添加失败!");
+				}
+			}
+			var layerNum = layer.load('正在上传...',3);
+			$('#myForm').ajaxSubmit(ajax_option);
+		}
+  	}  
 	
 	// 文件后缀校验
 	function validateSuffix(fileName){

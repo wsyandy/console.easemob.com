@@ -45,10 +45,12 @@
 <script tyep="text/javascript">
 	var appUuid = getQueryString('appUuid');
 	var Application = $.cookie('Application');
+	var count = 0;
 	$(function(){
 		if (!getToken() || getToken()==''){
 			logout();
 		}
+		count = 0;
 		$('#showName').text(Application);
 		getAppUserList(appUuid);
 	});	
@@ -101,8 +103,18 @@
 	  	return str.replace(/\s+/g, "");
 	}
 
+	function check() {
+	 	if(count==0) {
+	  		count++;
+	  		return true;
+	 	} else {
+	  		return false;
+	 	}
+	}
 	function preSaveNewIMUser(){
-		saveNewIMUser(appUuid);	
+		if(check()){
+			saveNewIMUser(appUuid);
+		}
 	}
 	window.onresize = window.onload = function(){
 		var w,h;

@@ -46,12 +46,13 @@
 <script src="assets/js/layer/layer.min.js"></script>
 <script tyep="text/javascript">
 	var appUuid = getQueryString('appUuid');
+	var Application = $.cookie('Application');
+	var count = 0;
 	$(function(){
 		if (!getToken() || getToken()==''){
 			logout();
 		}
-		
-		var Application = $.cookie('Application');
+		count = 0;
 	    	$('#showName').text(Application);
 		getAppChatrooms(appUuid);
 
@@ -145,17 +146,28 @@
 			sendUserMessages();
 			sendUserImgMessages();
 		}
-
 	}
+	
+	function check() {
+	 	if(count==0) {
+	  		count++;
+	  		return true;
+	 	} else {
+	  		return false;
+	 	}
+	}
+
 	//添加群组
 	var publics = true;
 	var approval=true;
-    	function createNewChatgroupPre(){
-		var groupName = $("#groupName").val().trim();
-		var groupDesc = $("#groupDesc").val().trim();
-		var groupOwner = $("#groupOwner").val().trim();
-		var maxusers = $("#maxusers").val().trim();
-		createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
+    	function createNewChatgroupPre() {
+		if(check()){
+			var groupName = $("#groupName").val().trim();
+			var groupDesc = $("#groupDesc").val().trim();
+			var groupOwner = $("#groupOwner").val().trim();
+			var maxusers = $("#maxusers").val().trim();
+			createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
+		}
 	}
 	//判断是否是公开群
 	function nums(){
@@ -426,11 +438,11 @@
 			</div>
 			
 			<div class="modal-footer"> 
-				<a class="btn" onClick="createNewChatgroupPre();"">添加</a>
+				<a class="btn" id="addNewChatgroupBtn" onclick="createNewChatgroupPre();">添加</a>
 				<button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
 			</div>
 		</div>
-       <!--添加群组end-->
+                <!--添加群组end-->
 		<!--发送消息-->
 				<div id="sendMessage" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">

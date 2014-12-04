@@ -40,13 +40,13 @@
 <script tyep="text/javascript">
 	var appUuid = getQueryString('appUuid');
 	var Application = getQueryString('Application');
-	if(Application!=null){
+	if(Application != null){
        		$.cookie('Application', Application);
 	}
 	if(appUuid == "undefined"){
       		appUuid = $.cookie('appName');
 	}
-	if(Application==null){
+	if(Application == null){
        		Application = $.cookie('Application');
 	}
 	$(function(){
@@ -55,7 +55,7 @@
 			logout();
 		}
 		getAppProfile(appUuid);
-	});	
+	});
 	
 	// 应用概述页
 	function toApppofile(){
