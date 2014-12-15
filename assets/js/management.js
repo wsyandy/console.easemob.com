@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'http://a1.sdb.easemob.com';
+var baseUrl = 'http://localhost:8080';
 
 // 初始化加载
 $(function() {
@@ -270,9 +270,9 @@ function regsFormValidate(){
 		$('#regUserNameEMsg').text('用户名不能为空！');
 		return false;
 	}
-	var regUserNameRegex = /^[0-9a-zA-Z]*$/;
+	var regUserNameRegex = /^[a-zA-Z0-9_\-./]*$/;
 	if(!regUserNameRegex.test(regUserName)){
-		$('#regUserNameEMsg').text('用户名只能是字母,数字或字母数字组合！');
+		$('#regUserNameEMsg').text('用户名至少一个字符，包括[字母,数字,下划线,横线,斜线,英文点]');
 		return false;
  	}
  	if(regUserName != '' && regUserName.length < 1){
@@ -518,8 +518,8 @@ function orgAdminLogin() {
 					$.cookie('access_token',access_token,{path:'/',expires:date});
 					$.cookie('cuser',cuser,{path:'/',expires:date});
 					$.cookie('cuserName',cuserName,{path:'/',expires:date});
-				    $.cookie('orgName',orgName,{path:'/',expires:date});
-				    $.cookie('loginuuid',loginuuid,{path:'/',expires:date});
+				    	$.cookie('orgName',orgName,{path:'/',expires:date});
+				    	$.cookie('loginuuid',loginuuid,{path:'/',expires:date});
 				  
 					window.location.href = 'app_list.html';
 					location.replace('app_list.html');
@@ -1370,14 +1370,14 @@ function changeAllowOpen(){
 // 创建app管理员
 // 用户名
 function onBlurCheckUsername(appAdminUsername){
-	var appAdminUsernameReg =  /^[0-9a-zA-Z]{1,1000}$/;
+	var appAdminUsernameReg =  /^[a-zA-Z0-9_\-./]*$/;
 	if('' == appAdminUsername) {
 		$('#appAdminUsernameMsg').text('请输入用户名');
 		return false;
 	}
 	
 	if(!appAdminUsernameReg.test(appAdminUsername)){
-		$('#appAdminUsernameMsg').text('用户名至少一个字符(字母或数字)！');
+		$('#appAdminUsernameMsg').text('用户名至少一个字符(包括英文字母,数字,下划线,横线,斜线,英文点)！');
 		return false;
 	}
 	
@@ -1501,14 +1501,14 @@ function saveNewAppAdmin(appUuid){
 // 创建IM用户
 // 用户名
 function onBlurCheckIMUsername(imUsername){
-	var imUsernameReg =  /^[0-9a-zA-Z]{1,1000}$/;
+	var imUsernameReg =  /^[a-zA-Z0-9_\-./]*$/;
 	if('' == imUsername) {
 		$('#imUsernameMsg').text('请输入用户名');
 		return false;
 	}
 	
 	if(!imUsernameReg.test(imUsername)){
-		$('#imUsernameMsg').text('用户名至少一个字符(字母或数字)！');
+		$('#imUsernameMsg').text('用户名至少一个字符(包括英文字母,数字,下划线,横线,斜线,英文点)！');
 		return false;
 	}
 	
@@ -1517,7 +1517,7 @@ function onBlurCheckIMUsername(imUsername){
 }
 // 一次密码
 function onBlurCheckIMPassword(password){
-	var passwordReg =  /^[\s\S]{1,1000}$/;
+	var passwordReg =  /^[\s\S]*$/;
 	if('' == password) {
 		$('#passwordMsg').text('请输入密码');
 		return false;

@@ -75,7 +75,7 @@
 			$('#username').val($.cookie('tvs-cookies-userName'));
 			$('#password').val($.cookie('tvs-cookies-password'));
 		}else{
-            $('#username').val($.cookie('tvs-cookies-userName'));
+            		$('#username').val($.cookie('tvs-cookies-userName'));
 			$('#password').val($.cookie('tvs-cookies-password'));
 		}
 
@@ -456,14 +456,14 @@ function getBrowser() {
 			<span style="color:red">*</span>
                           <input type="text" id="regUserName" placeholder="企业管理员用户名" class="span11" name="regUserName" value="" onBlur="onBlurRegUserNameCheck()">
                           <i class="icon-user"></i></span>
-                          <span id="regUserNameSMsg" style="font-size:12px">至少一个字符，可使用字母、数字</span>
+                          <span id="regUserNameSMsg" style="font-size:12px">至少一个字符，包括[字母,数字,下划线,横线,斜线,英文点]</span>
                           <span id="regUserNameEMsg" style="font-size:12px;color:red"></span>
                         </label>
                         <label> <span class="block input-icon input-icon-right">
 			<span style="color:red">*</span>
                           <input type="password" id="regPassword" placeholder="密码" class="span11" name="regPassword" value="" onBlur="onBlurRegPasswordCheck()">
                           <i class="icon-lock"></i> </span>
-                          <span id="regPasswordSMsg" style="font-size:12px">至少一个字符，区分大小写</span>
+                          <span id="regPasswordSMsg" style="font-size:12px">至少一个字符</span>
                           <span id="regPasswordEMsg" style="font-size:12px;color:red"></span>
                         </label>
                         <label> <span class="block input-icon input-icon-right">
