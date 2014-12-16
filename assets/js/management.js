@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'http://localhost:8080';
+var baseUrl = 'http://a1.easemob.com';
 
 // 初始化加载
 $(function() {
@@ -2452,7 +2452,8 @@ function deleteAppUsers(appUuid,username){
 }
 
 // 获取app群组列表
-function getAppChatrooms(appUuid,pageAction){
+function getAppChatrooms(appUuid, pageAction){
+
 	// 获取token
 	var access_token = $.cookie('access_token');
 	var cuser = $.cookie('cuser');
@@ -2461,21 +2462,21 @@ function getAppChatrooms(appUuid,pageAction){
 		alert('提示\n\n会话已失效,请重新登录!');
 		window.location.href = 'index.html';
 	} else {
-		if('forward' == pageAction){
+		if('next' == pageAction){
 			pageNo += 1;
-		} else if('next' == pageAction){
+		} else if('forward' == pageAction){
 			pageNo -= 1;
 		}
 		
 		var tmp = '';
-		if(typeof(pageAction)!='undefined' && pageAction != ''){	
-			tmp = '&cursor=' + cursors[pageNo];
+		if(typeof(pageAction) != 'undefined' && pageAction != '' && cursors[pageNo] != ''){	
+			tmp = '?cursor=' + cursors[pageNo];
 		}
 		var loading = '<tr id="tr_loading"><td class="text-center" colspan="4"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
 		$('#appChatroomBody').empty();
 		$('#appChatroomBody').append(loading);
 		$.ajax({
-			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups',
+			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups' + tmp,
 			type:'GET',
 			headers:{
 				'Authorization':'Bearer '+access_token,
@@ -2485,12 +2486,7 @@ function getAppChatrooms(appUuid,pageAction){
 
 			},
 			success:function(respData){
-				// 缓存游标,下次next时候存新的游标
-				if(pageAction!='forward'){
-					cursors[pageNo+1] =	respData.cursor;
-				} else {
-					cursors[pageNo+1] = null;
-				}
+				
 				$('tbody').html('');
 				$(respData.data).each(function(){
 					var groupid = $.trim(this.groupid);
@@ -2528,12 +2524,31 @@ function getAppChatrooms(appUuid,pageAction){
 					for(var i=0;i<pageLi.length;i++){
 						$(pageLi[i]).hide();
 					}
+				}
+				
+				var ulB = '<ul>';
+				var ulE = '</ul>';
+				var textOp1 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'forward\')">上一页</a> </li>';
+				var textOp2 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'next\')">下一页</a> </li>';
+				$('#paginau').html('');
+				var hasNext = (respData.cursor != undefined);
+				cursors[pageNo+1] = respData.cursor;
+				if(pageNo == 1){
+					if(hasNext){
+						$('#paginau').append(ulB + textOp2 + ulE);
+					} else {
+						$('#paginau').append(ulB + ulE);
+					}
 				} else {
+					if(hasNext){
+						$('#paginau').append(ulB + textOp1 + textOp2 + ulE);
+					} else {
+						$('#paginau').append(ulB + textOp1 + ulE);
+					}
 				}
 			}
 		});
 	}
-	
 }
 
 function selectFunqunzu(sel,appUuid,groupid){
@@ -2580,6 +2595,7 @@ function getAppChatgroups(appUuid, groupid, pageAction){
 			error:function(respData){
 			},
 			success:function(respData){
+
 				// 缓存游标,下次next时候存新的游标
 				if(pageAction!='forward'){
 					cursors[pageNo+1] =	respData.cursor;
