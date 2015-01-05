@@ -1129,7 +1129,7 @@ function getAppList(){
 						}
 					});
 					
-					option += '<tr><td class="text-center"><a href="app_profile.html?appUuid='+value+'&Application='+key+'">'+key+'</a></td>'+
+					option += '<tr><td class="text-center"><a href="app_profile.html?appUuid='+key+'&Application='+key+'">'+key+'</a></td>'+
 						 	'<td class="text-center">'+userCount+'</td>'+
 						 	'<td class="text-center">上线运行中</td>'+
 				 		'</tr>';
