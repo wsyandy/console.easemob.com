@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'https://a1.easemob.com';
+var baseUrl = 'http://a1.sdb.easemob.com';
 
 // 初始化加载
 $(function() {
@@ -2470,13 +2470,13 @@ function getAppChatrooms(appUuid, pageAction){
 		
 		var tmp = '';
 		if(typeof(pageAction) != 'undefined' && pageAction != '' && cursors[pageNo] != ''){	
-			tmp = '?cursor=' + cursors[pageNo];
+			tmp = '&cursor=' + cursors[pageNo];
 		}
 		var loading = '<tr id="tr_loading"><td class="text-center" colspan="4"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
 		$('#appChatroomBody').empty();
 		$('#appChatroomBody').append(loading);
 		$.ajax({
-			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups' + tmp,
+			url:baseUrl+'/'+ orgName + "/" + appUuid + '/chatgroups?limit=10' + tmp,
 			type:'GET',
 			headers:{
 				'Authorization':'Bearer '+access_token,
