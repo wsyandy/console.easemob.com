@@ -2850,13 +2850,13 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 		$('#groupdescSpan').text('');
 	   	$('#groupmaxuserSpan').text('请输入群组最大成员数!');
 		return;
-	} else if(!(maxusersReg.test(maxusers) && parseInt(maxusers)>=1 && parseInt(maxusers)<=2000)){
-		$('#groupmaxuserSpan').text('群组最大成员数只能是1-2000之内的数值!');
+	} else if(!(maxusersReg.test(maxusers) && parseInt(maxusers) >= 1)) {
+		$('#groupmaxuserSpan').text('群组最大成员数只能是>1的数值!');
 	}else if(qunzuguan==''){
 		$('#groupnameSpan').text('');
 		$('#groupdescSpan').text('');
 	   	$('#groupmaxuserSpan').text('');
-	    	$('#qunzuguanSpan').text('群组管理员不能为空');
+	    $('#qunzuguanSpan').text('群组管理员不能为空');
 		return;
 	}else{
 		$('#groupnameSpan').text('');
@@ -2888,11 +2888,8 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 					$('#qunzuguanSpan').text('');
 					location.replace(location.href);
 				}
-		});
-	
-		
+		});		
 	}
-	
 }
 // 批量删除app下的群组的Ajax
 function deleteAppChatrooms(appUuid,groupuuid){
