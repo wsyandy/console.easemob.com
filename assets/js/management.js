@@ -3039,7 +3039,7 @@ function getAppNotifiers(appUuid, pageAction){
 							'<td class="text-center">'+environment+'</td>'+
 							'<td class="text-center">'+created+'</td>'+
 							'<td class="text-center">'+modified+'</td>'+
-							'<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifier(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+							'<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifiers(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
 							'</tr>';
 							
 					});
