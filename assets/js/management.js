@@ -299,7 +299,7 @@ function regsFormValidate(){
 		$('#regRePasswordEMsg').text('两次密码不一致!');
 		return false;
 	}
-	var emailReg = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+	var emailReg = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
 	if('' == regEmail){
 		$('#regEmailEMsg').text('请输入邮箱！');
 		return false;

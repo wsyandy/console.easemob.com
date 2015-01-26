@@ -240,22 +240,22 @@ function getBrowser() {
 	
 	function onBlurRegEmailCheck(){
 		$('#regEmail').val($('#regEmail').val().trim());
-		
 		var regEmail = $('#regEmail').val();
 		
-		var emailReg = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+		var emailReg = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
 		if(regEmail != '' && !emailReg.test(regEmail)){
 			$('#regEmailSEMsg').css('display','none');
 			$('#regEmailEMsg').text('请输入有效的邮箱！');
 			return;
 		} else if(regEmail==''){
 		    $('#regEmailSEMsg').css('display','none');
-            		$('#regEmailEMsg').text('邮箱不能为空！');
+            $('#regEmailEMsg').text('邮箱不能为空！');
 			return;
 		}
 		
 	 	$('#regEmailEMsg').text('');	
 	}
+
 	function onBlurRegTelCheck(){
 		$('#regTel').val($('#regTel').val().trim());
 		var regTel = $('#regTel').val();
