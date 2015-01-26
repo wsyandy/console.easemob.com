@@ -75,7 +75,7 @@
 			$('#username').val($.cookie('tvs-cookies-userName'));
 			$('#password').val($.cookie('tvs-cookies-password'));
 		}else{
-            		$('#username').val($.cookie('tvs-cookies-userName'));
+            $('#username').val($.cookie('tvs-cookies-userName'));
 			$('#password').val($.cookie('tvs-cookies-password'));
 		}
 
@@ -146,20 +146,20 @@ function getBrowser() {
 			return;	
 		}
 		if(getBrowser() == 'Firefox'){
-      //判断IE还是火狐浏览器;
-      $("html").die().live("keydown",function(event){     
-          if(event.keyCode==13){
-            //调用登陆方法;
-						$('#loginBtn').click();//调用登录按钮的登录事件
-						$('#loginBtn').attr('disable','true');
-          }     
-      });   
-		} else if(getBrowser() == 'MSIE' || getBrowser() == 'Chrome'){
-				if(event.keyCode==13){    
-        	//调用登陆方法;
+	    	//判断IE还是火狐浏览器;
+	    	$("html").die().live("keydown",function(event){     
+	        	if(event.keyCode==13){
+	           		//调用登陆方法;
 					$('#loginBtn').click();//调用登录按钮的登录事件
+					$('#loginBtn').attr('disable','true');
+	        	}     
+	      	});   
+		} else if(getBrowser() == 'MSIE' || getBrowser() == 'Chrome'){
+			if(event.keyCode==13){    
+        	//调用登陆方法;
+			$('#loginBtn').click();//调用登录按钮的登录事件
       	}
-		}
+	}
   }
 	
 	function onBlurRegOrgNameCheck(){

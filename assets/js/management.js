@@ -481,6 +481,9 @@ function orgAdminLogin() {
 				},
 				crossDomain:true,
 				error: function(respData, textStatus, errorThrown) {
+					$('#cont').text('登录');
+					$('#loginBtn').attr("disabled",false);
+
 					var str = JSON.stringify(respData.responseText).replace('}','').replace('{','').split(',');
 					var tmpArr = new Array();
 					var errorMsg = '';
@@ -491,13 +494,9 @@ function orgAdminLogin() {
 						if('error_description' == tmpArr[i][0]){
 							if(tmpArr[i][1].indexOf("User must be confirmed to authenticate") > -1) {
 								errorMsg = '登陆失败，账户未激活!';
-								$('#cont').text('登录');
-								$('#loginBtn').attr("disabled",false);
 							}
 							if(tmpArr[i][1].indexOf("invalid username or password") > -1) {
 								errorMsg = '登陆失败，用户名或者密码错误!';
-								$('#cont').text('登录');
-								$('#loginBtn').attr("disabled",false);
 							}
 						}
 					}
@@ -850,6 +849,7 @@ function createAppFormValidate(){
 	}
  	var appDescReg = /^[0-9a-zA-Z,.?。，？、\/'":\u4e00-\u9faf]{0,100}$/;
 	if(!appDescReg.test(appDesc)){
+		$('#appDescMsg').text('应用描述只能输入字母，数字或者汉字,字数在一百字以内!');
 		$('#appDescMsg').css('color','red');
 		$('#appDesc').focus();
 		return false;
@@ -1352,6 +1352,8 @@ function changeAllowOpen(){
 			//toApppofile();
 			$(respData.entities).each(function(){
 				var tag = this.allow_open_registration?'0':'1';
+				var modified = format(this.modified);
+				$('#modified').text(modified);
 				$('#allowOpenHdd').val(tag);
 				if(this.allow_open_registration){
 					$('#allowOpen').text('开放注册');	
