@@ -160,7 +160,7 @@
 	//添加群组
 	var publics = true;
 	var approval=true;
-    	function createNewChatgroupPre() {
+    function createNewChatgroupPre() {
 		if(check()){
 			var groupName = $("#groupName").val().trim();
 			var groupDesc = $("#groupDesc").val().trim();
@@ -319,8 +319,8 @@
       		</ul>
       		&nbsp;&nbsp;&nbsp;&nbsp;
 		<ul>
-        		<li> <a href="javascript:showSendMessge()">发送消息</a> </li>
-      		</ul>
+        	<li> <a href="javascript:showSendMessge()">发送消息</a> </li>
+      	</ul>
 		<ul style="display:none">
         		<li> <a href="#sendMessage" id="sendMessageA" data-toggle="modal" role="button" ></a> </li>
       	       </ul>
@@ -436,7 +436,92 @@
 				<button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
 			</div>
 		</div>
-                <!--添加群组end-->
+        <!--添加群组end-->
+        <!--修改群组信息-->
+		<div id="groupInfoMondify" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h3 id="myModalLabel">修改群组</h3>
+			</div>
+			<div class="modal-body">
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="groupName">群组名称：</label>
+							<div class="controls">
+								<input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
+								<input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
+								<input type="hidden" id="appUuidHidd" name="appUuidHidd" value=""/>
+								<span style="color: red;" id="groupnameSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="groupDesc">群组描述：</label>
+							<div class="controls">
+								<input type="text" id="groupDesc" name="groupDesc" value="" placeholder="请输入群组描述" />
+								<span style="color: red;" id="groupdescSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="grouppulic">是否公开:</label>
+							<div class="controls"> 
+								<input type="radio" id="nopublic" name="public" onclick="numss();" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
+								<input type="radio" id="public" name="public" onclick="nums();" value="true" checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
+								<span style="color: red;" id="grouppulicSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid" id="validation">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="groupapproval">加群是否验证:</label>
+							<div class="controls"> 
+								<input type="radio" id="approvals" name="approval" onclick="approvals();" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不验证
+								<input type="radio" id="approval" name="approval" onclick="approvalon();" value="true" checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证
+								<span style="color: red;" id="groupapprovalSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="maxusers">最大成员数：</label>
+							<div class="controls">
+								<input type="text" id="maxusers" name="maxusers" value="" placeholder="请输入最大成员数" />
+								<span style="color: red;" id="groupmaxuserSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="control-group">
+							<label class="control-label" for="groupOwner">群主：</label>
+							<div class="controls">
+								<input type="text" id="groupOwner" name="groupOwner" value="" placeholder="请输入群主账号" />
+								<span style="color: red;" id="qunzuguanSpan"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal-footer"> 
+				<a class="btn" id="addNewChatgroupBtn" onclick="createNewChatgroupPre();">添加</a>
+				<button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+        <!--修改群组信息end-->
 		<!--发送消息-->
 				<div id="sendMessage" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">

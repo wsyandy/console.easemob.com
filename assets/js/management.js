@@ -2507,6 +2507,7 @@ function getAppChatrooms(appUuid, pageAction){
 			    		'<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
 				    	'<ul class="dropdown-menu">'+
 				        '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
+				        '<li data-filter-camera-type="all"><a href="javascript:proUpdateGroupinfo(\''+appUuid+'\',\''+groupid+'\')">修改群组信息</a></li>'+
 				        '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
 				        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
 					'</ul>'+
