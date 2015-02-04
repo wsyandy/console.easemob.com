@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'http://a1.sdb.easemob.com';
+var baseUrl = 'http://a1.easemob.com';
 
 // 初始化加载
 $(function() {
