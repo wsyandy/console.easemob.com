@@ -110,7 +110,7 @@
 					$('#name').val('');
 					$('#passphrase').val('');
 				
-					toAppNotifiersPage();
+					getAppNotifiers(appUuid);
 				},
 				error:function(data){
 					layer.close(layerNum);
