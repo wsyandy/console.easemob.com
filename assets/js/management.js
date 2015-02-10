@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'http://a1.easemob.com';
+var baseUrl = 'https://a1.easemob.com';
 
 // 初始化加载
 $(function() {
@@ -512,13 +512,14 @@ function orgAdminLogin() {
 					$.each(json, function(i) {
 					    orgName = i;
 					});
+					//orgName = 'yiding-keji';
 					var date = new Date();
 					date.setTime(date.getTime()+( 7 * 24 * 60 * 60 * 1000));
 					$.cookie('access_token',access_token,{path:'/',expires:date});
 					$.cookie('cuser',cuser,{path:'/',expires:date});
 					$.cookie('cuserName',cuserName,{path:'/',expires:date});
-				    	$.cookie('orgName',orgName,{path:'/',expires:date});
-				    	$.cookie('loginuuid',loginuuid,{path:'/',expires:date});
+				    $.cookie('orgName',orgName,{path:'/',expires:date});
+				    $.cookie('loginuuid',loginuuid,{path:'/',expires:date});
 				  
 					window.location.href = 'app_list.html';
 					location.replace('app_list.html');
@@ -910,6 +911,8 @@ var cursors = {};
 var pageNo = 1;
 cursors[1] = '';
 var total = 0;
+var cursors1 = {};
+cursors1[1] = '';
 
 // 分页条更新
 function updateUsersPageStatus(){
@@ -1132,28 +1135,6 @@ function getAppList(){
 	}
 }
 
-// 删除某个app
-function deleteApp(appUuid){
-	var access_token = $.cookie('access_token');
-	var cuser = $.cookie('cuser');
-	var orgName = $.cookie('orgName');
-	if(confirm('确认要删除这个app吗?')){
-		$.ajax({
-			url:baseUrl+'/management/organizations/'+ orgName +'/applications/' + appUuid,
-			type:'DELETE',
-			headers:{
-				'Authorization':'Bearer '+access_token,
-				'Content-Type':'application/json'
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-			},
-			success: function(respData, textStatus, jqXHR) {
-				alert('提示\n\napp删除成功!');
-				window.location.href = 'app_list.html';
-			}
-		});
-	}
-}
 
 // 获取app详情:org管理员登录
 function getAppProfile(appUuid){
@@ -1617,6 +1598,9 @@ function selectAppUser(sel,appUuid,username){
 
 // 获取某个app下的用户
 function getAppUserList(appUuid, pageAction){
+	
+	fakePageOne = 1;
+	
 	// 获取token
 	document.getElementById('checkAll').checked = false;
 	$('#paginau').html('');
@@ -1634,39 +1618,53 @@ function getAppUserList(appUuid, pageAction){
 		if('next' == pageAction){
 			pageNo += 1;
 		} else if('forward' == pageAction){
-			pageNo -= 1;
+			if(pageNo >= 2) {
+				pageNo -= 1;
+			} else {
+				pageNo = 1;
+			}
 		}
 		var temp = '';
-		if(typeof(pageAction)!='undefined' && pageAction != '' || pageAction == 'no'){	
-			temp = '&cursor='+cursors[pageNo];
+		if(typeof(pageAction) != 'undefined' && pageAction != '' || pageAction == 'no'){	
+			temp = '&cursor=' + cursors[pageNo];
 		}
 		$.ajax({
 			url:baseUrl+'/'+ orgName +'/' + appUuid + '/users?limit=10' + temp,
 			type:'GET',
 			headers:{
-				'Authorization':'Bearer '+access_token,
+				'Authorization':'Bearer ' + access_token,
 				'Content-Type':'application/json'
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 			},
 			success: function(respData, textStatus, jqXHR) {
+								
+				console.log(respData.entities.length + ' - ' + pageNo + ' - ' + pageAction)
+				
 				// 缓存游标
-				if(pageAction!='forward'){
+				if(pageAction != 'forward'){
 					if(respData.cursor){
 						cursors[pageNo+1] = respData.cursor;
 					}else{
 						cursors[pageNo+1] = null;
 					}
 				}
-				if(respData.entities.length ==0 && pageAction == 'no'){
-					getAppUserList(appUuid,'forward' );
-				}else{
+				
+				if(respData.entities.length == 0 && (pageAction == 'next' || typeof(pageAction) == 'undefined')){
+					getNextAppUserList();
+				} else if(respData.entities.length == 0 && pageAction == 'forward'){
+					if(pageNo >= 2){
+						getPrevAppUserList();
+					} else if(pageNo == 1){
+						getNextAppUserList();
+					}
+				} else {
 					$('tbody').html('');
 					var selectOptions = '';
 					$(respData.entities).each(function(){
 						var username = this.username;
 						var created = format(this.created);
-						var notification_display_style='';
+						var notification_display_style = '';
 						if(this.notification_display_style == 0){
 							notification_display_style='仅通知';
 						}else if(this.notification_display_style == 1){
@@ -1739,6 +1737,7 @@ function getAppUserList(appUuid, pageAction){
 					var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppUserList();">下一页</a> </li>';
 					$('#paginau').html('');
 				
+					
 					// 首页
 					if(pageNo == 1){
 						if(respData.cursor == null){
@@ -2507,7 +2506,6 @@ function getAppChatrooms(appUuid, pageAction){
 			    		'<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
 				    	'<ul class="dropdown-menu">'+
 				        '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
-				        '<li data-filter-camera-type="all"><a href="javascript:proUpdateGroupinfo(\''+appUuid+'\',\''+groupid+'\')">修改群组信息</a></li>'+
 				        '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
 				        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
 					'</ul>'+
