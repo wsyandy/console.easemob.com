@@ -2839,18 +2839,20 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 
 	if (qunzuname == ''){
 		$('#groupnameSpan').text('群组名称不能为空!');
-	    return;
-	}else if(qunzumiaosu==''){
+	    return false;
+	}
+	
+	if(qunzumiaosu ==''){
 		$('#groupnameSpan').text('');
 		$('#groupdescSpan').text('群组描述不能为空!');
-	    return;
-        }
+	    return false;
+    }
 	var maxusersReg = /^[0-9]+$/;           
 	if (maxusers == ''){
 		$('#groupnameSpan').text('');
 		$('#groupdescSpan').text('');
 	   	$('#groupmaxuserSpan').text('请输入群组最大成员数!');
-		return;
+		return false;
 	} else if(!(maxusersReg.test(maxusers) && parseInt(maxusers) >= 1)) {
 		$('#groupmaxuserSpan').text('群组最大成员数只能是>1的数值!');
 	}else if(qunzuguan==''){
@@ -2858,7 +2860,7 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
 		$('#groupdescSpan').text('');
 	   	$('#groupmaxuserSpan').text('');
 	    $('#qunzuguanSpan').text('群组管理员不能为空');
-		return;
+		return false;
 	}else{
 		$('#groupnameSpan').text('');
 		$('#groupdescSpan').text('');

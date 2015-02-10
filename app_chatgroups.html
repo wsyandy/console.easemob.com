@@ -153,10 +153,11 @@
 	  		count++;
 	  		return true;
 	 	} else {
+			count = 0;
 	  		return false;
 	 	}
 	}
-
+	
 	//添加群组
 	var publics = true;
 	var approval=true;
@@ -166,9 +167,13 @@
 			var groupDesc = $("#groupDesc").val().trim();
 			var groupOwner = $("#groupOwner").val().trim();
 			var maxusers = $("#maxusers").val().trim();
-			createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
+			var res = createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
+			if(!res){
+				count = 0;
+			}
 		}
 	}
+	
 	//判断是否是公开群
 	function nums(){
 		publics=true;
@@ -388,8 +393,8 @@
 						<div class="control-group">
 							<label class="control-label" for="grouppulic">是否公开:</label>
 							<div class="controls"> 
-								<input type="radio" id="nopublic" name="public" onclick="numss();" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
-								<input type="radio" id="public" name="public" onclick="nums();" value="true" checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
+								<input type="radio" id="nopublic" name="public" onclick="numss();" checked="checked" value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
+								<input type="radio" id="public" name="public" onclick="nums();" value="true" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
 								<span style="color: red;" id="grouppulicSpan"></span>
 							</div>
 						</div>
