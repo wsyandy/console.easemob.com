@@ -1638,9 +1638,6 @@ function getAppUserList(appUuid, pageAction){
 			error: function(jqXHR, textStatus, errorThrown) {
 			},
 			success: function(respData, textStatus, jqXHR) {
-								
-				console.log(respData.entities.length + ' - ' + pageNo + ' - ' + pageAction)
-				
 				// 缓存游标
 				if(pageAction != 'forward'){
 					if(respData.cursor){
@@ -1650,7 +1647,7 @@ function getAppUserList(appUuid, pageAction){
 					}
 				}
 				
-				if(respData.entities.length == 0 && (pageAction == 'next' || typeof(pageAction) == 'undefined')){
+				if(respData.entities.length == 0 && respData.cursor == '' && (pageAction == 'next' || typeof(pageAction) == 'undefined')){
 					getNextAppUserList();
 				} else if(respData.entities.length == 0 && pageAction == 'forward'){
 					if(pageNo >= 2){
@@ -2189,7 +2186,7 @@ function sendUserImgMessage(){
 		  "target" : target, //注意这里需要用数组, 即使只有一个用户, 也要用数组 ['u1']
 		  "msg" : {
 			  "type":"img","filename":str[0], "secret": str[1],"url":$('#imgUuid').val()
-	           }
+	       }
 		 }
 		 var layerNum = layer.load('正在发送...');
 		 $.ajax({
