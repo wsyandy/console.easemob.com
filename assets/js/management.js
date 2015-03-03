@@ -1478,8 +1478,6 @@ function saveNewAppAdmin(appUuid){
 	}
 }
 
-//=============================================================================================================================================
-
 //===================================================== User ==================================================================================
 // 创建IM用户
 // 用户名
@@ -1856,7 +1854,7 @@ function updateInfo(appUuid){
 			notification_no_disturbing_end = parseInt(notification_no_disturbing_end);
 			notification_no_disturbing_start = parseInt(notification_no_disturbing_start);
 			
-			if(notification_no_disturbing_end>=0 && notification_no_disturbing_end<=23&&notification_no_disturbing_start>=0&&notification_no_disturbing_start<=23&&notification_no_disturbing_end>notification_no_disturbing_start){
+			if(notification_no_disturbing_end>=0 && notification_no_disturbing_end<=24&&notification_no_disturbing_start>=0&&notification_no_disturbing_start<=24&&notification_no_disturbing_end>notification_no_disturbing_start){
 				var d ={
 					notification_display_style : notification_display_style,
 					nickname : nickname,
@@ -1889,11 +1887,11 @@ function updateInfo(appUuid){
 					alert('昵称不能超过20个字符!');	
 				}
 			}else{
-				alert('时间格式不正确，请输入0 ~ 23！');
+				alert('时间格式不正确，请输入00 ~ 24！');
 			}
 			
 		}else{
-			alert('时间格式不正确，请输入0 ~ 23！');
+			alert('时间格式不正确，请输入00 ~ 24！');
 		}
 		
 	}else if(!document.getElementById('notification_true').checked){
@@ -2172,6 +2170,10 @@ function sendUserMessage(){
 }
 //发送图片
 function sendUserImgMessage(){
+	if($('#sndBtn').attr('disabled') == 'disabled'){
+		return ;
+	}
+	
 	if( $('#share-secret').val() == ''|| $('#share-secret').val() == null){
 		alert('请先选择图片');	
 	} else {

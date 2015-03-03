@@ -72,23 +72,24 @@
 		    var access_token = $.cookie('access_token');
 		    var orgName = $.cookie('orgName');
 		    var ajax_option = {
-		  	url:baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
-		  	headers:{
-			    'Accept':'application/json',
-			    'restrict-access':true,
-			    'Accept-Encoding':'gzip,deflate',
-			    'Authorization':'Bearer ' + access_token,
-		 	},
-			 success:function(respData){
-//var srcV = baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/'+respData.entities[0].uuid;
-//$('#img2').attr("src",srcV);
-$('#uploadresspan').text('图片上传成功 !');
-			 	var str = $('#file').val()+","+respData.entities[0]['share-secret'];
-			 	$('#share-secret').val(str);
-				$('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/'+respData.entities[0].uuid);
-			},
-			error:function(respData){
-			}
+		  		url:baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
+				headers:{
+					'Accept':'application/json',
+					'restrict-access':true,
+					'Accept-Encoding':'gzip,deflate',
+					'Authorization':'Bearer ' + access_token,
+				},
+				 success:function(respData){
+					$('#sndBtn').removeAttr('disabled');
+					$('#uploadresspan').text('图片上传成功 !');
+					var str = $('#file').val()+","+respData.entities[0]['share-secret'];
+					$('#share-secret').val(str);
+					$('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/'+respData.entities[0].uuid);
+				},
+				error:function(respData){
+					$('#uploadresspan').text('图片上传失败 !');
+					$('#sndBtn').attr('disabled',"true");
+				}
 		   }
 
 		   $('#myForm').ajaxSubmit(ajax_option);
@@ -215,8 +216,9 @@ $('#uploadresspan').text('图片上传成功 !');
 	}
 
 	function clsupSpan(){
-	    	$('#uploadresspan').text('等待上传图片');
+	    $('#uploadresspan').text('等待上传图片');
 	}
+	
 	window.onresize = window.onload = function(){
 		var w,h;
 		if(!!(window.attachEvent && !window.opera)) {
@@ -412,19 +414,19 @@ $('#uploadresspan').text('图片上传成功 !');
 							<div class="control-group">
 							<label class="control-label" for="f_file">选择图片：</label>
 								<div class="controls" id="div2">
-				         				<input type="text" readonly="readonly" id="f_file" />
-							      	      	<input type="button" value="选择..." class="btn btn-mini btn-primary" onClick="file.click()"/>
+				         			<input type="text" readonly="readonly" id="f_file" />
+							      	<input type="button" value="选择..." class="btn btn-mini btn-primary" onClick="file.click()"/>
 									<input type="file" name="file" id="file" onChange="f_file.value=this.value;imgMessage();" style="display:none">
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<span id="uploadresspan">等待上传图片</span>
-				                                    	<input type="hidden" id="share-secret" />
+									<span id="uploadresspan">等待上传图片</span>
+				                    <input type="hidden" id="share-secret" />
 								</div>
 							</div>
-                         			</form>
+                        </form>
 						<div class="control-group">
 							<label class="control-label" for="messegeContent">输入文字：</label>
 							<div class="controls" id="div1">
-                            					<textarea style="width:500px; height:100px;" id="messegeContent" name="messegeContent" ></textarea>
+                            	<textarea style="width:500px; height:100px;" id="messegeContent" name="messegeContent" ></textarea>
 								<input type="hidden" id="usernameMessage" name="usernameMessage" value=""/>
 								<input type="hidden" id="appUuidMessage" name="appUuidMessage" value=""/>
 							</div>
@@ -434,7 +436,7 @@ $('#uploadresspan').text('图片上传成功 !');
 			</div>
 			
 			<div class="modal-footer"> 
-				<a class="btn" onClick="sendMessage();" href="javascript:void(0);">发送</a>
+				<a class="btn" onClick="sendMessage();" id="sndBtn" href="javascript:void(0);">发送</a>
 				<button id="messageCloseBtn" class="btn" data-dismiss="modal" onClick="clsupSpan()" aria-hidden="true">关闭</button>
 			</div>
 		</div>
@@ -477,10 +479,10 @@ $('#uploadresspan').text('图片上传成功 !');
 						</div>
 					</div>
               <div class="control-group" id="notification_time_div">
-							<label class="control-label" for="notification_starttime">免打扰时段(范围:00 ~ 23)：</label>
+							<label class="control-label" for="notification_starttime">免打扰时段(范围:00 ~ 24)：</label>
 							<div class="controls">
-                <input name="notification_starttime" id="notification_starttime" style="width:60px" type="text" /> --
-                <input name="notification_endtime" id="notification_endtime" style="width:60px" type="text" />
+								<input name="notification_starttime" id="notification_starttime" style="width:60px" type="text" /> --
+								<input name="notification_endtime" id="notification_endtime" style="width:60px" type="text" />
 							</div>
 						</div>
 				</div>
