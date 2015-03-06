@@ -12,11 +12,11 @@
 <link href="assets/css/bootstrap-responsive-2.3.2.min.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="assets/css/font-awesome-3.1.0.min.css" rel="stylesheet" type="text/css" media="screen"/>
 <!--[if IE 7]>
-		  <link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
-		<![endif]-->
-		<!--fonts-->
-		<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
-		<!--ace styles-->
+<link rel="stylesheet" href="assets/css/font-awesome-ie7.min.css" />
+<![endif]-->
+<!--fonts-->
+<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300" /> -->
+<!--ace styles-->
 
 <link href="assets/css/ace.min.css" rel="stylesheet" type="text/css" media="screen"/>
 <link href="assets/css/ace-responsive.min.css" rel="stylesheet" type="text/css" media="screen"/>
@@ -69,7 +69,7 @@
 	//获取年-月-日 时：分：秒
 	var type ="Y-M-D h:m";
         var myDate = new Date();
-	Y = myDate.getFullYear();//年份：如2013
+		Y = myDate.getFullYear();//年份：如2013
         M = myDate.getMonth()+1<10?"0"+(myDate.getMonth()+1):myDate.getMonth()+1;//月份：如06
         D = myDate.getDate()<10?"0"+myDate.getDate():myDate.getDate();//日：如15
         h = myDate.getHours()<10?"0"+myDate.getHours():myDate.getHours();
@@ -84,16 +84,16 @@
 			//初始开始时间段
 			//计算当前时间
 			time = type.replace("Y",Y);
-		        time = time.replace("M",M);
-		        time = time.replace("D",D);
-		        time = time.replace("h",h);
-		        time = time.replace("m",m);
-		        //time = time.replace("s",s);
+			time = time.replace("M",M);
+			time = time.replace("D",D);
+			time = time.replace("h",h);
+			time = time.replace("m",m);
+			//time = time.replace("s",s);
 			//计算前7天时间
 			if(D-6<=0){
 				satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
-		        }else{
-		          	satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
+		    } else {
+		        satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
 			}
 			document.getElementById('control_date').value = satatime;
 		 	document.getElementById('control_date2').value = time;
@@ -163,10 +163,10 @@
 		var startTime1 = new Date(dt);
 		var nowtime = startTime1.getTime();
 		var dt1 = Date.parse(endTime.replace(/-/g,"/"));//结束时间
-		var theTime =new Date(dt1);
+		var theTime = new Date(dt1);
 		var nowtime1 = theTime.getTime();
-		applyRequest.start_time=nowtime;
-		applyRequest.end_time=nowtime1;
+		applyRequest.start_time = nowtime;
+		applyRequest.end_time = nowtime1;
 		
 		$.ajax({
 			url:baseUrl+'/'+ applyRequest.orgName +'/' + applyRequest.appUuid + '/counters?counter='+url+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad,
@@ -206,7 +206,7 @@
 	}
 
 	function getDiv(){
-	        //determine();
+	    //determine();
 		var flow=[], labels=[];
 		var url;
 		var danwei;
@@ -250,23 +250,23 @@
 			document.getElementById('control_date').value = satatime;
 			document.getElementById('control_date2').value = time;
 		}else if(timeValue == "一天"){
-		        //计算当前时间
+		    //计算当前时间
 			time = type.replace("Y",Y);
 			time = time.replace("M",M);
 			time = time.replace("D",D);
 			time = time.replace("h",h);
 			time = time.replace("m",m);
-		     	if(D-1<=0){
+			if(D-1 <= 0){
 				satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
-			   }else{
-				  satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
-			   }
-			  company="六小时";
-			  applyRequest.resolution='six_hour';
-			  document.getElementById('control_date').value = satatime;
-			  document.getElementById('control_date2').value = time;
-			}else if(timeValue == "七天"){
-		          //计算当前时间
+			} else {
+				satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
+			}
+			company="六小时";
+			applyRequest.resolution='six_hour';
+			document.getElementById('control_date').value = satatime;
+			document.getElementById('control_date2').value = time;
+		} else if(timeValue == "七天"){
+		    //计算当前时间
 				time = type.replace("Y",Y);
 				time = time.replace("M",M);
 				time = time.replace("D",D);
@@ -277,19 +277,19 @@
 				}else{
 				  satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
 				}
-				company="六小时";
+				company = "六小时";
 				applyRequest.resolution='six_hour';
-		          	document.getElementById('control_date').value = satatime;
-		          	document.getElementById('control_date2').value = time;
+		        document.getElementById('control_date').value = satatime;
+		        document.getElementById('control_date2').value = time;
 			}
 
-            		var textStateTime=$("#control_date").val();
-	        	var textEndtime=$("#control_date2").val();
-	        	if(textStateTime>textEndtime || textStateTime==textEndtime){
-	           		alert("请重新选择时间，开始时间必须小于结束时间");
-              			 return;
-	          	}else if(textEndtime>time){
-			    alert("请重新选择结束日期，结束日期不能大于本日日期");
+			var textStateTime=$("#control_date").val();
+			var textEndtime=$("#control_date2").val();
+			if(textStateTime>textEndtime || textStateTime==textEndtime){
+				alert("请重新选择时间，开始时间必须小于结束时间");
+				return;
+			}else if(textEndtime>time){
+				alert("请重新选择结束日期，结束日期不能大于本日日期");
 				return;
 			}else{
 				if($(':radio:checked').val()=="IM用户数量变化"){
@@ -297,23 +297,28 @@
 				   danwei='个(正数表示新增，负数表示删除)';
 				   yName="IM用户数量";
 				};
-				if($(':radio:checked').val()=="消息流通数量变化"){
-		       			url='application.collection.chatmessages';
-			   		danwei='条';
-			   		yName="消息流通数量";
+				if($(':radio:checked').val()=="消息发送量"){
+		       		url='application.collection.chatmessages';
+			   		danwei='条/' + company;
+			   		yName="消息数(单位:条)";
 				};
-               		};
+            };
 			applyChatMessagesData(applyRequest,flow,labels,url);
-      			var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
+      		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
 			for(var i=0;i<labels.length;i++){
-				dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
+				var tttime = '' + labels[i]
+				if(company == "天") {
+					tttime = labels[i].substring(0,10);
+				}
+				dataString += '<set label="' + tttime + '" value="' + flow[i] + '" />';
 			}
+			
 			dataString+='</chart>';
-		      	if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)
-				FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
-			    	var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
-			    	chart.setXMLData( dataString );
-			    	chart.render("canvasUserDiv3");
+			if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)
+			FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
+			var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
+			chart.setXMLData( dataString );
+			chart.render("canvasUserDiv3");
 		}
 
   	function getDiv1(){
@@ -379,22 +384,27 @@
 					 }
 
 			if($(':radio:checked').val()=="IM用户数量变化"){
-		       	   url='application.collection.users';
+		       url='application.collection.users';
 			   danwei='个(正数表示新增，负数表示删除)';
 			   yName="IM用户数量";
 			};
-			if($(':radio:checked').val()=="消息流通数量变化"){
-		       	   url='application.collection.chatmessages';
-			   danwei='条';
-			   yName="消息流通数量";
+			if($(':radio:checked').val()=="消息发送量"){
+		       url='application.collection.chatmessages';
+			   danwei='条/' + company;
+			   yName="消息数(单位:条)";
 			};
                };
 		applyChatMessagesData(applyRequest,flow,labels,url);
       		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
-		for(var i=0;i<labels.length;i++){dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
-	}
-			dataString+='</chart>';
-	      	if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)  FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
+		for(var i=0;i<labels.length;i++){
+			var tttime = '' + labels[i]
+			if(company == "天") {
+				tttime = labels[i].substring(0,10);
+			}
+			dataString += '<set label="' + tttime + '" value="' + flow[i] + '" />';
+		}
+		dataString+='</chart>';
+		if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)  FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
 		var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
 		chart.setXMLData( dataString );
 		chart.render("canvasUserDiv3");
@@ -536,7 +546,7 @@
     			<div style="float:right;">
 				<input type="hidden" id="dtp_input2" value="" /><br/>
 		    		<input type="radio" name="divRadio" id="userDiv" value="IM用户数量变化" onclick="getDiv()"/><span class="lbl">IM用户数量变化</span>
-		    		<input type="radio" name="divRadio" id="msgDiv" value="消息流通数量变化" onclick="getDiv()" /><span class="lbl">消息流通数量变化</span>
+		    		<input type="radio" name="divRadio" id="msgDiv" value="消息发送量" onclick="getDiv()" /><span class="lbl">消息发送量</span>
 		    	</div>
 				<div style="position:absolute;right:180px;top:185px;z-index:100;">
                     <input type="hidden" id="dtp_input2" value="" /><br/><span class="lbl">快速查询：</span>
