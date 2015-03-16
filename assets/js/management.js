@@ -169,10 +169,9 @@ function resetPasswd(){
 				}
 				for(var i = 0; i < tmpArr.length; i++) {
 					if('error_description' == tmpArr[i][0]){
-						if(tmpArr[i][1].indexOf("Could not find organization for email") > -1) {
+						if(tmpArr[i][1].indexOf("Could not find organization for email") > -1 || tmpArr[i][1].indexOf("Could not find organization for username") > -1) {
 							errorMsg = '该邮箱未注册过环信!';
-						}
-						if(tmpArr[i][1].indexOf("username") > -1) {
+						} else if(tmpArr[i][1].indexOf("username") > -1) {
 							errorMsg = '请联系系统管理员 !';
 						}
 					}
@@ -245,7 +244,9 @@ function regsFormValidate(){
 	var regEmail = $('#regEmail').val();
 	var regPassword = $('#regPassword').val();
 	var regRePassword = $('#regRePassword').val();
+	var regCompanyName = $('#regCompanyName').val();
 	var regTel = $('#regTel').val();
+	var comefrom = $('input:radio[name="comefrom"]:checked').val();
 	
 	if('' == regOrgName){
 		$('#regOrgNameSMsg').css('display','none');
@@ -308,6 +309,13 @@ function regsFormValidate(){
 		$('#regEmailEMsg').text('请输入有效的邮箱！');
 		return false;
 	}
+	
+	if('' == regCompanyName){
+		$('#regCompanyNameSEMsg').css('display','none');
+		$('#regCompanyNameEMsg').text('请输入企业名称！');
+		return false;
+	}
+	
 	if('' == regTel){
 		$('#regTelSEMsg').css('display','none');
 		$('#regTelEMsg').text('请输入联系电话！');
@@ -318,10 +326,19 @@ function regsFormValidate(){
 		$('#regTelEMsg').text('电话号码格式不正确！');
 		return false;
 	}
+	
+	if(typeof(comefrom) == 'undefined'){
+		$('#comeFromEMsg').text('请选择获知渠道！');
+		return false;
+	}
+	$('#comeFromEMsg').css('display','none');
+	$('#comeFromEMsg').text('');
+	
 	if(!$("#agreeCBox").prop("checked")) {
 		$('#agreeCBoxEMsg').text('请先同意环信开发者平台服务协议！');
 		return false;
 	}
+		
 		
 	$('#regOrgNameEMsg').text('');
 	$('#regUserNameEMsg').text('');	
@@ -376,8 +393,10 @@ function formSubmit(){
 	var regPassword = $('#regPassword').val();
 	var regCompanyName = $('#regCompanyName').val();
 	var regTel = $('#regTel').val();
-	var comefrom = $('#comefrom').val();
+	//var comefrom = $('#comefrom').val();
 	var mailSuffix = regEmail.substring(regEmail.indexOf('@')+1);
+	var comefrom = $('input:radio[name="comefrom"]:checked').val();
+	
 	
 	var d = {
 		organization:regOrgName,

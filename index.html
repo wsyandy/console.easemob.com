@@ -48,19 +48,32 @@
 <!-- 邮箱提示 -->
 <style type="text/css">
 .login-layout {
-	background: none repeat scroll 0 0 #e3eaf0;
+	background:#29b6f6 url("assets/img/bj.png") top center no-repeat;
 }
 .login-layout .widget-box {
-	background-color: #ccc;
+	background-color: #e5e5e5;
 	border-bottom: 0 none;
 	box-shadow: none;
 	overflow: hidden;
-	padding: 6px;
+	padding: 2px;
 	position: absolute;
 	transform: scale(0, 1) translate(-150px);
 	visibility: hidden;
 	width: 100%;
+    border-radius:10px;
 }
+.azen-right {float:right; padding-top:90px;}
+.azen-right a {color:#fff; font-size:20px; padding:0 5px;}
+.azen-right a:hover {color:#fff; font-size:20px; text-decoration:none;}
+.azen-right .current {color:#d7d7d7; border-right:1px solid #8ed8fa; display:inline-block; float:left;}
+.azen-getback {color:#fff; font-size:20px;}
+.azen-getback:hover {color:#fff; font-size:20px;text-decoration:none;}
+#signup-box .widget-main-clear{padding:40px 80px 36px;}
+.azen-location {position:absolute; left:10px; top:7px; padding-right:10px; color:#5b5652; font-size:14px; font-style:normal; font-family:微软雅黑;}
+.azen-locations {width:57px; text-align:right; display:inline-block; padding-right:10px; color:#5b5652; font-size:14px; font-style:normal; font-family:微软雅黑;}
+.azen-renchi {float:left; padding-right:10px;}
+#formbuttons .azen-buttons {width:100%; background-color:#00aadd; color:#fff; border:none; font-size:20px;padding:6px 0; border-radius:3px;}
+#signup-box .span10 {margin-left:15px;}
 </style>
 
 <script type="text/javascript">
@@ -170,18 +183,17 @@ function getBrowser() {
 		if(regOrgName != '' && !regOrgNameRegex.test(regOrgName)){
 			$('#regOrgNameSMsg').css('display','none');
 			$('#regOrgNameEMsg').text('只能使用数字,字母,横线,且不能以横线开头和结尾！');
-	 		//$('#regOrgName').focus();
 	 		return;
 	 	}
 	 	if(regOrgName != '' && regOrgName.length < 1){
 			$('#regOrgNameSMsg').css('display','none');
-			$('#regOrgNameEMsg').text('企业ID长度在至少一个字符！');	
-			//$('#regOrgName').focus();
+			$('#regOrgNameEMsg').text('企业ID长度在至少一个字符！');
 			return;
 		}
 	 	
 	 	$('#regOrgNameSMsg').css('display','block');
 	 	$('#regOrgNameEMsg').text('');	
+		$('#regOrgNameEMsg').css('display','block');
 	}
 	
 	function onBlurRegUserNameCheck(){
@@ -192,19 +204,18 @@ function getBrowser() {
 		var regUserNameRegex = /^[0-9a-zA-Z]*$/;
 		if(regUserName != '' && !regUserNameRegex.test(regUserName)){
 			$('#regUserNameSMsg').css('display','none');
-		 	$('#regUserNameEMsg').text('只能使用字母,数字或字母数字组合！');	
-	 		//$('#regUserName').focus();
+		 	$('#regUserNameEMsg').text('只能使用字母,数字或字母数字组合！');
 	 		return;
 	 	}
 	 	if(regUserName != '' && regUserName.length < 1){
 			$('#regUserNameSMsg').css('display','none');
 			$('#regUserNameEMsg').text('用户长度在至少一个字符！');	
-			//$('#regUserName').focus();
 			return;
 		}
 	 	
 	 	$('#regUserNameSMsg').css('display','block');
-	 	$('#regUserNameEMsg').text('');	
+	 	$('#regUserNameEMsg').text('');
+		$('#regUserNameEMsg').css('display','block');
 	}
 	
 	function onBlurRegPasswordCheck(){
@@ -215,12 +226,12 @@ function getBrowser() {
 		if(regPassword != '' && regPassword.length < 1){
 			$('#regPasswordSMsg').css('display','none');
 			$('#regPasswordEMsg').text('密码长度在至少一个字符！');	
-			//$('#regPassword').focus();
 			return;
 		}
 		
 		$('#regPasswordSMsg').css('display','block');
 	 	$('#regPasswordEMsg').text('');	
+		//$('#regPasswordEMsg').css('display','block');
 	}
 	
 	function onBlurRegRePasswordCheck(){
@@ -231,11 +242,11 @@ function getBrowser() {
 		var regPassword = $('#regPassword').val();
 		if('' != regPassword && regPassword != regRePassword){
 			$('#regRePasswordEMsg').text('两次输入密码不一致！');
-			//$('#regRePassword').focus();
 			return;
 		}
 		
 	 	$('#regRePasswordEMsg').text('');
+		//$('#regRePasswordEMsg').css('display','block');
 	}
 	
 	function onBlurRegEmailCheck(){
@@ -249,13 +260,27 @@ function getBrowser() {
 			return;
 		} else if(regEmail==''){
 		    $('#regEmailSEMsg').css('display','none');
-            $('#regEmailEMsg').text('邮箱不能为空！');
+            //$('#regEmailEMsg').text('邮箱不能为空！');
 			return;
 		}
 		
-	 	$('#regEmailEMsg').text('');	
+	 	$('#regEmailEMsg').text('');
+		//$('#regEmailEMsg').css('display','block');
 	}
 
+	function onBlurRegCompanyNameCheck(){
+		var regCompanyName = $('#regCompanyName').val();
+		
+		if(regCompanyName != ''){
+			$('#regCompanyNameSEMsg').css('display','none');
+			$('#regCompanyNameEMsg').text('');
+			return;
+		}
+		
+	 	//$('#regCompanyNameEMsg').text('');
+	}
+	
+	
 	function onBlurRegTelCheck(){
 		$('#regTel').val($('#regTel').val().trim());
 		var regTel = $('#regTel').val();
@@ -265,10 +290,46 @@ function getBrowser() {
 			return;
 		} else if(regTel ==''){
 		    	$('#regTelSEMsg').css('display','none');
-            		$('#regTelEMsg').text('请输入联系电话！！');
+            	//$('#regTelEMsg').text('请输入联系电话！！');
 			return;
 		}
 	 	$('#regTelEMsg').text('');
+		//$('#regTelEMsg').css('display','block');
+	}
+	
+	function onBlurCheckLoginUsername(){
+		$('#username').val($('#username').val().trim());
+		
+		var loginUserName = $('#username').val();
+		if('' == loginUserName){
+			$('#usernameEMsg').text('用户名不能为空！');
+			return false;
+		}
+
+		$('#usernameEMsg').text('');
+		//$('#usernameEMsg').css('display','block');
+	}
+	
+	function onBlurCheckLoginPassword(){
+		var loginPassword = $('#password').val();
+		if('' == loginPassword){
+			$('#passwordEMsg').text('密码不能为空！');
+			return false;
+		}
+
+		$('#passwordEMsg').text('');
+		//$('#passwordEMsg').css('display','block');
+	}
+	
+	function onBlurCheckResetEmail(){
+		var resetEmail = $('#email').val();
+		if('' == resetEmail){
+			$('#emailEMsg').text('用户名不能为空！');
+			return false;
+		}
+
+		$('#emailEMsg').text('');
+		//$('#emailEMsg').css('display','block');
 	}
 	
 	function login(){
@@ -316,7 +377,7 @@ function getBrowser() {
 		$('#regPassword').val('');
 		$('#regRePassword').val('');	
 		$('#regEmail').val('');
-		$('#regCompanyName').val('sss');
+		$('#regCompanyName').val('');
 		$('#regTel').val('');
 		
 		$('#regOrgNameEMsg').text('');
@@ -338,8 +399,12 @@ function getBrowser() {
       <div class="span12"><p>
         <div class="login-container">
           <div class="row-fluid">
-            <div class="center">
-              <h1 style="margin-top: 40px;" class="blue"> <img border="0" style="height:60px;" src="assets/images/login_logo.png" alt=""> </h1>
+            <div class="center" style="float:left;">
+              <h1 style="margin-top: 40px;" class="blue"> <img border="0" style="height:78px;" src="assets/images/login_logo.png" alt=""> </h1>
+            </div>
+            <div class="azen-right">
+                <a href="javascript:void(0);" onclick="clearBox();show_box('login-box');" class="current">登录</a>
+                <a href="javascript:void(0);" id="btnRegist" onClick="show_box('signup-box'); return false;" class="forgot-password-link">注册</a>
             </div>
           </div>
           <div class="row-fluid">
@@ -348,7 +413,6 @@ function getBrowser() {
               <div class="visible widget-box no-border" id="login-box">
                 <div class="widget-body">
                   <div class="widget-main">
-                    <div><h4 class="header blue lighter bigger"><img src="assets/images/cup.png" /> 请输入您的信息 </h4></div>
                     <div class="space-6"></div>
                       <fieldset> 
                       	<!-- 应用标示符 -->        
@@ -358,59 +422,35 @@ function getBrowser() {
                           <span id="appkeyEMsg" style="font-size:12px;color:red"></span>
                         </label>-->
                         <!-- 用户名 -->           
-                        <label><span class="block input-icon input-icon-right">
-                          <input type="text" placeholder="用户名" nullmsg="请输入用户名！" datatype="*" class="span12" name="username" id="username" onClick="keyLogin()"/>
-                          <i class="icon-user"></i> <span class="Validform_checktip"></span></span>
-                          <span id="usernameEMsg" style="font-size:12px;color:red"></span>
+                        <label><span class="block input-icon input-icon-right"><i class="azen-locations">用户名：</i>
+                          <input type="text" placeholder="" nullmsg="请输入用户名！" datatype="*" class="span10" name="username" id="username" onClick="keyLogin()"/>
+                          <i class=""></i> <span class="Validform_checktip"></span></span>
+                          <span id="usernameEMsg" style="font-size:12px;color:red;padding-left:72px;"></span>
                         </label>
                         <!-- 密码 -->
-                        <label> <span class="block input-icon input-icon-right">
-                          <input type="password" nullmsg="请输入密码！" placeholder="密码" class="span12" name="password" id="password" onClick="keyLogin()" />
-                          <i class="icon-lock"></i> <span class="Validform_checktip"></span></span> 
-                          <span id="passwordEMsg" style="font-size:12px;color:red"></span>
-                        </label>
-                       <!--<label><span class="block input-icon input-icon-right">
-                          <input type="text" placeholder="企业ID" nullmsg="请输入企业ID！" datatype="*" value="" class="span12" name="qiyeid" id="qiyeid" onclick="keyLogin()"/>
-						  <span class="Validform_checktip"></span></span>
-						  <span id="regqiyeid" style="font-size:12px;color:red"></span>
-                        </label>
-						<label><span class="block input-icon input-icon-right">
-                          <input type="text" placeholder="应用名称" nullmsg="请输入应用名称！" datatype="*" class="span12" name="yingyongname" id="yingyongname" onclick="keyLogin()"/><span class="Validform_checktip"></span><span id="regyingyongname" style="font-size:12px;color:red"></span></span>
+                        <label> <span class="block input-icon input-icon-right"><i class="azen-locations">密码：</i>
+                          <input type="password" nullmsg="请输入密码！" placeholder="" class="span10" name="password" id="password" onClick="keyLogin()" />
+                          <i class=""></i> <span class="Validform_checktip"></span></span>
+                          <span id="passwordEMsg" style="font-size:12px;color:red; padding-left:72px;"></span>
                         </label>
 
                         <div class="row-fluid">
-                        	<div class="span8">
-                        			<select name="loginRole" id="loginRole" style="WIDTH:300px" onchange="app_org()">
-                        				<option value="org">企业管理员</option>
-                        				<option value="app">APP管理员</option>
-		                        	</select>
-                        	</div>
-                        </div>
-                        -->
-                        <div class="space"></div>
-                        <div class="row-fluid">
-                          <div class="span8">
+                          <div class="span8" style="padding-left:75px;">
                             <input type="checkbox" checked="true" name="rememberme" id="rememberme">
-                            <span class="lbl">记住我</span>
+                            <span class="lbl">记住密码</span>
                           </div>
-                          <button id="loginBtn" class="span4 btn btn-small btn-primary" onClick="login();"> <i class="icon-key"></i> <span id="cont">登录</span> </button>
+                            <div class="span3"><span class="lbl" style="float:right; ">
+                                <a href="javascript:void(0);" onClick="show_box('forgot-box'); return false;" class="forgot-password-link">
+                                忘记密码>></a></span></div>
                         </div>
                       </fieldset>
                   </div>
                   <div class="toolbar clearfix">
-                  	<div>
-				<a href="javascript:void(0);" onClick="show_box('forgot-box'); return false;" class="forgot-password-link">
-				<i class="icon-arrow-left"></i>
-				忘记密码？
-				</a>
-				</div>
-				<div>
-				<a href="javascript:void(0);" id="btnRegist" onClick="show_box('signup-box'); return false;" class="forgot-password-link">
-					去注册
-				<i class="icon-arrow-right"></i>
-				</a>
-				</div>
+                      <div id="loginBtn" class="span4 btn btn-small btn-primary" onClick="login();">  <span id="cont">登录</span> </div>
                   </div>
+                    <div style="height:80px;"></div>
+
+
                 </div>
               </div>
               
@@ -418,68 +458,76 @@ function getBrowser() {
               <div class="widget-box no-border" id="forgot-box">
                 <div class="widget-body">
                   <div class="widget-main">
-                    <h4 class="header red lighter bigger"> <i class="icon-key"></i> 找回密码 </h4>
                     <div class="space-6"></div>
-                    <p> 请输入您的企业管理员用户名 </p>
                       <fieldset>
-                        <label> <span class="block input-icon input-icon-right">
-                          <input type="text" id="email" name="email" placeholder="用户名" class="span12" value="">
-                          <i class="icon-envelope"></i> </span>
-                          <span id="emailEMsg" style="font-size:12px;color:red"></span>
+                        <label> <span class="block input-icon input-icon-right"><i class="azen-locations">用户名：</i>
+                          <input type="text" id="email" name="email" placeholder="请输入您的企业管理员用户名" onBlur="onBlurCheckResetEmail()" class="span10" value="">
+                         </span>
+                          <span id="emailEMsg" style="font-size:12px;color:red; padding-left:72px;"></span>
                         </label>
+                          <div class="space"></div>
+                          <div class="space"></div>
                         <div class="row-fluid">
-                        	<a class="span5 offset7 btn btn-small btn-danger" onClick="resetPasswd();"> <i class="icon-lightbulb"></i> 找回!</a>
+                            <div class="span12 btn btn-small btn-primary">
+                                <a class="azen-getback" onClick="resetPasswd();">找回密码</a>
+                            </div>
                         </div>
+
+                          <div class="span4" style="float:right; text-align:right; padding-top:10px;">
+                              <a href="javascript:void(0);" onclick="clearBox();show_box('login-box');" class="">返回登录&gt;&gt;&gt; </a>
+                          </div>
+                          <div style="height:180px;"></div>
+
                       </fieldset>
+
                   </div>
-                  <div class="toolbar center"> <a class="back-to-login-link" onClick="show_box('login-box'); return false;" href="javascript:void(0);"> 返回登录 <i class="icon-arrow-right"></i> </a> </div>
+
                 </div>
               </div>
               
               <!-- ORG管理员注册 -->
               <div class="widget-box no-border" id="signup-box">
                 <div class="widget-body">
-                  <div class="widget-main">
-                    <h4 class="header green lighter bigger"> <i class="icon-group blue"></i> 新用户注册 </h4>
+                  <div class="widget-main widget-main-clear">
                     <div class="space-6"></div>
-                    <p> 请详细输入您的信息<font color='red'>[红色星号标识为必填项]</font>: </p>
+
                       <fieldset>
                       	<label> <span class="block input-icon input-icon-right">
-                          <span style="color:red">*</span>
-			  <input type="text" id="regOrgName" name="regOrgName" placeholder="企业ID" class="span11" onBlur="onBlurRegOrgNameCheck()" value="" onKeyUp="value=value.replace(/[\uFF00-\uFFFF]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\uFF00-\uFFFF]/g,''))" />
-                          <i class="icon-home"></i></span>
-                          <span id="regOrgNameSMsg" style="font-size:12px">至少一个字符，可使用字母,数字,横线,不能以横线开头</span>
-			<div id="regOrgNameSMsg" style="font-size:12px;clear:both;">说明:企业ID是账户的唯一标识，一个企业ID下可以注册多个App </div>
-                          <span id="regOrgNameEMsg" style="font-size:12px;color:red"></span>
+                          <span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span><i class="azen-location">企业ID：</i>
+			  <input type="text" id="regOrgName" name="regOrgName" placeholder="企业ID" class="span10" onBlur="onBlurRegOrgNameCheck()" value="" onKeyUp="value=value.replace(/[\uFF00-\uFFFF]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\uFF00-\uFFFF]/g,''))" />
+                          </span>
+                          <span id="regOrgNameSMsg" style="font-size:12px; padding-left:85px; color:#5c5753;">3~18个字符,可使用字母,数字,横线,不能以横线开头,</span>
+                          <span id="regOrgNameEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
+
                       	<label> <span class="block input-icon input-icon-right">
-			<span style="color:red">*</span>
-                          <input type="text" id="regUserName" placeholder="企业管理员用户名" class="span11" name="regUserName" value="" onBlur="onBlurRegUserNameCheck()">
-                          <i class="icon-user"></i></span>
-                          <span id="regUserNameSMsg" style="font-size:12px">至少一个字符，包括[字母,数字,下划线,横线,斜线,英文点]</span>
-                          <span id="regUserNameEMsg" style="font-size:12px;color:red"></span>
+			            <span style="color:red;float:left; font-size:24px; display:block; padding-right:60px;padding-top:12px;">*</span><i class="azen-location">用户名：</i>
+                          <input type="text" id="regUserName" placeholder="企业管理员用户名" class="span10" name="regUserName" value="" onBlur="onBlurRegUserNameCheck()">
+                          </span>
+                          <span id="regUserNameSMsg" style="font-size:12px;padding-left:85px; color:#5c5753;">1~18个字符,可使用字母,数字</span>
+                          <span id="regUserNameEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
+                        </label>
+
+                        <label> <span class="block input-icon input-icon-right">
+			<span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span><i class="azen-location">密码：</i>
+                          <input type="password" id="regPassword" placeholder="6~20个字符,区分大小写" class="span10" name="regPassword" value="" onBlur="onBlurRegPasswordCheck()">
+                          </span>
+                          <span id="regPasswordEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
                         <label> <span class="block input-icon input-icon-right">
-			<span style="color:red">*</span>
-                          <input type="password" id="regPassword" placeholder="密码" class="span11" name="regPassword" value="" onBlur="onBlurRegPasswordCheck()">
-                          <i class="icon-lock"></i> </span>
-                          <span id="regPasswordSMsg" style="font-size:12px">至少一个字符</span>
-                          <span id="regPasswordEMsg" style="font-size:12px;color:red"></span>
+			<span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span> <i class="azen-location">重复密码：</i>
+                          <input type="password" id="regRePassword" placeholder="重复密码" class="span10" name="regRePassword" value="" onBlur="onBlurRegRePasswordCheck()" />
+                         </span>
+                          <span id="regRePasswordEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
                         <label> <span class="block input-icon input-icon-right">
-			<span style="color:red">*</span>
-                          <input type="password" id="regRePassword" placeholder="重复密码" class="span11" name="regRePassword" value="" onBlur="onBlurRegRePasswordCheck()" />
-                          <i class="icon-lock"></i> </span>
-                          <span id="regRePasswordEMsg" style="font-size:12px;color:red"></span>
-                        </label>
-                        <label> <span class="block input-icon input-icon-right">
-			<span style="color:red">*</span>
-                          <input type="text" id="regEmail" placeholder="电子邮件" style="width:277px" class="span11" name="regEmail" value="" onBlur="onBlurRegEmailCheck()">
-                          <i class="icon-envelope"></i></span>
+			<span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span><i class="azen-location">电子邮件：</i>
+                          <input type="text" id="regEmail" placeholder="电子邮件" class="span10" style="width:410px;" name="regEmail" value="" onBlur="onBlurRegEmailCheck()">
+                          </span>
                           <span id="regEmailSEMsg" style="font-size:12px;"></span>
-                          <span id="regEmailEMsg" style="font-size:12px;color:red"></span>
+                          <span id="regEmailEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
-		 	<script type="text/javascript">
+		 				<script type="text/javascript">
                            $("#regEmail").mailAutoComplete({
                              boxClass: "out_box", //外部box样式
                              listClass: "list_box", //默认的列表样式
@@ -490,40 +538,56 @@ function getBrowser() {
                              });
                          </script>
                         <label> <span class="block input-icon input-icon-right">
-			  <span style="color:red">&nbsp;</span>
-                          <input type="text" id="regCompanyName" placeholder="企业名称" class="span11" name="regCompanyName" value="" />
-                          <i class="icon-home" style="z-index:0;"></i></span>
+			  <span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span><i class="azen-location">企业名称：</i>
+                          <input type="text" id="regCompanyName" placeholder="企业名称" class="span10" name="regCompanyName" onBlur="onBlurRegCompanyNameCheck()" value="" >
+                        </span>
                           <span id="regCompanyNameSEMsg" style="font-size:12px;"></span>
-                          <span id="regCompanyNameEMsg" style="font-size:12px;color:red"></span>
+                          <span id="regCompanyNameEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
                         <label><span class="block input-icon input-icon-right">
-			<span style="color:red">*</span>
-                          <input type="text" id="regTel" placeholder="联系电话" class="span11" name="regTel" value="" onBlur="onBlurRegTelCheck()">
-                          <i class="icon-dashboard" style="z-index:0;"></i></span>
-                          <span id="regTelSEMsg" style="font-size:12px;">固话或者移动电话号码</span>
-                          <span id="regTelEMsg" style="font-size:12px;color:red"></span>
+			<span style="color:red; float:left; font-size:24px; display:block; padding-right:60px; padding-top:12px;">*</span><i class="azen-location">联系电话：</i>
+                          <input type="text" id="regTel" placeholder="固话或者移动电话号码" class="span10" name="regTel" value="" onBlur="onBlurRegTelCheck()">
+                          </span>
+                          <span id="regTelSEMsg" style="font-size:12px;"></span>
+                          <span id="regTelEMsg" style="font-size:12px;color:red; padding-left:85px;"></span>
                         </label>
-			<label><span class="block input-icon input-icon-right">
-			 <span style="color:red">&nbsp;</span>
-                          <input type="text" id="comefrom" placeholder="用户来源" class="span11" name="comefrom" value="">
-                          <i class="icon-dashboard" style="z-index:0;"></i></span>
-                          <span id="comefromEMsg" style="font-size:12px;">您是从什么渠道了解环信的?</span>
-                          <span id="comefromEMsg" style="font-size:12px;color:red"></span>
-                        </label>
-                        <label>
-			<span style="color:red">*</span>
+                         
+                             <p><span style="color:red; float:left; font-size:24px; display:block; padding-top:5px;">*</span>您是通过那种渠道找到我们的?<span id="comeFromEMsg" style="font-size:12px;color:red; padding-left:85px;"></span></p>
+                              <div>
+                                  <div class="azen-renchi">
+                                      <input type="radio" name="comefrom" id="" value="internet-search">
+                                      <span class="lbl">互联网搜索</span>
+                                  </div>
+                                  <div class="azen-renchi">
+                                      <input type="radio" name="comefrom" id="" value="friends">
+                                      <span class="lbl">朋友推荐</span>
+                                  </div>
+                                  <div class="azen-renchi">
+                                      <input type="radio" name="comefrom" id="" value="official">
+                                      <span class="lbl">官方账号</span>
+                                  </div>
+                                  <div class="azen-renchi">
+                                      <input type="radio" name="comefrom" id="" value="exhibition">
+                                      <span class="lbl">展会活动</span>
+                                  </div>
+                                  <div class="azen-renchi">
+                                      <input type="radio" name="comefrom" id="" vallue="media-report">
+                                      <span class="lbl">媒体报道</span>
+                                  </div>
+                              </div>
+                         
+                          <div class="space-24"></div>
+
+                          <div id="formbuttons"> <button class="azen-buttons" id="formSubBtn" onClick="formSubmit();"> 提交 </button></div>
+
+			<span style="color:red"></span>
                           <input type="checkbox" id="agreeCBox" checked="checked" onclick="checkBoxStatus()">
-                          <span class="lbl"> 同意遵守<a href="http://www.easemob.com/hx/about/terms.html" target="_blank">【环信开发者平台服务协议】&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></span> 
+                          <span class="lbl"> 同意遵守<a href="http://www.easemob.com/hx/about/terms.html" target="_blank">【环信开发者平台服务协议】</a></span>
+                         <span style="float:right;"> <a href="javascript:void(0);" onclick="clearBox();show_box('login-box');" class="">返回登录&gt;&gt;&gt; </a></span>
 			  <span id="agreeCBoxEMsg" style="font-size:12px;color:red"></span>
                         </label>
-                        <div class="space-24"></div>
-                        <div class="row-fluid">
-                          <button class="span6 btn btn-small" id="resetForm" onClick="resetForm()"> <i class="icon-refresh"></i> 重新填写 </button>
-                          <button class="span6 btn btn-small" id="formSubBtn" onClick="formSubmit();"> 注册 <i class="icon-arrow-right icon-on-right"></i> </button>
-                        </div>
                       </fieldset>
                   </div>
-                  <div class="toolbar center"> <a class="back-to-login-link" onClick="clearBox();show_box('login-box');" href="javascript:void(0);"> <i class="icon-arrow-left"></i> 返回登录 </a> </div>
                 </div>
               </div>
             </div>
