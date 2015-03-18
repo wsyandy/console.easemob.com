@@ -1873,7 +1873,7 @@ function updateInfo(appUuid){
 			notification_no_disturbing_end = parseInt(notification_no_disturbing_end);
 			notification_no_disturbing_start = parseInt(notification_no_disturbing_start);
 			
-			if(notification_no_disturbing_end>=0 && notification_no_disturbing_end<=24&&notification_no_disturbing_start>=0&&notification_no_disturbing_start<=24&&notification_no_disturbing_end>notification_no_disturbing_start){
+			if(notification_no_disturbing_end >= 0 && notification_no_disturbing_end<=24 && notification_no_disturbing_start >= 0 && notification_no_disturbing_start <= 24){
 				var d ={
 					notification_display_style : notification_display_style,
 					nickname : nickname,
