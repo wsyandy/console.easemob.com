@@ -3016,57 +3016,56 @@ function getAppNotifiers(appUuid, pageAction){
 		if(typeof(pageAction)!='undefined' && pageAction != ''){	
 			temp = '&cursor='+cursors[pageNo];
 		}
+	
 		var loading = '<tr id="tr_loading"><td class="text-center" colspan="6"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
 		$('#appCredentialBody').empty();
 		$('#appCredentialBody').append(loading);
-	$.ajax({
-			url:baseUrl+'/'+ orgName +'/' + appUuid + '/notifiers?limit=5'+temp,
+		$.ajax({
+			url:baseUrl+'/'+ orgName +'/' + appUuid + '/notifiers?limit=8'+temp,
 			type:'GET',
 			headers:{
-				'Authorization':'Bearer '+access_token,
+				'Authorization':'Bearer ' + access_token,
 				'Content-Type':'application/json'
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
 				
 			},
 			success: function(respData, textStatus, jqXHR) {
-				if(pageAction!='forward'){
-					cursors[pageNo+1] =	respData.cursor;
+				if(pageAction != 'forward'){
+					cursors[pageNo + 1] =	respData.cursor;
 				} else {
-					cursors[pageNo+1] = null;
+					cursors[pageNo + 1] = null;
 				}
-				if(respData.entities.length ==0 && pageAction == 'no'){
-					getAppNotifiers(appUuid,'forward' );
-				}else{
-					var option = '';
-					$(respData.entities).each(function(){
-						var statusStr = '异常';
+				
+				var option = '';
+				$(respData.entities).each(function(){
+					var statusStr = '异常';
 
-						var name = this.name;
-						var credentialUuid = this.uuid;
-						var credentialId = this.uuid;
-						var passphrase = this.passphrase;
-						var environment = '';
-						if(this.environment == 'DEVELOPMENT') {
-							environment = '开发';
-						} else if(this.environment == 'PRODUCTION'){
-							environment = '生产';
-						}
-						
-						var created = format(this.created);
-						var modified = format(this.modified);
-						option += '<tr>'+
-							'<td class="text-center">'+name+'</td>'+
-							'<td class="text-center">'+environment+'</td>'+
-							'<td class="text-center">'+created+'</td>'+
-							'<td class="text-center">'+modified+'</td>'+
-							'<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifiers(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
-							'</tr>';
-							
-					});
-					$('#appCredentialBody').html('');
-					$('#appCredentialBody').append(option);
-				}
+					var name = this.name;
+					var credentialUuid = this.uuid;
+					var credentialId = this.uuid;
+					var passphrase = this.passphrase;
+					var environment = '';
+					if(this.environment == 'DEVELOPMENT') {
+						environment = '开发';
+					} else if(this.environment == 'PRODUCTION'){
+						environment = '生产';
+					}
+
+					var created = format(this.created);
+					var modified = format(this.modified);
+					option += '<tr>'+
+						'<td class="text-center">'+name+'</td>'+
+						'<td class="text-center">'+environment+'</td>'+
+						'<td class="text-center">'+created+'</td>'+
+						'<td class="text-center">'+modified+'</td>'+
+						'<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifiers(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+						'</tr>';
+
+				});
+				$('#appCredentialBody').html('');
+				$('#appCredentialBody').append(option);
+				
 				// 无数据
 				var tbody = document.getElementsByTagName("tbody")[0];
 				if(!tbody.hasChildNodes()){
