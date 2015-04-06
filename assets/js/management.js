@@ -133,12 +133,6 @@ function resetPasswdFormValidate(){
 		$('#email').focus();
 		return false;
 	}
-        //var emailReg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-	//if(!emailReg.test(email)){
-	//	$('#emailEMsg').text('请输入有效的邮箱！');
- 	//	$('#email').focus();
-	//	return false;
- 	//}
  	
  	$('#emailEMsg').text();
  	return true;
@@ -353,9 +347,9 @@ function regsFormValidate(){
 }
 
 function checkTel(value){
-    var isPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
-    var isMob = /^((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|18[0123456789][0-9]{8}|14[0123456789][0-9]{8})$/;
-    if(isMob.test(value)||isPhone.test(value)) {
+	var isChina = /^(((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|18[0123456789][0-9]{8}|14[0123456789][0-9]{8}))$/;
+	var isMalaysia = /^(((\+?60)|(\(\+60\)))([0123456789]{7}|[0123456789]{8}|[0123456789]{9}))$/;
+    if(isChina.test(value) || isMalaysia.test(value)) {
         return true;
     } else{
         return false;
