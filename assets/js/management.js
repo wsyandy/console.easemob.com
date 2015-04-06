@@ -347,9 +347,10 @@ function regsFormValidate(){
 }
 
 function checkTel(value){
+	var isChinaPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
 	var isChina = /^(((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|18[0123456789][0-9]{8}|14[0123456789][0-9]{8}))$/;
 	var isMalaysia = /^(((\+?60)|(\(\+60\)))([0123456789]{7}|[0123456789]{8}|[0123456789]{9}))$/;
-    if(isChina.test(value) || isMalaysia.test(value)) {
+    if(isChinaPhone.test(value) || isChina.test(value) || isMalaysia.test(value)) {
         return true;
     } else{
         return false;
