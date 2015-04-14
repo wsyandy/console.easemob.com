@@ -1180,11 +1180,11 @@ function getAppProfile(appUuid){
 					var organizationName = this.organizationName;
 					var allowOpen = this.allow_open_registration?'开放注册':'授权注册';
 					var tag = this.allow_open_registration?'0':'1';
-					var image_thumbnail_width = '100';
+					var image_thumbnail_width = '170';
 					if(this.image_thumbnail_width != null && this.image_thumbnail_width != undefined){
 						image_thumbnail_width = this.image_thumbnail_width;
 						}
-					var image_thumbnail_height = '100';
+					var image_thumbnail_height = '170';
 					if(this.image_thumbnail_height != null && this.image_thumbnail_height!= undefined){
 						image_thumbnail_height=this.image_thumbnail_height;
 					}
