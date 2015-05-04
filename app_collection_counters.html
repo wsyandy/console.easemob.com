@@ -66,6 +66,7 @@
 	var satatime;//记录计算过后的时间
 	var company="天";//记录单位（天。小时，六小时）
 	var yName="用户数量变化";
+	
 	//获取年-月-日 时：分：秒
 	var type ="Y-M-D h:m";
         var myDate = new Date();
@@ -155,6 +156,7 @@
 		pad:'true'
 	};
 
+	
 	function applyChatMessagesData(applyRequest,flow,labels,url){
 		var startTime=$("#control_date").val();
 		var endTime=$("#control_date2").val();
@@ -168,12 +170,54 @@
 		applyRequest.start_time=nowtime;
 		applyRequest.end_time=nowtime1;
 		
+		var tokenStr = applyRequest.access_token;
+		
+		var payloadd = {
+			'grant_type':'client_credentials',
+			'client_id':'',
+			'client_secret':''
+		};
+		
+		if(url == 'application.collection.chatmessages'){
+			$.ajax({
+				url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/credentials',
+				type:'GET',
+				async:false,
+				headers:{
+					'Authorization':'Bearer ' + applyRequest.access_token,
+					'Content-Type':'application/json'
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+				},
+				success: function(respData, textStatus, jqXHR) {
+					payloadd.client_id = respData.credentials.client_id;
+					payloadd.client_secret = respData.credentials.client_secret;
+				}
+			});
+			
+			$.ajax({
+				url:baseUrl+'/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/token',
+				type:'POST',
+				async:false,
+				data:JSON.stringify(payloadd),
+				headers:{
+					'Content-Type':'application/json'
+				},
+				crossDomain:true,
+				error: function(respData, textStatus, errorThrown) {
+				},
+				success: function(respData, textStatus, jqXHR) {
+					tokenStr = respData.access_token;
+				}
+			});
+		}
+		
 		$.ajax({
 			url:baseUrl+'/'+ applyRequest.orgName +'/' + applyRequest.appUuid + '/counters?counter='+url+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad,
 			type:'GET',
 			async:false,
 			headers:{
-				'Authorization':'Bearer ' + applyRequest.access_token,
+				'Authorization':'Bearer ' + tokenStr,
 				'Content-Type':'application/json'
 			},
 			success: function(respData, textStatus, jqXHR) {
