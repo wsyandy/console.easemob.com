@@ -69,13 +69,13 @@
 	
 	//获取年-月-日 时：分：秒
 	var type ="Y-M-D h:m";
-        var myDate = new Date();
+	var myDate = new Date();
 	Y = myDate.getFullYear();//年份：如2013
-        M = myDate.getMonth()+1<10?"0"+(myDate.getMonth()+1):myDate.getMonth()+1;//月份：如06
-        D = myDate.getDate()<10?"0"+myDate.getDate():myDate.getDate();//日：如15
-        h = myDate.getHours()<10?"0"+myDate.getHours():myDate.getHours();
-        m = myDate.getMinutes()<10?"0"+myDate.getMinutes():myDate.getMinutes();
-        s = myDate.getSeconds()<10?"0"+myDate.getSeconds():myDate.getSeconds();
+	M = myDate.getMonth()+1<10?"0"+(myDate.getMonth()+1):myDate.getMonth()+1;//月份：如06
+	D = myDate.getDate()<10?"0"+myDate.getDate():myDate.getDate();//日：如15
+	h = myDate.getHours()<10?"0"+myDate.getHours():myDate.getHours();
+	m = myDate.getMinutes()<10?"0"+myDate.getMinutes():myDate.getMinutes();
+	s = myDate.getSeconds()<10?"0"+myDate.getSeconds():myDate.getSeconds();
 	//获取年-月-日 时：分：秒end
 	$(function(){   
 		$('#showName').text(Application);
@@ -85,16 +85,16 @@
 			//初始开始时间段
 			//计算当前时间
 			time = type.replace("Y",Y);
-		        time = time.replace("M",M);
-		        time = time.replace("D",D);
-		        time = time.replace("h",h);
-		        time = time.replace("m",m);
-		        //time = time.replace("s",s);
+			time = time.replace("M",M);
+			time = time.replace("D",D);
+			time = time.replace("h",h);
+			time = time.replace("m",m);
+			//time = time.replace("s",s);
 			//计算前7天时间
 			if(D-6<=0){
 				satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
-		        }else{
-		          	satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
+			}else{
+				satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
 			}
 			document.getElementById('control_date').value = satatime;
 		 	document.getElementById('control_date2').value = time;
@@ -157,7 +157,7 @@
 	};
 
 	
-	function applyChatMessagesData(applyRequest,flow,labels,url){
+	function applyChatMessagesData(applyRequest,flow,labels,counterName){
 		var startTime=$("#control_date").val();
 		var endTime=$("#control_date2").val();
 
@@ -177,8 +177,8 @@
 			'client_id':'',
 			'client_secret':''
 		};
-		
-		if(url == 'application.collection.chatmessages'){
+		var tests = '';
+		if(counterName == 'application.collection.chatmessages'){
 			$.ajax({
 				url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/credentials',
 				type:'GET',
@@ -210,10 +210,12 @@
 					tokenStr = respData.access_token;
 				}
 			});
+
+			tests = '&direction=outgoing';
 		}
 		
 		$.ajax({
-			url:baseUrl+'/'+ applyRequest.orgName +'/' + applyRequest.appUuid + '/counters?counter='+url+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad,
+			url:baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter='+counterName+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad + tests,
 			type:'GET',
 			async:false,
 			headers:{
@@ -221,13 +223,36 @@
 				'Content-Type':'application/json'
 			},
 			success: function(respData, textStatus, jqXHR) {
-			//alert(JSON.stringify(respData))
 				$.each(respData.counters,function(){
 					if(this.values.length == 0){
 						flow.push(0);
 						labels.push(0);
 					} else {
-						$.each(this.values,function(){
+						$.each(this.values, function() {
+							/*
+							var tempVal = 0;
+							var tempTS = 0;
+							var val = this.value;
+							var ts = this.timestamp;
+							var interval = 0;
+							var expected_time = applyRequest.start_time;
+
+							// 聚合同一个resolution内的数据成一个数据点
+							if('day' == applyRequest.resolution) {
+								interval = 60 * 60 * 1000;
+							} else if('week' == applyRequest.resolution) {
+								interval = 24 * 60 * 60 * 1000;
+							} else if('month' == applyRequest.resolution) {
+								interval = 24 * 60 * 60 * 1000;
+							}
+							while (ts != expected_time) {
+								expected_time = expected_time + interval;
+							}
+
+							flow.push(tempVal);
+							labels.push(format1(tempTS));
+							*/
+
 							flow.push(this.value);
 							labels.push(format1(this.timestamp));
 						});
@@ -235,24 +260,23 @@
 				});
 			},
 			error: function(jqXHR, textStatus, errorThrown) {
-					alert('提示\n\n数据获取失败!');
-			},
+				alert('提示\n\n数据获取失败!');
+			}
 		});	
 	}
 
 	function determine(){
-	   var statime=$("#control_date").val();
-	   var endtime=$("#control_date2").val();
-	   if(statime>endtime){
-	      	alert("请重新选择时间，开始时间不能大于结束时间");
-          	return;
+	   var statime = $("#control_date").val();
+	   var endtime = $("#control_date2").val();
+	   if(statime > endtime){
+		   alert("请重新选择时间，开始时间不能大于结束时间");
+		   return;
 	   }
 	}
 
 	function getDiv(){
-	        //determine();
 		var flow=[], labels=[];
-		var url;
+		var counterName;
 		var danwei;
 		var divRadio1 = document.getElementsByName("divRadio1");
 		var timeValue;
@@ -263,20 +287,20 @@
 		}
 		if(timeValue == "六小时"){
 			//计算当前时间
-			  time = type.replace("Y",Y);
-			  time = time.replace("M",M);
-			  time = time.replace("D",D);
-			  time = time.replace("h",h);
-			  time = time.replace("m",m);
-			  if(h-6<=0){
+		  	time = type.replace("Y", Y);
+		  	time = time.replace("M", M);
+		  	time = time.replace("D", D);
+		  	time = time.replace("h", h);
+		  	time = time.replace("m", m);
+		  	if(h-6<=0){
 				satatime=new Date(Y,M-1,D-1,h-6,m).format('yyyy-MM-dd hh:mm');
-			   }else{
+		   	}else{
 				satatime=new Date(Y,M-1,D,h-6,m).format('yyyy-MM-dd hh:mm');
-			   }
-			   company="小时";
-			   applyRequest.resolution='hour';
-			   document.getElementById('control_date').value = satatime;
-			   document.getElementById('control_date2').value = time;
+		   	}
+		   	company="小时";
+		   	applyRequest.resolution='hour';
+		   	document.getElementById('control_date').value = satatime;
+		   	document.getElementById('control_date2').value = time;
 		}else if(timeValue == "十二小时"){
 			//计算当前时间
 		  	time = type.replace("Y",Y);
@@ -284,7 +308,7 @@
 			time = time.replace("D",D);
 			time = time.replace("h",h);
 			time = time.replace("m",m);
-		     	if(h-12<=0){
+			if(h-12<=0){
 				satatime=new Date(Y,M-1,D-1,h-12,m).format('yyyy-MM-dd hh:mm');
 		   	}else{
 				satatime=new Date(Y,M-1,D,h-12,m).format('yyyy-MM-dd hh:mm');
@@ -294,163 +318,164 @@
 			document.getElementById('control_date').value = satatime;
 			document.getElementById('control_date2').value = time;
 		}else if(timeValue == "一天"){
-		        //计算当前时间
+			//计算当前时间
 			time = type.replace("Y",Y);
 			time = time.replace("M",M);
 			time = time.replace("D",D);
 			time = time.replace("h",h);
 			time = time.replace("m",m);
-		     	if(D-1<=0){
+			if(D-1<=0){
 				satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
-			   }else{
-				  satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
-			   }
-			  company="六小时";
-			  applyRequest.resolution='six_hour';
-			  document.getElementById('control_date').value = satatime;
-			  document.getElementById('control_date2').value = time;
-			}else if(timeValue == "七天"){
-		          //计算当前时间
-				time = type.replace("Y",Y);
-				time = time.replace("M",M);
-				time = time.replace("D",D);
-				time = time.replace("h",h);
-				time = time.replace("m",m);
-				if(D-6<=0){
-				  satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
-				}else{
-				  satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
-				}
-				company="六小时";
-				applyRequest.resolution='six_hour';
-		          	document.getElementById('control_date').value = satatime;
-		          	document.getElementById('control_date2').value = time;
-			}
-
-            		var textStateTime=$("#control_date").val();
-	        	var textEndtime=$("#control_date2").val();
-	        	if(textStateTime>textEndtime || textStateTime==textEndtime){
-	           		alert("请重新选择时间，开始时间必须小于结束时间");
-              			 return;
-	          	}else if(textEndtime>time){
-			    alert("请重新选择结束日期，结束日期不能大于本日日期");
-				return;
 			}else{
-				if($(':radio:checked').val()=="IM用户数量变化"){
-				   url='application.collection.users';
-				   danwei='个(正数表示新增，负数表示删除)';
-				   yName="IM用户数量";
-				};
-				if($(':radio:checked').val()=="消息发送量"){
-		       			url='application.collection.chatmessages';
-			   		danwei='条';
-			   		yName="消息数(单位:条)";
-				};
-               		};
-			applyChatMessagesData(applyRequest,flow,labels,url);
-      			var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
-			for(var i=0;i<labels.length;i++){
-				dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
+				satatime=new Date(Y,M-1,D-1,h,m).format('yyyy-MM-dd hh:mm');
 			}
-			dataString+='</chart>';
-		      	if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)
-				FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
-			    	var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
-			    	chart.setXMLData( dataString );
-			    	chart.render("canvasUserDiv3");
+			company="六小时";
+			applyRequest.resolution='six_hour';
+			document.getElementById('control_date').value = satatime;
+			document.getElementById('control_date2').value = time;
+		} else if(timeValue == "七天"){
+			//计算当前时间
+			time = type.replace("Y",Y);
+			time = time.replace("M",M);
+			time = time.replace("D",D);
+			time = time.replace("h",h);
+			time = time.replace("m",m);
+			if(D-6<=0){
+			  satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
+			}else{
+			  satatime=new Date(Y,M-1,D-6,h,m).format('yyyy-MM-dd hh:mm');
+			}
+			company="天";
+			applyRequest.resolution='day';
+			document.getElementById('control_date').value = satatime;
+			document.getElementById('control_date2').value = time;
 		}
 
+		var textStateTime=$("#control_date").val();
+		var textEndtime=$("#control_date2").val();
+		if(textStateTime>textEndtime || textStateTime==textEndtime){
+			alert("请重新选择时间，开始时间必须小于结束时间");
+			return;
+		}else if(textEndtime>time){
+			alert("请重新选择结束日期，结束日期不能大于本日日期");
+			return;
+		}else{
+			if($(':radio:checked').val()=="IM用户数量变化"){
+				counterName='application.collection.users';
+				danwei='个(正数表示新增，负数表示删除)';
+				yName="IM用户数量";
+			}
+			if($(':radio:checked').val()=="消息发送量"){
+				counterName='application.collection.chatmessages';
+				danwei='条';
+				yName="消息数(单位:条)";
+			}
+		}
+		applyChatMessagesData(applyRequest,flow,labels,counterName);
+		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
+		for(var i=0;i<labels.length;i++){
+			dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
+		}
+		dataString+='</chart>';
+		if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0) {
+			FusionCharts.setCurrentRenderer(GALLERY_RENDERER);
+		}
+		var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
+		chart.setXMLData( dataString );
+		chart.render("canvasUserDiv3");
+	}
+
   	function getDiv1(){
-	         //determine();
-			company="天";
-		    applyRequest.resolution='day';
-			var flow=[], labels=[];
-			var url;
-			var danwei;
-			var statime=$("#control_date").val();
-	        var endtime=$("#control_date2").val();
-			var divRadio1 = document.getElementsByName("divRadio1");
-			for(var i=0;i<divRadio1.length;i++){
-				if(divRadio1[i].checked){
-					divRadio1[i].checked=false;
+  		//determine();
+  		company="天";
+		applyRequest.resolution='day';
+		var flow=[], labels=[];
+		var counterName;
+		var danwei;
+		var statime=$("#control_date").val();
+		var endtime=$("#control_date2").val();
+		var divRadio1 = document.getElementsByName("divRadio1");
+		for(var i=0;i<divRadio1.length;i++){
+			if(divRadio1[i].checked){
+				divRadio1[i].checked=false;
+			}
+		}
+
+		if(statime>endtime || statime==endtime){
+			alert("请重新选择时间，开始时间必须小于结束时间");
+			return;
+		}else if(endtime>time){
+			alert("请重新选择结束日期，结束日期不能大于本日日期");
+			return;
+		}else{
+			var dt = Date.parse(statime.replace(/-/g,"/"));//开始时间
+			var startTime = new Date(dt);
+			var dt1 = Date.parse(endtime.replace(/-/g,"/"));//结束时间
+			var theTime =new Date(dt1);
+			var timeDifference=theTime.getTime()-startTime.getTime();  //时间差的毫秒数
+			var days=Math.floor(timeDifference/(24*3600*1000));//计算相差天数
+			//计算出小时数
+			var leave1=timeDifference%(24*3600*1000);    //计算天数后剩余的毫秒数
+			var hours=Math.floor(leave1/(3600*1000));
+			//计算相差分钟数
+			var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
+			var minutes=Math.floor(leave2/(60*1000));
+			if(days>30){//超过一月按月算
+				 company="月";
+				 applyRequest.resolution='month';
+			}else{//否则按天算
+				 company="天";
+				 applyRequest.resolution='day';
+			}
+			if(days==0){//没有超过一月就对比天数
+				if(hours>24){//超过一天按天算
+					company="天";
+					applyRequest.resolution='day';
+				}else{//没有超过一天就按小时算
+					company="小时";
+					applyRequest.resolution='hour';
 				}
 			}
-            
-	        if(statime>endtime || statime==endtime){
-	           alert("请重新选择时间，开始时间必须小于结束时间");
-               return;
-	          }else if(endtime>time){
-			    alert("请重新选择结束日期，结束日期不能大于本日日期");
-				return;
-			  }else{
-
-					var dt = Date.parse(statime.replace(/-/g,"/"));//开始时间
-					var startTime = new Date(dt);
-					var dt1 = Date.parse(endtime.replace(/-/g,"/"));//结束时间
-					var theTime =new Date(dt1);
-					var timeDifference=theTime.getTime()-startTime.getTime();  //时间差的毫秒数
-					var days=Math.floor(timeDifference/(24*3600*1000));//计算相差天数
-					//计算出小时数
-					var leave1=timeDifference%(24*3600*1000);    //计算天数后剩余的毫秒数
-					var hours=Math.floor(leave1/(3600*1000));
-					//计算相差分钟数
-					var leave2=leave1%(3600*1000);        //计算小时数后剩余的毫秒数
-					var minutes=Math.floor(leave2/(60*1000));
-					 if(days>30){//超过一月按月算
-                         			company="月";
-					     	applyRequest.resolution='month';
-					 }else{//否则按天算
-                         			company="天";
-					     	applyRequest.resolution='day';
-					 }
-					 if(days==0){//没有超过一月就对比天数
-						 if(hours>24){//超过一天按天算
-                           				company="天";
-					       		applyRequest.resolution='day';
-						 }else{//没有超过一天就按小时算
-                           				company="小时";
-					       		applyRequest.resolution='hour';
-						 }
-					 }
 			if(days==0 && hours==0){//没有超过一个月，又没有超过一天
-                          if(minutes<30){//没有超过半小时按分钟计
-						     company="五分钟";
-					         applyRequest.resolution='five_minutes';
-						  }else{//超过30分钟，按小时计
-                             company="小时";
-					         applyRequest.resolution='hour';
-						  }
-					 }
+				if(minutes<30){//没有超过半小时按分钟计
+					company="五分钟";
+					applyRequest.resolution='five_minutes';
+				}else{//超过30分钟，按小时计
+					company="小时";
+					applyRequest.resolution='hour';
+				}
+			}
 
 			if($(':radio:checked').val()=="IM用户数量变化"){
-		       	   url='application.collection.users';
+				counterName='application.collection.users';
 			   danwei='个(正数表示新增，负数表示删除)';
 			   yName="IM用户数量";
-			};
+			}
 			if($(':radio:checked').val()=="消息发送量"){
-		       	   url='application.collection.chatmessages';
+				counterName='application.collection.chatmessages';
 			   danwei='条';
 			   yName="消息数(单位:条)";
-			};
-               };
-		applyChatMessagesData(applyRequest,flow,labels,url);
-      		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
-		for(var i=0;i<labels.length;i++){dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
-	}
-			dataString+='</chart>';
-	      	if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)  FusionCharts.setCurrentRenderer(GALLERY_RENDERER);  
+			}
+		}
+		applyChatMessagesData(applyRequest,flow,labels,counterName);
+		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
+		for(var i=0;i<labels.length;i++){
+			dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
+		}
+		dataString+='</chart>';
+		if (GALLERY_RENDERER && GALLERY_RENDERER.search(/javascript|flash/i)==0)  FusionCharts.setCurrentRenderer(GALLERY_RENDERER);
 		var chart = new FusionCharts("assets/swf/FusionCharts/Charts/Line.swf", "ChartId_flash", "1000", "500", "0", "1" );
 		chart.setXMLData( dataString );
 		chart.render("canvasUserDiv3");
 	}
 	// 应用概述页
 	function toApppofile(){
-		window.location.href = 'app_profile.html?appUuid='+appUuid;
+		window.location.href = 'app_profile.html?appUuid=' + appUuid;
 	}
 	
 	// 用户管理页
 	function toAppUsersPage(){
-		window.location.href = 'app_users.html?appUuid='+appUuid;
+		window.location.href = 'app_users.html?appUuid=' + appUuid;
 	}
 	
 	// 群组页面
@@ -460,17 +485,17 @@
 	
 	// 推送证书管理页
 	function toAppCredentialsPage(){
-		window.location.href = 'app_notifiers.html?appUuid='+appUuid;
+		window.location.href = 'app_notifiers.html?appUuid=' + appUuid;
 	}
 	
 	// 数据统计页面
 	function toApppofileCounter(){
-		window.location.href = 'app_collection_counters.html?appUuid='+appUuid;
+		window.location.href = 'app_collection_counters.html?appUuid=' + appUuid;
 	}
 	
 	// 应用管理员创建页面
 	function toCreateAppAdmin(){
-		window.location.href = 'app_admin_create.html?appUuid='+appUuid;
+		window.location.href = 'app_admin_create.html?appUuid=' + appUuid;
 	}
 	
 	//管理员列表页面
@@ -539,8 +564,8 @@
       <div style="min-height: 40px;" id="sidebar-shortcuts-mini"> </div>
     </div>
     <ul class="nav nav-list">
-			<li class="active"> <a href="app_list.html" target="_self"> <i class="icon-ambulance"></i> <span>我的应用</span> </a></li>
-			<li> <a href="admin_home.html" target="_self"> <i class="icon-user"></i> <span>个人信息</span> </a></li>
+		<li class="active"> <a href="app_list.html" target="_self"> <i class="icon-ambulance"></i> <span>我的应用</span> </a></li>
+		<li> <a href="admin_home.html" target="_self"> <i class="icon-user"></i> <span>个人信息</span> </a></li>
     </ul>
     <div id="sidebar-collapse"> <i class="icon-double-angle-left"></i> </div>
   </div>
@@ -574,7 +599,6 @@
         		<li> <a href="javascript:toApppofileCounter()"><font color="green">统计数据</font></a> </li>
       		</ul>
       		<hr/>
-      		
     		</div>
 
     		<div style="width:1000px; margin:0 auto; overflow:visible;">
@@ -584,25 +608,24 @@
 		    		<input type="radio" name="divRadio" id="msgDiv" value="消息发送量" onclick="getDiv()" /><span class="lbl">消息发送量</span>
 		    	</div>
 				<div style="position:absolute;right:180px;top:185px;z-index:100;">
-                    <input type="hidden" id="dtp_input2" value="" /><br/><span class="lbl">快速查询：</span>
+                    <input type="hidden" id="dtp_input3" value="" /><br/><span class="lbl">快速查询：</span>
+		    		<!--
 		    		<input type="radio" name="divRadio1" id="userDiv1" value="六小时" onclick="getDiv()"/><span class="lbl">六小时</span>
 		    		<input type="radio" name="divRadio1" id="msgDiv1" value="十二小时" onclick="getDiv()" /><span class="lbl">十二小时</span>
+					-->
 					<input type="radio" name="divRadio1" id="getDiv1" value="一天" onclick="getDiv()" /><span class="lbl">一天</span>
 					<input type="radio" name="divRadio1" id="postDiv1" value="七天" onclick="getDiv()" /><span class="lbl">七天</span>
+					<input type="radio" name="divRadio1" id="postDiv2" value="一月" onclick="getDiv()" /><span class="lbl">一月</span>
 				</div>
 			    <div style="position:absolute;right:100px;top:250px;z-index:100;">
-               <span>查询时间段：</span>
-               <span>从<!-- onclick="new Calendar().show(this);" -->
+               	<span>查询时间段：</span>
+               	<span>从
                	<input name="control_date" type="text" value="" id="control_date" style="width:120px;" size="10" maxlength="10" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})"  readonly="readonly" /></span>
-               <span>至
+               	<span>至
                	<input name="control_date2" type="text" id="control_date2" style="width:120px;" size="10" maxlength="10" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm'})" readonly="readonly" /></span>
 				<input type="button" name="commit" id="commit" onclick="getDiv1()" value="查询"/>
-				</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	    		<!-- 用户数据 -->
-	    		<!--<div id='canvasUserDiv'></div>-->
-	    		<!-- 消息数据 -->
-	    		<!--<div id='canvasMsgDiv'></div>-->
-				    	    		<!-- 用户数据 -->
+				</div>
+				<div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	    		<div id='canvasUserDiv3' style="position:absolute;top:300px;z-index:100;"></div>
     		</div>
     	</div>
