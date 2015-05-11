@@ -157,7 +157,7 @@
 	};
 
 	
-	function applyChatMessagesData(applyRequest,flow,labels,counterName){
+	function applyChatMessagesData(applyRequest, flow, labels, counterName, reststr){
 		var startTime=$("#control_date").val();
 		var endTime=$("#control_date2").val();
 
@@ -177,7 +177,7 @@
 			'client_id':'',
 			'client_secret':''
 		};
-		var tests = '';
+
 		if(counterName == 'application.collection.chatmessages'){
 			$.ajax({
 				url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/credentials',
@@ -210,12 +210,10 @@
 					tokenStr = respData.access_token;
 				}
 			});
-
-			tests = '&direction=outgoing';
 		}
 		
 		$.ajax({
-			url:baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter='+counterName+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad + tests,
+			url:baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter='+counterName+'&start_time='+applyRequest.start_time+'&end_time='+applyRequest.end_time+'&resolution='+applyRequest.resolution+'&pad='+applyRequest.pad + reststr,
 			type:'GET',
 			async:false,
 			headers:{
@@ -353,6 +351,7 @@
 
 		var textStateTime=$("#control_date").val();
 		var textEndtime=$("#control_date2").val();
+		var reststr = '';
 		if(textStateTime>textEndtime || textStateTime==textEndtime){
 			alert("请重新选择时间，开始时间必须小于结束时间");
 			return;
@@ -365,13 +364,21 @@
 				danwei='个(正数表示新增，负数表示删除)';
 				yName="IM用户数量";
 			}
-			if($(':radio:checked').val()=="消息发送量"){
-				counterName='application.collection.chatmessages';
-				danwei='条';
-				yName="消息数(单位:条)";
+			if($(':radio:checked').val()=="上行消息量"){
+				counterName = 'application.collection.chatmessages';
+				danwei = '条';
+				yName = "消息数(单位:条)";
+				reststr = '&direction=outgoing';
+			}
+			if($(':radio:checked').val()=="离线消息量"){
+				counterName = 'application.collection.chatmessages';
+				danwei = '条';
+				yName = "消息数(单位:条)";
+				reststr = '&direction=offline';
 			}
 		}
-		applyChatMessagesData(applyRequest,flow,labels,counterName);
+
+		applyChatMessagesData(applyRequest, flow, labels, counterName, reststr);
 		var dataString ='<chart rotateYAxisName="0" yAxisName="'+yName+'" chartRightMargin="50" xAxisName="时间 (按'+company+'计)" caption="'+$(':radio:checked').val()+'" subCaption="（单位：'+danwei+'）" useRoundEdges="1" color="333333" bgColor="FFFFFF,FFFFFF" showBorder="0">';
 		for(var i=0;i<labels.length;i++){
 			dataString+='<set label="'+labels[i]+'" value="'+flow[i]+'" />';
@@ -451,7 +458,7 @@
 			   danwei='个(正数表示新增，负数表示删除)';
 			   yName="IM用户数量";
 			}
-			if($(':radio:checked').val()=="消息发送量"){
+			if($(':radio:checked').val()=="上行消息量"){
 				counterName='application.collection.chatmessages';
 			   danwei='条';
 			   yName="消息数(单位:条)";
@@ -605,7 +612,8 @@
     			<div style="float:right;">
 				<input type="hidden" id="dtp_input2" value="" /><br/>
 		    		<input type="radio" name="divRadio" id="userDiv" value="IM用户数量变化" onclick="getDiv()"/><span class="lbl">IM用户数量变化</span>
-		    		<input type="radio" name="divRadio" id="msgDiv" value="消息发送量" onclick="getDiv()" /><span class="lbl">消息发送量</span>
+		    		<input type="radio" name="divRadio" id="msgDiv" value="上行消息量" onclick="getDiv()" /><span class="lbl">上行消息量</span>
+		    		<input type="radio" name="divRadio" id="msgDiv1" value="离线消息量" onclick="getDiv()" /><span class="lbl">离线消息量</span>
 		    	</div>
 				<div style="position:absolute;right:180px;top:185px;z-index:100;">
                     <input type="hidden" id="dtp_input3" value="" /><br/><span class="lbl">快速查询：</span>
