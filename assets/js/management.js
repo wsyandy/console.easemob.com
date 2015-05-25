@@ -220,11 +220,11 @@ function resetPasswdReq(token,uuid){
 				'Content-Type':'multipart/form-data'
 			},
 			success:function(respData){
-				alert('提示!\n\重置密码成功!');
+				alert('提示!\n重置密码成功!');
 				window.location.href = 'https://console.easemob.com';
 			},
 			error:function(data){
-				alert('提示!\n\重置密码失败!');
+				alert('提示!\n重置密码失败!');
 			}
 		});
 	}
@@ -357,9 +357,6 @@ function checkTel(value){
     }
 }
 
-// 用户名重复性校验
-function isUsernameExist(username){
-}	
 
 //注册表单清空
 function resetForm(){
@@ -469,9 +466,10 @@ function loginFormValidate(){
 
 // ORG管理员登录
 function orgAdminLogin() {
+	var loginUser = $('#username').val();
 	var d = {
 		'grant_type':'password',
-		'username':$('#username').val(),
+		'username':loginUser,
 		'password':$('#password').val()
 	};
 		if($('#rememberme:checked').length>0){
@@ -520,21 +518,25 @@ function orgAdminLogin() {
 					var access_token = respData.access_token;
 					var cuser = respData.user.username;
 					var cuserName = respData.user.username;
-					var loginuuid = respData.user.uuid;
+					var email = respData.user.email;
+					var companyName = respData.user.properties.companyName;
+					var telephone = respData.user.properties.telephone;
 					var orgName = '';
-					var json = respData.user.organizations;
-					$.each(json, function(i) {
+					var orgs = respData.user.organizations;
+					$.each(orgs, function(i) {
 					    orgName = i;
 					});
-					//orgName = 'yiding-keji';
+
 					var date = new Date();
-					date.setTime(date.getTime()+( 7 * 24 * 60 * 60 * 1000));
-					$.cookie('access_token',access_token,{path:'/',expires:date});
-					$.cookie('cuser',cuser,{path:'/',expires:date});
-					$.cookie('cuserName',cuserName,{path:'/',expires:date});
-				    $.cookie('orgName',orgName,{path:'/',expires:date});
-				    $.cookie('loginuuid',loginuuid,{path:'/',expires:date});
-				  
+					date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+					$.cookie('access_token', access_token,{path:'/',expires:date});
+					$.cookie('cuser', cuser,{path:'/',expires:date});
+					$.cookie('cuserName', cuserName,{path:'/',expires:date});
+					$.cookie('email', email,{path:'/',expires:date});
+				    $.cookie('orgName', orgName,{path:'/',expires:date});
+				    $.cookie('companyName', companyName,{path:'/',expires:date});
+				    $.cookie('telephone', telephone,{path:'/',expires:date});
+
 					window.location.href = 'app_list.html';
 					location.replace('app_list.html');
 				}
@@ -545,83 +547,6 @@ function orgAdminLogin() {
 	}
 }
 
-// APP管理员登录
-function appAdminLogin() {
-	var appkey = $('#qiyeid').val();
-	// appkey validate
-	if('' == appkey){
-		$('#regqiyeid').text('请输入企业ID！');
-		return;
-	}
-	
-	var appkeyRegex = /^(?!-)(?!.*?-$)[a-zA-Z0-9-]+$/;
-	if(!appkeyRegex.test(appkey)){
-	 	$('#regqiyeid').text('只能使用数字,字母,横线,且不能以横线开头和结尾！');
-		return;
- 	}
-  $('qiyeid').text('');
-	
-	var org = '';
-	var app = '';
-	
-    org = $('#qiyeid').val();
-	app = $('#yingyongname').val();
-	
-	var d = {
-		'grant_type':'password',
-		'username':$('#username').val(),
-		'password':$('#password').val()
-	};
-	
-	if(loginFormValidate()){
-			// 登录获取token
-			$.ajax({
-				url:baseUrl+'/' + org + '/' + app + '/token',
-				type:'POST',
-				data:JSON.stringify(d),
-				headers:{
-					'Content-Type':'application/json'
-				},
-				crossDomain:true,
-				error: function(respData, textStatus, errorThrown) {
-					var str = JSON.stringify(respData.responseText).replace('}','').replace('{','').split(',');
-					var tmpArr = new Array();
-					var errorMsg = '';
-					for(var i = 0; i < str.length; i++) {
-						tmpArr.push(str[i].replace(/\\/g,'').replace(/\"/g,'').split(':'));
-					}
-					for(var i = 0; i < tmpArr.length; i++) {
-						if('error_description' == tmpArr[i][0]){
-							if(tmpArr[i][1].indexOf("User must be confirmed to authenticate") > -1) {
-								errorMsg = '登陆失败，账户未激活!';
-							}
-							if(tmpArr[i][1].indexOf("invalid username or password") > -1) {
-								errorMsg = '登陆失败，用户名或者密码错误!';
-							}
-						}
-					}
-					alert(errorMsg);
-				},
-				success: function(respData, textStatus, jqXHR) {
-					var access_token = respData.access_token;
-					var cuser = respData.user.username;
-					var cuserName = respData.user.username;
-					var loginuuid = respData.user.uuid;
-					var orgName = '';
-					
-					var date = new Date();
-					date.setTime(date.getTime()+(1 * 24 * 60 * 60 * 1000));
-					$.cookie('access_token',access_token,{path:'/',expires:date});
-					$.cookie('cuser',cuser,{path:'/',expires:date});
-					$.cookie('cuserName',cuserName,{path:'/',expires:date});
-				  $.cookie('orgName',org,{path:'/',expires:date});
-				  $.cookie('appName',app,{path:'/',expires:date});
-				  
-					window.location.href = 'app_profile.html';
-				}
-		});
-	}
-}
 
 // 退出登录
 function logout() {
@@ -630,6 +555,9 @@ function logout() {
 	$.cookie("cuser",null,{path:"/"});
 	$.cookie("cuserName",null,{path:"/"});
 	$.cookie("orgName",null,{path:"/"});
+	$.cookie("email",null,{path:"/"});
+	$.cookie("companyName",null,{path:"/"});
+	$.cookie("telephone",null,{path:"/"});
 	// 转到登陆页面
 	window.location.href = "index.html";
 }
@@ -650,33 +578,22 @@ function format(timeST){
 }
 
 // 登录用户信息
-function adminInfo(){
+function loginAdminInfo(){
 	// get org admin token
 	var access_token = $.cookie('access_token');
 	var cuser = $.cookie('cuser');
 	var orgName = $.cookie('orgName');
+	var companyName = $.cookie('companyName');
+	var telephone = $.cookie('telephone');
+	var email = $.cookie('email');
 	if(!access_token || access_token==''){
 		alert('提示\n\n会话已失效,请重新登录!');
 		window.location.href = 'index.html';
 	} else {
-		$.ajax({
-			url:baseUrl + '/management/organizations/'+orgName+'/users',
-			type:'GET',
-			headers:{
-				'Authorization':'Bearer '+access_token,
-				'Content-Type':'application/json'
-			},
-			error:function(respData, textStatus, jqXHR){
-			},
-			success:function(respData, textStatus, jqXHR){
-				$(respData.data).each(function(){
-					$('#username').text(this.username);
-					$('#email').text(this.email);
-					$('#companyName').text(this.properties.companyName);
-					$('#telephone').text(this.properties.telephone);
-				});
-			}
-		});
+		$('#username').text(cuser);
+		$('#email').text(email);
+		$('#companyName').text(companyName);
+		$('#telephone').text(telephone);
 	}
 }
 
@@ -763,11 +680,10 @@ function updateAdminPasswdFormValidate(){
 
 // 修改登录用户密码
 validateAccessToken = '';
-function updateAdminPasswd(){
+function updateAdminPasswd() {
 	var access_token = $.cookie('access_token');
 	var oldpassword = $('#oldpassword').val();
 	var	newpassword = $('#newpassword').val();
-	var loginuuid = $.cookie('loginuuid');
 	var username = $.cookie('cuser');
 	var d = {
 		'oldpassword':oldpassword,
@@ -793,17 +709,17 @@ function updateAdminPasswd(){
 				}
 				
 				$.ajax({
-					url:baseUrl + '/management/users/'+loginuuid+'/password',
+					url:baseUrl + '/management/users/' + username + '/password',
 					type:'POST',
 					data:JSON.stringify(d),
 					headers:{
 						'Content-Type':'application/json'
 					},
 					success:function(respData){
-						alert('提示!\n\密码修改成功!');
+						alert('提示!\n密码修改成功!');
 					},
 					error:function(data){
-						alert('提示!\n\密码修改失败!');
+						alert('提示!\n密码修改失败!');
 					}
 				});
 			}
@@ -1767,6 +1683,270 @@ function getAppUserList(appUuid, pageAction){
 				}
 			}
 		});
+	}
+}
+
+
+// 获取orgadmin列表
+function getOrgAdminList(){
+	// 获取token
+	var access_token = $.cookie('access_token');
+	var orgName = $.cookie('orgName');
+	var loginUser = $.cookie('cuser');
+	if(!access_token || access_token==''){
+		alert('提示\n\n会话已失效,请重新登录!');
+		window.location.href = 'index.html';
+	} else {
+		var loading = '<tr id="tr_loading"><td class="text-center" colspan="9"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
+		$('#orgadminsBody').empty();
+		$('#orgadminsBody').append(loading);
+
+		$.ajax({
+			url:baseUrl+'/management/organizations/'+ orgName +'/users',
+			type:'GET',
+			headers:{
+				'Authorization':'Bearer ' + access_token,
+				'Content-Type':'application/json'
+			},
+			error: function(jqXHR, textStatus, errorThrown) {
+			},
+			success: function(respData, textStatus, jqXHR) {
+				$('tbody').html('');
+				var selectOptions = '';
+				$(respData.data).each(function(){
+					var username = this.username;
+					var confirmedStr = (this.confirmed == true) ? "已激活" : "未激活";
+					var email = this.email;
+					var companyName = this.properties.companyName;
+					var telephone = this.properties.telephone;
+
+					var ops = '';
+					if(username != loginUser){
+						ops = '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
+						'<ul class="dropdown-menu">'+'<li data-filter-camera-type="all"><a href="javascript:disConnAdminAndOrg(\''+username+'\')">移出管理员</a></li>';
+					} else {
+						ops = '当前登录账户禁止操作';
+					}
+
+					selectOptions += '<tr>'+
+						'<td class="text-center">'+username+'</td>'+
+						'<td class="text-center">'+email+'</td>'+
+						'<td class="text-center">'+companyName+'</td>'+
+						'<td class="text-center">'+telephone+'</td>'+
+						'<td class="text-center">'+confirmedStr+'</td>'+
+						'<td class="text-center">'+
+						'<ul class="nav-pills" style="list-style-type:none">'+ ops
+						'</ul>'+
+						'</li>'+
+						'</ul>'+
+						'</td>'+
+						'</tr>';
+				});
+				$('#tr_loading').remove();
+				$('#orgadminsBody').append(selectOptions);
+				// 无数据
+				var tbody = document.getElementsByTagName("tbody")[0];
+				if(!tbody.hasChildNodes()){
+					var option = '<tr><td class="text-center" colspan="9">无数据!</td></tr>';
+					$('#tr_loading').remove();
+					$('#orgadminsBody').append(option);
+				}
+			}
+		});
+	}
+}
+
+// remove user from organization
+function disConnAdminAndOrg(adminUserName){
+	var access_token = $.cookie('access_token');
+	var orgName = $.cookie('orgName');
+	var loginUser = $.cookie('cuser');
+	if(!access_token || access_token==''){
+		alert('提示\n\n会话已失效,请重新登录!');
+		window.location.href = 'index.html';
+	} else {
+		if(adminUserName != ''){
+			if(loginUser == adminUserName){
+				alert('不恩那个撤销自己');
+				return;
+			} else {
+				$.ajax({
+					url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
+					type:'DELETE',
+					headers:{
+						'Authorization':'Bearer ' + access_token,
+						'Content-Type':'application/json'
+					},
+					error: function(respData, textStatus, jqXHR) {
+						var error_description = jQuery.parseJSON(respData.responseText).error_description;
+						if('Organizations must have at least one member.' == error_description){
+							alert('企业管理员至少要有一个!!');
+						} else {
+							alert('撤消管理员失败!');
+						}
+					},
+					success: function(respData, textStatus, jqXHR) {
+						var orgname = respData.data.name;
+						if(orgName == orgname){
+							alert('撤消管理员成功!');
+							window.location.href = 'admin_list.html';
+						}
+					}
+				});
+			}
+		}
+	}
+}
+
+// 增加orgadminuser表单校验
+function createAdminUserFormValidate(adminUsername, adminPassword, adminRePassword, adminEmail, adminCompany, adminTel){
+	// 表单校验
+	$('#adminUserName').val($('#adminUserName').val().trim());
+	var adminUserName = $('#adminUserName').val();
+	if(adminUserName == ''){
+		$('#adminUserNameMsg').hide();
+		$('#adminUserNameEMsg').show();
+		$('#adminUserNameOMsg').hide();
+		return false;
+	}
+	var adminUserNameRegex = /^[0-9a-zA-Z]*$/;
+	if(adminUserName != '' && !adminUserNameRegex.test(adminUserName)){
+		$('#adminUserNameMsg').hide();
+		$('#adminUserNameOMsg').hide();
+		$('#adminUserNameEMsg').show();
+		return false;
+	}
+
+	$('#adminPassword').val($('#adminPassword').val().trim());
+	var adminPassword = $('#adminPassword').val();
+	if(adminPassword == ''){
+		$('#adminPasswordMsg').show();
+		$('#adminPasswordOMsg').hide();
+		return false;
+	}
+
+	$('#adminRePassword').val($('#adminRePassword').val().trim());
+	var adminRePassword = $('#adminRePassword').val();
+	var adminPassword = $('#adminPassword').val();
+	if('' != adminRePassword && adminPassword != adminRePassword){
+		$('#adminRePasswordMsg').hide();
+		$('#adminRePasswordEMsg').show();
+		$('#adminRePasswordOMsg').hide();
+		return false;
+	}
+
+	$('adminEmail').val($('#adminEmail').val().trim());
+	var adminEmail = $('#adminEmail').val();
+	if(adminEmail == ''){
+		$('#adminEmailMsg').show();
+		$('#adminEmailEMsg').hide();
+		$('#adminEmailOMsg').hide();
+		return false;
+	}
+	var adminEmailRegex = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
+	if(adminEmail != '' && !adminEmailRegex.test(adminEmail)){
+		$('#adminEmailMsg').hide();
+		$('#adminEmailEMsg').show();
+		$('#adminEmailOMsg').hide();
+		return false;
+	}
+
+	var adminCompany = $('#adminCompany').val();
+	if(adminCompany == ''){
+		$('#adminCompanyMsg').show();
+		$('#adminCompanyEMsg').hide();
+		$('#adminCompanyOMsg').hide();
+		return false;
+	}
+	var adminCompanyRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
+	if (adminCompany != '' && !adminCompanyRegex.test(adminCompany)) {
+		$('#adminCompanyMsg').hide();
+		$('#adminCompanyEMsg').show();
+		$('#adminCompanyOMsg').hide();
+		return false;
+	}
+
+	$('#adminTel').val($('#adminTel').val().trim());
+	var regTel = $('#adminTel').val();
+	if(regTel == ''){
+		$('#adminTelMsg').show();
+		$('#adminTelEMsg').hide();
+		$('#adminTelOMsg').hide();
+		return false;
+	}
+
+	if(regTel != '' && !checkTel(regTel)){
+		$('#adminTelMsg').hide();
+		$('#adminTelEMsg').show();
+		$('#adminTelOMsg').hide();
+		return false;
+	}
+
+	return true;
+}
+
+// 添加企业管理员
+function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminCompany, adminTel){
+	var access_token = $.cookie('access_token');
+	var orgName = $.cookie('orgName');
+
+	if(!access_token || access_token=='') {
+		alert('提示\n\n会话已失效,请重新登录!');
+		window.location.href = 'index.html';
+	} else {
+
+		if(createAdminUserFormValidate()) {
+			clearNewAdminUserBox();
+
+			var data ={
+				username:adminUsername,
+				password:adminPassword,
+				email:adminEmail,
+				companyName:adminCompany,
+				telephone:adminTel,
+				category:'admin_append'
+			};
+
+			// 创建管理员用户
+			$.ajax({
+				url:baseUrl+'/management/users',
+				type:'POST',
+				headers:{
+					'Authorization':'Bearer ' + access_token,
+					'Content-Type':'application/json'
+				},
+				async:false,
+				data:JSON.stringify(data),
+				error: function(jqXHR, textStatus, errorThrown) {
+					alert('管理员添加失败！')
+				},
+				success: function(respData, textStatus, jqXHR) {
+					var adminUserName = respData.data.username;
+					if(adminUserName != '') {
+						//　建立关系
+						$.ajax({
+							url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
+							type:'PUT',
+							headers:{
+								'Authorization':'Bearer ' + access_token,
+								'Content-Type':'application/json'
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								alert('管理员添加失败!');
+							},
+							success: function(respData, textStatus, jqXHR) {
+								var orgname = respData.data.name;
+								if(orgName == orgname){
+									alert('添加管理员成功!');
+									window.location.href = 'admin_list.html';
+								}
+							}
+						});
+					}
+				}
+			});
+
+		}
 	}
 }
 
