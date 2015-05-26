@@ -221,7 +221,7 @@ function resetPasswdReq(token,uuid){
 			},
 			success:function(respData){
 				alert('提示!\n重置密码成功!');
-				window.location.href = 'https://console.easemob.com';
+				window.location.href = 'index.html';
 			},
 			error:function(data){
 				alert('提示!\n重置密码失败!');
@@ -610,7 +610,7 @@ function updateAdminInfo(username, companyName, telephone){
 	if(telephone != '' && telephone != null){
 		d.telephone = telephone;
 	}
-	
+
 	if(!access_token || access_token==''){
 		alert('提示\n\n会话已失效,请重新登录!');
 		window.location.href = 'index.html';
@@ -637,8 +637,13 @@ function updateAdminInfo(username, companyName, telephone){
 				$('#cancelSaveAdminInfoBtn').hide();
 				$('#telephone').show();
 				$('#companyName').show();
-		
-				adminInfo();
+
+				var date = new Date();
+				date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+				$.cookie('companyName', companyName,{path:'/',expires:date});
+				$.cookie('telephone', telephone,{path:'/',expires:date});
+
+				loginAdminInfo();
 			}
 		});
 	}
