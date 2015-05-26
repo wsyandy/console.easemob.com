@@ -2792,9 +2792,14 @@ function getAppChatgroups(appUuid, groupid, pageAction){
 				'Content-Type':'application/json'
 			},		
 			error:function(respData){
+				var error = jQuery.parseJSON(respData.responseText).error;
+				$('tbody').html('');
+				if('service_resource_not_found' == error || 'illegal_argument' == error){
+					var option = '<tr><td class="text-center" colspan="4">该群id不存在，请重新输入!</td></tr>';
+					$('#appChatroomBody').append(option);
+				}
 			},
 			success:function(respData){
-
 				// 缓存游标,下次next时候存新的游标
 				if(pageAction!='forward'){
 					cursors[pageNo+1] =	respData.cursor;
@@ -2806,7 +2811,7 @@ function getAppChatgroups(appUuid, groupid, pageAction){
 				var groupname = respData.data[0].name;
 				var errors=respData.data[0].error;
 				if(errors!=null){
-                  			alert("该群id不存在，请重新输入");
+					alert("该群id不存在，请重新输入");
 				}
 				if(groupname == '' || groupname == null){
 					groupname = '-';
@@ -2815,7 +2820,7 @@ function getAppChatgroups(appUuid, groupid, pageAction){
 				var nums = 0;
 				var admin='';
 				if(errors!=null){
-                   			var option = '<tr><td class="text-center" colspan="3">无数据!</td></tr>';
+					var option = '<tr><td class="text-center" colspan="3">无数据!</td></tr>';
 					$('#appChatroomBody').append(option);
 				}else{
                   			var selectOptions = '<tr>'+
