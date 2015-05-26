@@ -1942,7 +1942,7 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
 							success: function(respData, textStatus, jqXHR) {
 								var orgname = respData.data.name;
 								if(orgName == orgname){
-									alert('添加管理员成功!');
+									alert('添加管理员成功!\n请查收邮件并激活该账户,确保正常使用!');
 									window.location.href = 'admin_list.html';
 								}
 							}
