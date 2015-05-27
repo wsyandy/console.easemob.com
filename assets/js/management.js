@@ -1,6 +1,7 @@
 ﻿// Host
 var baseUrl = 'https://a1.easemob.com';
 
+
 // 初始化加载
 $(function() {
 	// 支持Crossdomain
@@ -350,7 +351,8 @@ function checkTel(value){
 	var isChinaPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
 	var isChina = /^(((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|18[0123456789][0-9]{8}|14[0123456789][0-9]{8}))$/;
 	var isMalaysia = /^(((\+?60)|(\(\+60\)))([0123456789]{7}|[0123456789]{8}|[0123456789]{9}))$/;
-    if(isChinaPhone.test(value) || isChina.test(value) || isMalaysia.test(value)) {
+	var isSingapore = /^(((\+?0065)|(\(\+0065\))|(\(\+65\)))?[0-9]+)$/;
+    if(isChinaPhone.test(value) || isSingapore.test(value) || isChina.test(value) || isMalaysia.test(value)) {
         return true;
     } else{
         return false;
@@ -1772,44 +1774,47 @@ function disConnAdminAndOrg(adminUserName){
 	} else {
 		if(adminUserName != ''){
 			if(loginUser == adminUserName){
-				alert('不恩那个撤销自己');
+				alert('当前登录账户禁止操作');
 				return;
 			} else {
-				$.ajax({
-					url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
-					type:'DELETE',
-					headers:{
-						'Authorization':'Bearer ' + access_token,
-						'Content-Type':'application/json'
-					},
-					error: function(respData, textStatus, jqXHR) {
-						var error_description = jQuery.parseJSON(respData.responseText).error_description;
-						if('Organizations must have at least one member.' == error_description){
-							alert('企业管理员至少要有一个!!');
-						} else {
-							alert('撤消管理员失败!');
+				if(confirm("确定要移出该管理员吗?")){
+					$.ajax({
+						url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
+						type:'DELETE',
+						headers:{
+							'Authorization':'Bearer ' + access_token,
+							'Content-Type':'application/json'
+						},
+						error: function(respData, textStatus, jqXHR) {
+							var error_description = jQuery.parseJSON(respData.responseText).error_description;
+							if('Organizations must have at least one member.' == error_description){
+								alert('企业管理员至少要有一个!!');
+							} else {
+								alert('移出管理员失败!');
+							}
+						},
+						success: function(respData, textStatus, jqXHR) {
+							var orgname = respData.data.name;
+							if(orgName == orgname){
+								alert('移出管理员成功!');
+								window.location.href = 'admin_list.html';
+							}
 						}
-					},
-					success: function(respData, textStatus, jqXHR) {
-						var orgname = respData.data.name;
-						if(orgName == orgname){
-							alert('撤消管理员成功!');
-							window.location.href = 'admin_list.html';
-						}
-					}
-				});
+					});
+				}
 			}
 		}
 	}
 }
 
 // 增加orgadminuser表单校验
-function createAdminUserFormValidate(adminUsername, adminPassword, adminRePassword, adminEmail, adminCompany, adminTel){
+function createAdminUserFormValidate(){
 	// 表单校验
 	$('#adminUserName').val($('#adminUserName').val().trim());
 	var adminUserName = $('#adminUserName').val();
 	if(adminUserName == ''){
 		$('#adminUserNameMsg').hide();
+		$('#adminUserNameEEMsg').hide();
 		$('#adminUserNameEMsg').show();
 		$('#adminUserNameOMsg').hide();
 		return false;
@@ -1818,6 +1823,7 @@ function createAdminUserFormValidate(adminUsername, adminPassword, adminRePasswo
 	if(adminUserName != '' && !adminUserNameRegex.test(adminUserName)){
 		$('#adminUserNameMsg').hide();
 		$('#adminUserNameOMsg').hide();
+		$('#adminUserNameEEMsg').hide();
 		$('#adminUserNameEMsg').show();
 		return false;
 	}
@@ -1845,6 +1851,7 @@ function createAdminUserFormValidate(adminUsername, adminPassword, adminRePasswo
 	if(adminEmail == ''){
 		$('#adminEmailMsg').show();
 		$('#adminEmailEMsg').hide();
+		$('#adminEmailEEMsg').hide();
 		$('#adminEmailOMsg').hide();
 		return false;
 	}
@@ -1852,6 +1859,7 @@ function createAdminUserFormValidate(adminUsername, adminPassword, adminRePasswo
 	if(adminEmail != '' && !adminEmailRegex.test(adminEmail)){
 		$('#adminEmailMsg').hide();
 		$('#adminEmailEMsg').show();
+		$('#adminEmailEEMsg').show();
 		$('#adminEmailOMsg').hide();
 		return false;
 	}
@@ -1899,58 +1907,66 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
 		alert('提示\n\n会话已失效,请重新登录!');
 		window.location.href = 'index.html';
 	} else {
+		if(createAdminUserFormValidate()){
+			if(confirm("确定提交?")) {
+				var data ={
+					username:adminUsername,
+					password:adminPassword,
+					email:adminEmail,
+					companyName:adminCompany,
+					telephone:adminTel,
+					category:'admin_append'
+				};
 
-		if(createAdminUserFormValidate()) {
-			clearNewAdminUserBox();
-
-			var data ={
-				username:adminUsername,
-				password:adminPassword,
-				email:adminEmail,
-				companyName:adminCompany,
-				telephone:adminTel,
-				category:'admin_append'
-			};
-
-			// 创建管理员用户
-			$.ajax({
-				url:baseUrl+'/management/users',
-				type:'POST',
-				headers:{
-					'Authorization':'Bearer ' + access_token,
-					'Content-Type':'application/json'
-				},
-				async:false,
-				data:JSON.stringify(data),
-				error: function(jqXHR, textStatus, errorThrown) {
-					alert('管理员添加失败！')
-				},
-				success: function(respData, textStatus, jqXHR) {
-					var adminUserName = respData.data.username;
-					if(adminUserName != '') {
-						//　建立关系
-						$.ajax({
-							url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
-							type:'PUT',
-							headers:{
-								'Authorization':'Bearer ' + access_token,
-								'Content-Type':'application/json'
-							},
-							error: function(jqXHR, textStatus, errorThrown) {
-								alert('管理员添加失败!');
-							},
-							success: function(respData, textStatus, jqXHR) {
-								var orgname = respData.data.name;
-								if(orgName == orgname){
-									alert('添加管理员成功!\n请查收邮件并激活该账户,确保正常使用!');
-									window.location.href = 'admin_list.html';
+				// 创建管理员用户
+				$.ajax({
+					url:baseUrl+'/management/users',
+					type:'POST',
+					headers:{
+						'Authorization':'Bearer ' + access_token,
+						'Content-Type':'application/json'
+					},
+					async:false,
+					data:JSON.stringify(data),
+					error: function(respData, textStatus, errorThrown) {
+						var error_description = jQuery.parseJSON(respData.responseText).error_description;
+						if(error_description.indexOf("Entity user requires that property named username be unique") > -1) {
+							$('#adminUserNameEEMsg').show();
+							$('#adminUserNameOMsg').hide();
+						} else if(error_description.indexOf("Entity user requires that property named email be unique") > -1) {
+							$('#adminEmailEEMsg').show();
+							$('#adminEmailOMsg').hide();
+						} else {
+							alert('添加APP管理员失败!');
+						}
+					},
+					success: function(respData, textStatus, jqXHR) {
+						clearNewAdminUserBox();
+						var adminUserName = respData.data.username;
+						if(adminUserName != '') {
+							//　建立关系
+							$.ajax({
+								url:baseUrl　+　'/management/users/' + adminUserName + '/orgs/' + orgName,
+								type:'PUT',
+								headers:{
+									'Authorization':'Bearer ' + access_token,
+									'Content-Type':'application/json'
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									alert('管理员添加失败!');
+								},
+								success: function(respData, textStatus, jqXHR) {
+									var orgname = respData.data.name;
+									if(orgName == orgname){
+										alert('添加管理员成功!\n请查收邮件并激活该账户,确保正常使用!');
+										window.location.href = 'admin_list.html';
+									}
 								}
-							}
-						});
+							});
+						}
 					}
-				}
-			});
-
+				});
+			}
 		}
 	}
 }

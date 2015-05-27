@@ -54,6 +54,7 @@
 
             $('#adminUserNameMsg').show();
             $('#adminUserNameEMsg').hide();
+            $('#adminUserNameEEMsg').hide();
             $('#adminUserNameOMsg').hide();
             $('#adminPasswordMsg').show();
             $('#adminPasswordOMsg').hide();
@@ -62,6 +63,7 @@
             $('#adminRePasswordOMsg').hide();
             $('#adminEmailMsg').show();
             $('#adminEmailEMsg').hide();
+            $('#adminEmailEEMsg').hide();
             $('#adminEmailOMsg').hide();
             $('#adminTelMsg').show();
             $('#adminTelEMsg').hide();
@@ -106,6 +108,7 @@
             var adminUserName = $('#adminUserName').val();
             if (adminUserName == '') {
                 $('#adminUserNameMsg').show();
+                $('#adminUserNameEEMsg').hide();
                 $('#adminUserNameEMsg').hide();
                 $('#adminUserNameOMsg').hide();
                 return;
@@ -114,6 +117,7 @@
             var adminUserNameRegex = /^[0-9a-zA-Z]*$/;
             if (adminUserName != '' && !adminUserNameRegex.test(adminUserName)) {
                 $('#adminUserNameMsg').hide();
+                $('#adminUserNameEEMsg').hide();
                 $('#adminUserNameOMsg').hide();
                 $('#adminUserNameEMsg').show();
                 return;
@@ -121,6 +125,7 @@
 
             $('#adminUserNameMsg').hide();
             $('#adminUserNameOMsg').show();
+            $('#adminUserNameEEMsg').hide();
             $('#adminUserNameEMsg').hide();
         }
 
@@ -146,6 +151,18 @@
 
             var adminRePassword = $('#adminRePassword').val();
             var adminPassword = $('#adminPassword').val();
+            if (adminRePassword == '') {
+                if(adminPassword != ''){
+                    $('#adminRePasswordMsg').hide();
+                    $('#adminRePasswordEMsg').show();
+                    $('#adminRePasswordOMsg').hide();
+                } else {
+                    $('#adminRePasswordMsg').show();
+                    $('#adminRePasswordEMsg').hide();
+                    $('#adminRePasswordOMsg').hide();
+                }
+                return;
+            }
             if ('' != adminRePassword && adminPassword != adminRePassword) {
                 $('#adminRePasswordMsg').hide();
                 $('#adminRePasswordEMsg').show();
@@ -166,6 +183,7 @@
             if (adminEmail == '') {
                 $('#adminEmailMsg').show();
                 $('#adminEmailEMsg').hide();
+                $('#adminEmailEEMsg').hide();
                 $('#adminEmailOMsg').hide();
                 return;
             }
@@ -174,12 +192,14 @@
             if (adminEmail != '' && !adminEmailRegex.test(adminEmail)) {
                 $('#adminEmailMsg').hide();
                 $('#adminEmailEMsg').show();
+                $('#adminEmailEEMsg').hide();
                 $('#adminEmailOMsg').hide();
                 return;
             }
 
             $('#adminEmailMsg').hide();
             $('#adminEmailEMsg').hide();
+            $('#adminEmailEEMsg').hide();
             $('#adminEmailOMsg').show();
         }
 
@@ -272,7 +292,7 @@
                     <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5>
                         文档</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/faq" target="_blank"><h5>帮助</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5>帮助</h5></a></li>
                     <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5>社区</h5></a>
                     </li>
                     <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
@@ -339,6 +359,7 @@
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="adminUserNameMsg">用户名至少一个字符,包括[字母,数字,下划线,横线,斜线,英文点],一旦注册成功不可以更改!</span>
                                                     <span id="adminUserNameEMsg" style="font-size:12px;color:red;">用户名至少一个字符,可使用字母,数字或字母数字组合！</span>
+                                                    <span id="adminUserNameEEMsg" style="font-size:12px;color:red;">用户名已存在！</span>
                                                     <span id="adminUserNameOMsg" style="font-size:12px;color:blue;">输入正确！</span>
                                                 </div>
                                             </div>
@@ -384,8 +405,8 @@
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="adminEmailMsg">输入一个常用邮箱地址,一旦注册成功不可以更改!</span>
                                                     <span id="adminEmailEMsg" style="font-size:12px;color:red;">请输入有效的邮箱地址!</span>
-                                                    <span id="adminEmailOMsg"
-                                                          style="font-size:12px;color:blue;">输入正确!</span>
+                                                    <span id="adminEmailEEMsg" style="font-size:12px;color:red;">邮箱地址已被占用!</span>
+                                                    <span id="adminEmailOMsg" style="font-size:12px;color:blue;">输入正确!</span>
                                                 </div>
                                             </div>
                                         </div>
