@@ -1839,6 +1839,13 @@ function createAdminUserFormValidate(){
 	$('#adminRePassword').val($('#adminRePassword').val().trim());
 	var adminRePassword = $('#adminRePassword').val();
 	var adminPassword = $('#adminPassword').val();
+
+	if(adminRePassword == ''){
+		$('#adminRePasswordMsg').hide();
+		$('#adminRePasswordEMsg').show();
+		$('#adminRePasswordEMsg').show();
+		return false;
+	}
 	if('' != adminRePassword && adminPassword != adminRePassword){
 		$('#adminRePasswordMsg').hide();
 		$('#adminRePasswordEMsg').show();
