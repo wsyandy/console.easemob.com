@@ -1866,7 +1866,7 @@ function createAdminUserFormValidate(){
 	if(adminEmail != '' && !adminEmailRegex.test(adminEmail)){
 		$('#adminEmailMsg').hide();
 		$('#adminEmailEMsg').show();
-		$('#adminEmailEEMsg').show();
+		$('#adminEmailEEMsg').hide();
 		$('#adminEmailOMsg').hide();
 		return false;
 	}
@@ -1939,10 +1939,12 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
 						var error_description = jQuery.parseJSON(respData.responseText).error_description;
 						if(error_description.indexOf("Entity user requires that property named username be unique") > -1) {
 							$('#adminUserNameEEMsg').show();
+							$('#adminUserNameEMsg').hide();
 							$('#adminUserNameOMsg').hide();
 						} else if(error_description.indexOf("Entity user requires that property named email be unique") > -1) {
 							$('#adminEmailEEMsg').show();
 							$('#adminEmailOMsg').hide();
+							$('#adminEmailEMsg').hide();
 						} else {
 							alert('添加APP管理员失败!');
 						}
