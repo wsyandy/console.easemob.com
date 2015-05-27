@@ -1,6 +1,5 @@
 ﻿// Host
-var baseUrl = 'https://a1.easemob.com';
-
+var baseUrl = 'http://a1.easemob.com';
 
 // 初始化加载
 $(function() {
@@ -347,11 +346,11 @@ function regsFormValidate(){
 	return true;
 }
 
-function checkTel(value){
+function checkTel(value)  {
 	var isChinaPhone = /^([0-9]{3,4}-)?[0-9]{7,8}$/;
 	var isChina = /^(((\+?86)|(\(\+86\)))?(13[0123456789][0-9]{8}|15[0123456789][0-9]{8}|18[0123456789][0-9]{8}|14[0123456789][0-9]{8}))$/;
-	var isMalaysia = /^(((\+?60)|(\(\+60\)))([0123456789]{7}|[0123456789]{8}|[0123456789]{9}))$/;
-	var isSingapore = /^(((\+?0065)|(\(\+0065\))|(\(\+65\)))?[0-9]+)$/;
+	var isMalaysia = /^(((\+?60)|(\(\+60\)))?([0123456789]{7}|[0123456789]{8}|[0123456789]{9}))$/;
+	var isSingapore = /^(((\+?65)|(0065)|(\+0065)|(\(\+65\)))?[0123456789]{7,10})$/;
     if(isChinaPhone.test(value) || isSingapore.test(value) || isChina.test(value) || isMalaysia.test(value)) {
         return true;
     } else{
@@ -1020,7 +1019,8 @@ function getAppList(){
 				var appData = jQuery.parseJSON(JSON.stringify(respData.data));
 				var uuidArr = [];
 				var nameArr = [];
-				$.each(appData,function(key,value){
+				var option = '';
+				$.each(appData, function(key,value){
 					nameArr.push(key);
 					uuidArr.push(value);
 					key = key.substring(key.indexOf('/')+1);
@@ -1036,8 +1036,7 @@ function getAppList(){
 						error: function(jqXHR, textStatus, errorThrown) {
 						},
 						success: function(respData, textStatus, jqXHR) {
-							var option = '';
-							$.each(respData.counters,function(){
+							$.each(respData.counters, function(){
 								if(this.values.lenght == 0){
 									userCount = 0;
 								} else {
