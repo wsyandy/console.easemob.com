@@ -525,22 +525,28 @@ function orgAdminLogin() {
 					var telephone = respData.user.properties.telephone;
 					var orgName = '';
 					var orgs = respData.user.organizations;
+
 					$.each(orgs, function(i) {
 					    orgName = i;
 					});
 
-					var date = new Date();
-					date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
-					$.cookie('access_token', access_token,{path:'/',expires:date});
-					$.cookie('cuser', cuser,{path:'/',expires:date});
-					$.cookie('cuserName', cuserName,{path:'/',expires:date});
-					$.cookie('email', email,{path:'/',expires:date});
-				    $.cookie('orgName', orgName,{path:'/',expires:date});
-				    $.cookie('companyName', companyName,{path:'/',expires:date});
-				    $.cookie('telephone', telephone,{path:'/',expires:date});
+					if(orgName == '') {
+						alert('抱歉,系统找不到该用户对应的企业ID.\n请联系系统管理员!');
+						window.location.href = 'index.html';
+					} else {
+						var date = new Date();
+						date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
+						$.cookie('access_token', access_token,{path:'/',expires:date});
+						$.cookie('cuser', cuser,{path:'/',expires:date});
+						$.cookie('cuserName', cuserName,{path:'/',expires:date});
+						$.cookie('email', email,{path:'/',expires:date});
+						$.cookie('orgName', orgName,{path:'/',expires:date});
+						$.cookie('companyName', companyName,{path:'/',expires:date});
+						$.cookie('telephone', telephone,{path:'/',expires:date});
 
-					window.location.href = 'app_list.html';
-					location.replace('app_list.html');
+						window.location.href = 'app_list.html';
+						location.replace('app_list.html');
+					}
 				}
 		});
 	} else {
