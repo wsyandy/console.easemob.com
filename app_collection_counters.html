@@ -364,17 +364,11 @@
                     danwei = '个(正数表示新增，负数表示删除)';
                     yName = "IM用户数量";
                 }
-                if ($(':radio:checked').val() == "上行消息量") {
+                if ($(':radio:checked').val() == "消息发送量") {
                     counterName = 'application.collection.chatmessages';
                     danwei = '条';
                     yName = "消息数(单位:条)";
-                    reststr = '&direction=outgoing';
-                }
-                if ($(':radio:checked').val() == "离线消息量") {
-                    counterName = 'application.collection.chatmessages';
-                    danwei = '条';
-                    yName = "消息数(单位:条)";
-                    reststr = '&direction=offline';
+                    reststr = '';
                 }
             }
 
@@ -458,7 +452,7 @@
                     danwei = '个(正数表示新增，负数表示删除)';
                     yName = "IM用户数量";
                 }
-                if ($(':radio:checked').val() == "上行消息量") {
+                if ($(':radio:checked').val() == "消息发送量") {
                     counterName = 'application.collection.chatmessages';
                     danwei = '条';
                     yName = "消息数(单位:条)";
@@ -621,23 +615,14 @@
                         <input type="hidden" id="dtp_input2" value=""/><br/>
                         <input type="radio" name="divRadio" id="userDiv" value="IM用户数量变化" onclick="getDiv()"/><span
                             class="lbl">IM用户数量变化</span>
-                        <input type="radio" name="divRadio" id="msgDiv" value="上行消息量" onclick="getDiv()"/><span
-                            class="lbl">上行消息量</span>
-                        <!--<input type="radio" name="divRadio" id="msgDiv1" value="离线消息量" onclick="getDiv()"/><span
-                            class="lbl">离线消息量</span>-->
+                        <input type="radio" name="divRadio" id="msgDiv" value="消息发送量" onclick="getDiv()"/><span class="lbl">消息发送量</span>
                     </div>
                     <div style="position:absolute;right:180px;top:185px;z-index:100;">
                         <input type="hidden" id="dtp_input3" value=""/><br/><span class="lbl">快速查询：</span>
-                        <!--
                         <input type="radio" name="divRadio1" id="userDiv1" value="六小时" onclick="getDiv()"/><span class="lbl">六小时</span>
                         <input type="radio" name="divRadio1" id="msgDiv1" value="十二小时" onclick="getDiv()" /><span class="lbl">十二小时</span>
-                        -->
-                        <input type="radio" name="divRadio1" id="getDiv1" value="一天" onclick="getDiv()"/><span
-                            class="lbl">一天</span>
-                        <input type="radio" name="divRadio1" id="postDiv1" value="七天" onclick="getDiv()"/><span
-                            class="lbl">七天</span>
-                        <!--<input type="radio" name="divRadio1" id="postDiv2" value="一月" onclick="getDiv()"/><span
-                            class="lbl">一月</span>-->
+                        <input type="radio" name="divRadio1" id="getDiv1" value="一天" onclick="getDiv()"/><span class="lbl">一天</span>
+                        <input type="radio" name="divRadio1" id="postDiv1" value="七天" onclick="getDiv()"/><span class="lbl">七天</span>
                     </div>
                     <div style="position:absolute;right:100px;top:250px;z-index:100;">
                         <span>查询时间段：</span>
