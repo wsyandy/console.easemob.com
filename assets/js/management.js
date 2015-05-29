@@ -1,5 +1,6 @@
 ﻿// Host
-var baseUrl = 'http://a1.easemob.com';
+var baseUrl = 'https://a1.easemob.com';
+
 
 // 初始化加载
 $(function() {
@@ -2785,7 +2786,7 @@ function selectFunqunzu(sel,appUuid,groupid){
 		}
 }
 				
-// 搜索app群组列表
+// 搜索app群组
 function getAppChatgroups(appUuid, groupid, pageAction){
 	$('#paginau').html('');
 	var access_token = $.cookie('access_token');
@@ -2834,39 +2835,34 @@ function getAppChatgroups(appUuid, groupid, pageAction){
 				var groupid = respData.data[0].id;
 				var groupname = respData.data[0].name;
 				var errors=respData.data[0].error;
-				if(errors!=null){
-					alert("该群id不存在，请重新输入");
+				if(errors != null){
+					var option = '<tr><td class="text-center" colspan="4">该群id不存在，请重新输入!</td></tr>';
+					$('#appChatroomBody').append(option);
+					return;
 				}
 				if(groupname == '' || groupname == null){
 					groupname = '-';
 				}
-				
-				var nums = 0;
-				var admin='';
-				if(errors!=null){
-					var option = '<tr><td class="text-center" colspan="3">无数据!</td></tr>';
-					$('#appChatroomBody').append(option);
-				}else{
-                  			var selectOptions = '<tr>'+
-							'<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+groupid+'" />&nbsp;&nbsp;&nbsp;</label></td>'+	
-							'<td class="text-center">'+groupid+'</td>'+
-						 	'<td class="text-center">'+ groupname +'</td>'+
-							'<td class="text-center">'+
-								'<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
-			    					'<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
-				    					'<ul class="dropdown-menu">'+
-						            '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
-						            '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
-						            '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
-					     				'</ul>'+
-					     			'</li>'+
-				     		'</ul>'+
-							'</td>'+
-						'</tr>';
 
-				$('#tr_loading').remove();		
+				var selectOptions = '<tr>'+
+					'<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+groupid+'" />&nbsp;&nbsp;&nbsp;</label></td>'+
+					'<td class="text-center">'+groupid+'</td>'+
+					'<td class="text-center">'+ groupname +'</td>'+
+					'<td class="text-center">'+
+						'<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
+							'<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
+								'<ul class="dropdown-menu">'+
+							'<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
+							'<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
+							'<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
+								'</ul>'+
+							'</li>'+
+					'</ul>'+
+					'</td>'+
+				'</tr>';
+
+				$('#tr_loading').remove();
 				$('#appChatroomBody').append(selectOptions);
-				}
 			}
 		});
 	}
