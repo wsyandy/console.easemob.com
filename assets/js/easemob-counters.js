@@ -69,82 +69,79 @@ var drawChartFunction = function () {
                 //** Required if scaleOverride is true **
                 //Number - The number of steps in a hard coded scale
                 scaleSteps : null,
-
                 //Number - The value jump in the hard coded scale
-                scaleStepWidth : 20,
-
-                // Y 轴的起始值
+                scaleStepWidth : null,
+                //Number - The scale starting value
                 scaleStartValue : null,
 
-                // Y/X轴的颜色
+                //String - Colour of the scale line
                 scaleLineColor : "rgba(0,0,0,.1)",
 
-                // X,Y轴的宽度
+                //Number - Pixel width of the scale line
                 scaleLineWidth : 1,
 
-                // 刻度是否显示标签, 即Y轴上是否显示文字
-                scaleShowLabels : true,
+                //Boolean - Whether to show labels on the scale
+                scaleShowLabels : false,
 
-                // Y轴上的刻度,即文字
+                //Interpolated JS string - can access value
                 scaleLabel : "<%=value%>",
 
-                // 字体
+                //String - Scale label font declaration for the scale label
                 scaleFontFamily : "'Arial'",
 
-                // 文字大小
+                //Number - Scale label font size in pixels
                 scaleFontSize : 12,
 
-                // 文字样式
+                //String - Scale label font weight style
                 scaleFontStyle : "normal",
 
-                // 文字颜色
+                //String - Scale label font colour
                 scaleFontColor : "#666",
 
-                // 是否显示网格
+                ///Boolean - Whether grid lines are shown across the chart
                 scaleShowGridLines : true,
 
-                // 网格颜色
+                //String - Colour of the grid lines
                 scaleGridLineColor : "rgba(0,0,0,.05)",
 
-                // 网格宽度
-                scaleGridLineWidth : 2,
+                //Number - Width of the grid lines
+                scaleGridLineWidth : 1,
 
-                // 是否使用贝塞尔曲线? 即:线条是否弯曲
+                //Boolean - Whether the line is curved between points
                 bezierCurve : false,
 
-                // 是否显示点数
+                //Boolean - Whether to show a dot for each point
                 pointDot : true,
 
-                // 圆点的大小
-                pointDotRadius : 4,
+                //Number - Radius of each point dot in pixels
+                pointDotRadius : 3,
 
-                // 圆点的笔触宽度, 即:圆点外层白色大小
+                //Number - Pixel width of point dot stroke
                 pointDotStrokeWidth : 1,
 
-                // 数据集行程
+                //Boolean - Whether to show a stroke for datasets
                 datasetStroke : true,
 
-                // 线条的宽度, 即:数据集
-                datasetStrokeWidth : 1,
+                //Number - Pixel width of dataset stroke
+                datasetStrokeWidth : 2,
 
-                // 是否填充数据集
+                //Boolean - Whether to fill the dataset with a colour
                 datasetFill : true,
 
-                // 是否执行动画
+                //Boolean - Whether to animate the chart
                 animation : true,
 
-                // 动画的时间
-                animationSteps : 120,
+                //Number - Number of animation steps
+                animationSteps : 60,
 
-                // 动画的特效
+                //String - Animation easing effect
                 animationEasing : "easeOutQuart",
 
-                // 动画完成时的执行函数
+                //Function - Fires when the animation is complete
                 onAnimationComplete : null
             };
 
-            new Chart(countersChartsCtx).Line(data);
-            //new Chart(countersChartsCtx).Line(data, options);
+            new Chart(countersChartsCtx).Line(data, options);
         }
     };
 }();
