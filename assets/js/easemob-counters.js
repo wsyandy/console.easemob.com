@@ -81,7 +81,7 @@ var drawChartFunction = function () {
                 scaleLineWidth : 1,
 
                 //Boolean - Whether to show labels on the scale
-                scaleShowLabels : false,
+                scaleShowLabels : true,
 
                 //Interpolated JS string - can access value
                 scaleLabel : "<%=value%>",
