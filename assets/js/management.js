@@ -1,5 +1,5 @@
 ﻿// Host
-var baseUrl = 'https://a1.easemob.com';
+var baseUrl = 'http://a1.easemob.com';
 
 
 // 初始化加载

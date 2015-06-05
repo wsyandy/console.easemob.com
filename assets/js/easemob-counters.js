@@ -147,22 +147,8 @@ var drawChartFunction = function () {
 }();
 
 
-// counters 数据按时间段查询
-function drawCountersCharts(period) {
-
-    var textStartTime = $("#pickerStartDate").val();
-    var textEndTime = $("#pickerEndDate").val();
-
+function getCounterNameFromHtml() {
     var counterName = '';
-    if (textStartTime > textEndTime || textStartTime == textEndTime) {
-        alert("请重新选择时间，开始时间必须小于结束时间");
-        return;
-    } else if (textEndTime > nowTime) {
-        alert("请重新选择结束日期，结束日期不能大于本日日期");
-        return;
-    }
-
-    var restStr = '';
     var counterType = $('#drawCountersChartsType').val();
 
     switch(counterType){
@@ -199,8 +185,27 @@ function drawCountersCharts(period) {
             break;
     }
 
+    return counterName;
+}
+
+// counters 数据按时间段查询
+function drawCountersCharts(peroid) {
+
+    var textStartTime = $("#pickerStartDate").val();
+    var textEndTime = $("#pickerEndDate").val();
+
+    if (textStartTime > textEndTime || textStartTime == textEndTime) {
+        alert("请重新选择时间，开始时间必须小于结束时间");
+        return;
+    } else if (textEndTime > nowTime) {
+        alert("请重新选择结束日期，结束日期不能大于本日日期");
+        return;
+    }
+
+    var restStr = '';
+
     var type = "Y-M-D";
-    if (period == "oneday") {
+    if (peroid == "oneday") {
         //计算当前时间
         endTime = type.replace("Y", Y).replace("M", M).replace("D", D);
         if (D - 1 <= 0) {
@@ -212,7 +217,7 @@ function drawCountersCharts(period) {
         restStr = restStr + '&resolution=six_hour';
         $('#pickerStartDate').val(startTime);
         $('#pickerEndDate').val(endTime);
-    } else if (period == "sevendays") {
+    } else if (peroid == "sevendays") {
         //计算当前时间
         endTime = type.replace("Y", Y).replace("M", M).replace("D", D);
         if (D - 6 <= 0) {
@@ -228,7 +233,8 @@ function drawCountersCharts(period) {
         restStr = '&resolution=day';
     }
 
-    var chartDatas = applyCountersData(appUuid, counterName, restStr);
+
+    var chartDatas = applyCountersData(appUuid, getCounterNameFromHtml(), restStr);
     drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
 }
 
@@ -317,8 +323,10 @@ function applyCountersData(appUuid, counterName, restStr) {
         success: function (respData, textStatus, jqXHR) {
             $.each(respData.counters, function () {
                 if (this.values.length == 0) {
-                    labels.push(0);
-                    datas.push(0);
+                    for(var i=0; i<10; i++){
+                        labels.push(0);
+                        datas.push(0);
+                    }
                 } else {
                     $.each(this.values, function () {
                         labels.push(format1(this.timestamp));

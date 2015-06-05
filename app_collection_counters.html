@@ -59,51 +59,79 @@
         var appUuid = getQueryString('appUuid');
         var Application = $.cookie('Application');
 
+        var counterNameUsers = 'application.collection.users';
+        var counterNameChatmessages = 'application.collection.chatmessages';
+
         $(function () {
             $('#showName').text(Application);
             if (!getToken() || getToken() == '') {
                 logout();
             }
 
-            showUsersChart();
-
             timePikerInput.init();
-            var defaultCounterName = 'application.collection.users';
-            var chartDatas = applyCountersData(appUuid, defaultCounterName, '&resolution=day');
-            drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
+            showUsersChartTab();
+
+            // default radio check
+            $('#chartsRadio1sevendays').attr('checked', true);
 
             // 下拉菜单变化
             $('#userChartSelector').change(function(){
+                applyCountersAndDraw(this);
+                /*
                 var counterType = $(this).children("option:selected").val();
                 $('#drawCountersChartsType').val(counterType);
+
+                var chartDatas = applyCountersData(appUuid, getCounterNameFromHtml(), '&resolution=day');
+                drawChartFunction.draw(chartDatas.labels, chartDatas.datas);*/
             });
 
             $('#chatmessagsChartSelector').change(function(){
-                var counterType = $(this).children("option:selected").val();
-                $('#drawCountersChartsType').val(counterType);
+//                var counterType = $(this).children("option:selected").val();
+                applyCountersAndDraw(this);
             });
         });
 
 
-        function showUsersChart() {
+        function applyCountersAndDraw(selector) {
+            var counterType = $(selector).children("option:selected").val();
+            $('#drawCountersChartsType').val(counterType);
+
+//            var chartDatas = applyCountersData(appUuid, getCounterNameFromHtml(), '&resolution=day');
+//            drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
+            drawCountersCharts();
+        }
+
+        function showUsersChartTab() {
             $('#userChartSelector').show();
             $('#chatmessagsChartSelector').hide();
             $('#chatgroupsChartSelector').hide();
             $('#drawCountersChartsType').val('register_users');
+
+//            var chartDatas = applyCountersData(appUuid, getCounterNameFromHtml(), '&resolution=day');
+//            drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
+            drawCountersCharts();
         }
 
-        function showChatmessagsChart() {
+        function showChatmessagsChartTab() {
             $('#userChartSelector').hide();
             $('#chatmessagsChartSelector').show();
             $('#chatgroupsChartSelector').hide();
             $('#drawCountersChartsType').val('msg_outgoing_chat');
+
+//            var chartDatas = applyCountersData(appUuid, counterNameChatmessages, '&resolution=day');
+//            drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
+            drawCountersCharts();
         }
 
-        function showChatgroupsChart() {
+        function showChatgroupsChartTab() {
             $('#userChartSelector').hide();
             $('#chatmessagsChartSelector').hide();
             $('#chatgroupsChartSelector').show();
-            $('#drawCountersChartsType').val('register_users');
+            $('#drawCountersChartsType').val('');
+
+//            var counterNameChatgroups = '';
+//            var chartDatas = applyCountersData(appUuid, counterNameChatgroups, '&resolution=day');
+//            drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
         }
 
         // 应用概述页
@@ -250,9 +278,9 @@
             <!-- Counters Tabs -->
             <div>
                 <ul id="countersTab" class="nav nav-tabs">
-                    <li class="active"><a href="#users" onclick="javascript:showUsersChart()" data-toggle="tab">用&nbsp;&nbsp;户</a></li>
-                    <li><a href="#chatmessages" onclick="javascript:showChatmessagsChart()" id="tabChatmessages" data-toggle="tab">消&nbsp;&nbsp;息</a></li>
-                    <li><a href="#chatgroups" onclick="javascript:showChatgroupsChart()" id="tabChatgroups" data-toggle="tab">群&nbsp;&nbsp;组</a></li>
+                    <li class="active"><a href="#users" onclick="javascript:showUsersChartTab()" data-toggle="tab">用&nbsp;&nbsp;户</a></li>
+                    <li><a href="#chatmessages" onclick="javascript:showChatmessagsChartTab()" id="tabChatmessages" data-toggle="tab">消&nbsp;&nbsp;息</a></li>
+                    <li><a href="#chatgroups" onclick="javascript:showChatgroupsChartTab()" id="tabChatgroups" data-toggle="tab">群&nbsp;&nbsp;组</a></li>
                 </ul>
                 <p/>
                 <!-- Counters Users Selectors -->
