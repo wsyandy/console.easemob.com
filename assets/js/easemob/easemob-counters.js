@@ -121,7 +121,7 @@ var drawChartFunction = function () {
                 animationEasing : "easeOutQuart",
                 //Function - Fires when the animation is complete
                 onAnimationComplete : null,
-                responsive: true
+                responsive: false
             };
 
             $('#counters').html('');
@@ -205,7 +205,6 @@ function drawCountersCharts(peroid) {
         resolution = 'six_hour';
     } else if (peroid == "sevendays") {
         //计算当前时间
-        startTime = new Date(Y, M - 1, D - 6).format('yyyy-MM-dd');
         $('#pickerStartDate').val(startTime);
 
         resolution = 'day';
@@ -346,6 +345,8 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
             }
         });
     }
+
+    console.log(baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter=' + counterName + '&start_time=' + applyRequest.start_time + '&end_time=' + applyRequest.end_time + '&pad=' + applyRequest.pad + restStr)
 
     // fetch counters
     $.ajax({
