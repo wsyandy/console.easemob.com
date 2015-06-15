@@ -2,7 +2,6 @@
  * Created by kenshinn on 15-6-10.
  */
 
-
 // 登录用户信息
 function loginAdminInfo(){
     // get org admin token

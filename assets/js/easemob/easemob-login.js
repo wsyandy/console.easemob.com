@@ -2,6 +2,9 @@
  * Created by kenshinn on 15-6-10.
  */
 
+var Login = function(){
+
+}();
 
 var loadI18NENProperties = function(){
     return {
