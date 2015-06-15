@@ -51,7 +51,6 @@ var drawChartFunction = function () {
     return {
         draw: function (labels, datas) {
             var data = {
-                // 横坐标值
                 labels: labels,
                 datasets: [
                     {
@@ -241,16 +240,26 @@ function drawCountersChartsPeroidSearch() {
     var textEndTime = $("#pickerEndDate").val();
 
     //开始时间
-    var startTimeStr = $("#pickerStartDate").val();
-    var dt = Date.parse(startTimeStr.replace(/-/g, "/"));
+    var dt = Date.parse(textStartTime.replace(/-/g, "/"));
     var startTime = new Date(dt);
     var startTimeTime = startTime.getTime();
     //结束时间
     var dt1 = Date.parse(textEndTime.replace(/-/g, "/"));
     var endTime = new Date(dt1);
     var endTimeTime = endTime.getTime();
-    // 结束时间当天最后一毫秒
-    var endTimeTimeSec = endTimeTime + 86399000;
+    var endTimeTimeSec = '';
+
+    if(formatTimeDay(endTimeTime) == formatTimeDay(nowTimeSec)){
+        // 结束时间是当天
+        var endTimeSecStr = $("#pickerEndDateHide").val();
+        //结束时间(毫秒)
+        var dt1Sec = Date.parse(endTimeSecStr.replace(/-/g, "/"));
+        var endTimeSec = new Date(dt1Sec);
+        endTimeTimeSec = endTimeSec.getTime();
+    } else {
+        // 结束时间当天最后一毫秒
+        endTimeTimeSec = endTimeTime + 86399000;
+    }
 
     var timeDifference = endTimeTime - startTimeTime;
     var days = Math.floor(timeDifference / (24 * 3600 * 1000));
@@ -285,14 +294,13 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
         appUuid: appUuid,
         start_time: '',
         end_time: '',
-        pad: 'false',
+        pad: 'true',
         resolution: resolution
     };
 
     var chartData = {};
     var datas = [], labels = [];
     applyRequest.start_time = startTimeTime;
-    //applyRequest.end_time = endTimeTime;
     applyRequest.end_time = endTimeMilSec;
 
     var tokenStr = applyRequest.access_token;
@@ -351,7 +359,6 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
             'Content-Type': 'application/json'
         },
         success: function (respData, textStatus, jqXHR) {
-            var peroid = $("input[name='chartsRadio1']:checked").val();
             $.each(respData.counters, function () {
                 if (this.values.length == 0) {
                     for(var i=0; i<10; i++){
@@ -365,7 +372,7 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
                         if(applyRequest.resolution == 'six_hour') {
                             labels.push(formatTimeHour(this.timestamp));
                         } else {
-                            labels.push(format1(this.timestamp));
+                            labels.push(formatTimeDay(this.timestamp));
                         }
                         datas.push(this.value.toString());
                     });
@@ -374,7 +381,7 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
                         if(applyRequest.resolution == 'six_hour') {
                             labels.push(formatTimeHour(this.timestamp));
                         } else {
-                            labels.push(format1(this.timestamp));
+                            labels.push(formatTimeDay(this.timestamp));
                         }
                         datas.push(this.value.toString());
                     });
@@ -393,10 +400,12 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
 }
 
 
-function format1(timeST) {
-    return date('Y-m-d', timeST);
+function formatTimeDay(timeST) {
+    var dat = new Date(timeST);
+    return (dat.getFullYear()) + "-" + (dat.getMonth() + 1) + "-" + (dat.getDate());
 }
 
 function formatTimeHour(timeST) {
-    return date('Y-m-d h:m:s', timeST);
+    var dat = new Date(timeST);
+    return (dat.getFullYear()) + "-" + (dat.getMonth() + 1) + "-" + (dat.getDate()) + " " + (dat.getHours()) + ":00:00";
 }

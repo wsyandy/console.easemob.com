@@ -1,7 +1,5 @@
 ﻿// Host
-//var baseUrl = 'https://a1.easemob.com';
 var baseUrl = 'https://a1.easemob.com';
-
 
 // 初始化加载
 $(function() {
