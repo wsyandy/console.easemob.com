@@ -6,7 +6,9 @@
 //初始开始时间段
 //记录当前时间
 var nowTime;
+var nowTimeSec;
 var timePikerInput = function(){
+
     return {
         init:function(){
             //记录计算过后的时间
@@ -14,6 +16,7 @@ var timePikerInput = function(){
 
             //计算当前时间
             var type = "Y-M-D";
+            var type1 = "Y-M-D h:m";
             //获取年-月-日
             var myDate = new Date();
             //年份：如2013
@@ -24,6 +27,11 @@ var timePikerInput = function(){
             D = myDate.getDate() < 10 ? "0" + myDate.getDate() : myDate.getDate();
             nowTime = type.replace("Y", Y).replace("M", M).replace("D", D);
 
+            h = myDate.getHours() < 10 ? "0" + myDate.getHours() : myDate.getHours();
+            m = myDate.getMinutes() < 10 ? "0" + myDate.getMinutes() : myDate.getMinutes();
+            //s = myDate.getSeconds() < 10 ? "0" + myDate.getSeconds() : myDate.getSeconds();
+            nowTimeSec = type1.replace("Y", Y).replace("M", M).replace("D", D).replace("h", h).replace("m", m);
+
             //计算前7天时间
             if (D - 6 <= 0) {
                 startTime = new Date(Y, M - 1, D - 6).format('yyyy-MM-dd');
@@ -32,10 +40,10 @@ var timePikerInput = function(){
             }
             $('#pickerStartDate').val(startTime);
             $('#pickerEndDate').val(nowTime);
+            $('#pickerEndDateHide').val(nowTimeSec);
         }
     };
 }();
-
 
 
 // 趋势
@@ -58,14 +66,11 @@ var drawChartFunction = function () {
             };
 
             // 渲染
-            var countersChartsCtx = $("#countersCharts").get(0).getContext("2d");
             var options = {
                 //Boolean - If we show the scale above the chart data
-                scaleOverlay : false,
-
+                scaleOverlay : true,
                 //Boolean - If we want to override with a hard coded scale
                 scaleOverride : false,
-
                 //** Required if scaleOverride is true **
                 //Number - The number of steps in a hard coded scale
                 scaleSteps : null,
@@ -73,74 +78,56 @@ var drawChartFunction = function () {
                 scaleStepWidth : null,
                 //Number - The scale starting value
                 scaleStartValue : null,
-
                 //String - Colour of the scale line
                 scaleLineColor : "rgba(0,0,0,.1)",
-
                 //Number - Pixel width of the scale line
-                scaleLineWidth : 1,
-
+                scaleLineWidth : 2,
                 //Boolean - Whether to show labels on the scale
                 scaleShowLabels : true,
-
                 //Interpolated JS string - can access value
                 scaleLabel : "<%=value%>",
-
                 //String - Scale label font declaration for the scale label
                 scaleFontFamily : "'Arial'",
-
                 //Number - Scale label font size in pixels
                 scaleFontSize : 12,
-
                 //String - Scale label font weight style
                 scaleFontStyle : "normal",
-
                 //String - Scale label font colour
                 scaleFontColor : "#666",
-
                 ///Boolean - Whether grid lines are shown across the chart
                 scaleShowGridLines : true,
-
                 //String - Colour of the grid lines
                 scaleGridLineColor : "rgba(0,0,0,.05)",
-
                 //Number - Width of the grid lines
                 scaleGridLineWidth : 1,
-
                 //Boolean - Whether the line is curved between points
                 bezierCurve : false,
-
                 //Boolean - Whether to show a dot for each point
                 pointDot : true,
-
                 //Number - Radius of each point dot in pixels
                 pointDotRadius : 3,
-
                 //Number - Pixel width of point dot stroke
                 pointDotStrokeWidth : 1,
-
                 //Boolean - Whether to show a stroke for datasets
                 datasetStroke : true,
-
                 //Number - Pixel width of dataset stroke
                 datasetStrokeWidth : 2,
-
                 //Boolean - Whether to fill the dataset with a colour
                 datasetFill : true,
-
                 //Boolean - Whether to animate the chart
                 animation : true,
-
                 //Number - Number of animation steps
                 animationSteps : 60,
-
                 //String - Animation easing effect
                 animationEasing : "easeOutQuart",
-
                 //Function - Fires when the animation is complete
-                onAnimationComplete : null
+                onAnimationComplete : null,
+                responsive: true
             };
 
+            $('#counters').html('');
+            $('#counters').append('<canvas id="countersCharts" width="1200%" height="400"></canvas>');
+            var countersChartsCtx = $("#countersCharts").get(0).getContext("2d");
             new Chart(countersChartsCtx).Line(data, options);
         }
     };
@@ -148,7 +135,10 @@ var drawChartFunction = function () {
 
 
 function getCounterNameFromHtml() {
+    var queryStr = {}
+
     var counterName = '';
+    var restStr = '';
     var counterType = $('#drawCountersChartsType').val();
 
     switch(counterType){
@@ -166,31 +156,33 @@ function getCounterNameFromHtml() {
             break;
         case 'msg_outgoing_chat':
             counterName = 'application.collection.chatmessages';
-            restStr = 'direction=outgoing&chat_type=chat';
+            //restStr = '&direction=outgoing&chat_type=chat';
             break;
         case 'msg_outgoing_groupchat':
             counterName = 'application.collection.chatmessages';
-            restStr = 'direction=outgoing&chat_type=groupchat';
+            //restStr = '&direction=outgoing&chat_type=groupchat';
             break;
         case 'msg_offline_chat':
             counterName = 'application.collection.chatmessages';
-            restStr = 'direction=offline&chat_type=chat';
+            //restStr = '&direction=offline&chat_type=chat';
             break;
         case 'msg_offline_groupchat':
             counterName = 'application.collection.chatmessages';
-            restStr = 'direction=offline&chat_type=groupchat';
+            //restStr = '&direction=offline&chat_type=groupchat';
             break;
         default:
             counterName = '';
             break;
     }
 
-    return counterName;
+    queryStr.counterName = counterName;
+    queryStr.restStr = restStr;
+
+    return queryStr;
 }
 
-// counters 数据按时间段查询
+// 快捷查询
 function drawCountersCharts(peroid) {
-
     var textStartTime = $("#pickerStartDate").val();
     var textEndTime = $("#pickerEndDate").val();
 
@@ -202,70 +194,106 @@ function drawCountersCharts(peroid) {
         return;
     }
 
-    var restStr = '';
-
+    var resolution = '';
     var type = "Y-M-D";
+    endTime = type.replace("Y", Y).replace("M", M).replace("D", D);
+    $('#pickerEndDate').val(endTime);
     if (peroid == "oneday") {
         //计算当前时间
-        endTime = type.replace("Y", Y).replace("M", M).replace("D", D);
-        if (D - 1 <= 0) {
-            startTime = new Date(Y, M - 1, D - 1).format('yyyy-MM-dd');
-        } else {
-            startTime = new Date(Y, M - 1, D - 1).format('yyyy-MM-dd');
-        }
-        company = "六小时";
-        restStr = restStr + '&resolution=six_hour';
+        startTime = new Date(Y, M - 1, D - 1).format('yyyy-MM-dd');
         $('#pickerStartDate').val(startTime);
-        $('#pickerEndDate').val(endTime);
+
+        resolution = 'six_hour';
     } else if (peroid == "sevendays") {
         //计算当前时间
-        endTime = type.replace("Y", Y).replace("M", M).replace("D", D);
-        if (D - 6 <= 0) {
-            startTime = new Date(Y, M - 1, D - 6).format('yyyy-MM-dd');
-        } else {
-            startTime = new Date(Y, M - 1, D - 6).format('yyyy-MM-dd');
-        }
-        company = "天";
-        restStr = restStr + '&resolution=day';
+        startTime = new Date(Y, M - 1, D - 6).format('yyyy-MM-dd');
         $('#pickerStartDate').val(startTime);
-        $('#pickerEndDate').val(endTime);
+
+        resolution = 'day';
     } else {
-        restStr = '&resolution=day';
+        resolution = 'day';
     }
 
+    var queryStr = getCounterNameFromHtml();
 
-    var chartDatas = applyCountersData(appUuid, getCounterNameFromHtml(), restStr);
+    var startTimeStr = $("#pickerStartDate").val();
+    var endTimeSecStr = $("#pickerEndDateHide").val();
+
+    //开始时间
+    var dt = Date.parse(startTimeStr.replace(/-/g, "/"));
+    var startTime = new Date(dt);
+    var startTimeTime = startTime.getTime();
+    //结束时间(毫秒)
+    var dt1Sec = Date.parse(endTimeSecStr.replace(/-/g, "/"));
+    var endTimeSec = new Date(dt1Sec);
+    var endTimeTimeSec = endTimeSec.getTime();
+
+    var chartDatas = applyCountersData(appUuid, queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
+    drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
+}
+
+// 按时间段
+function drawCountersChartsPeroidSearch() {
+
+    $("input[name='chartsRadio1']").attr('checked', false);
+
+    var textStartTime = $("#pickerStartDate").val();
+    var textEndTime = $("#pickerEndDate").val();
+
+    //开始时间
+    var startTimeStr = $("#pickerStartDate").val();
+    var dt = Date.parse(startTimeStr.replace(/-/g, "/"));
+    var startTime = new Date(dt);
+    var startTimeTime = startTime.getTime();
+    //结束时间
+    var dt1 = Date.parse(textEndTime.replace(/-/g, "/"));
+    var endTime = new Date(dt1);
+    var endTimeTime = endTime.getTime();
+    // 结束时间当天最后一毫秒
+    var endTimeTimeSec = endTimeTime + 86399000;
+
+    var timeDifference = endTimeTime - startTimeTime;
+    var days = Math.floor(timeDifference / (24 * 3600 * 1000));
+    if (days > 30) {
+        alert("时间范围只能在30天之内,请重新选择时间");
+        return;
+    } else if (days == 0) {
+        alert("开始时间必须小于结束时间,请重新选择时间.");
+        return;
+    } else if(textEndTime > nowTime){
+        alert("结束日期不能大于本日日期,请重新选择结束日期.");
+        return;
+    }
+
+    var resolution = '';
+    if (days == 1) {
+        resolution = 'six_hour';
+    } else {
+        resolution = 'day';
+    }
+
+    var queryStr = getCounterNameFromHtml()
+    var chartDatas = applyCountersData(appUuid, queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
     drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
 }
 
 
-
-function applyCountersData(appUuid, counterName, restStr) {
+function applyCountersData(appUuid, counterName, resolution, startTimeTime, endTimeMilSec, restStr) {
     var applyRequest = {
         orgName: $.cookie('orgName'),
         access_token: $.cookie('access_token'),
         appUuid: appUuid,
         start_time: '',
         end_time: '',
-        pad: 'false'
+        pad: 'false',
+        resolution: resolution
     };
 
     var chartData = {};
     var datas = [], labels = [];
-
-    var startTime = $("#pickerStartDate").val();
-    var endTime = $("#pickerEndDate").val();
-
-    //开始时间
-    var dt = Date.parse(startTime.replace(/-/g, "/"));
-    var startTime1 = new Date(dt);
-    var nowtime = startTime1.getTime();
-    //结束时间
-    var dt1 = Date.parse(endTime.replace(/-/g, "/"));
-    var theTime = new Date(dt1);
-    var nowtime1 = theTime.getTime();
-    applyRequest.start_time = nowtime;
-    applyRequest.end_time = nowtime1;
+    applyRequest.start_time = startTimeTime;
+    //applyRequest.end_time = endTimeTime;
+    applyRequest.end_time = endTimeMilSec;
 
     var tokenStr = applyRequest.access_token;
 
@@ -313,7 +341,9 @@ function applyCountersData(appUuid, counterName, restStr) {
 
     // fetch counters
     $.ajax({
-        url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter=' + counterName + '&start_time=' + applyRequest.start_time + '&end_time=' + applyRequest.end_time + '&pad=' + applyRequest.pad + restStr,
+        url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter=' + counterName
+        + '&start_time=' + applyRequest.start_time + '&end_time=' + applyRequest.end_time + '&pad=' + applyRequest.pad
+        + '&resolution=' + applyRequest.resolution + restStr,
         type: 'GET',
         async: false,
         headers: {
@@ -321,16 +351,32 @@ function applyCountersData(appUuid, counterName, restStr) {
             'Content-Type': 'application/json'
         },
         success: function (respData, textStatus, jqXHR) {
+            var peroid = $("input[name='chartsRadio1']:checked").val();
             $.each(respData.counters, function () {
                 if (this.values.length == 0) {
                     for(var i=0; i<10; i++){
                         labels.push(0);
                         datas.push(0);
                     }
+                } if (this.values.length == 1) {
+                    labels.push(0);
+                    datas.push(0);
+                    $.each(this.values, function () {
+                        if(applyRequest.resolution == 'six_hour') {
+                            labels.push(formatTimeHour(this.timestamp));
+                        } else {
+                            labels.push(format1(this.timestamp));
+                        }
+                        datas.push(this.value.toString());
+                    });
                 } else {
                     $.each(this.values, function () {
-                        labels.push(format1(this.timestamp));
-                        datas.push(this.value);
+                        if(applyRequest.resolution == 'six_hour') {
+                            labels.push(formatTimeHour(this.timestamp));
+                        } else {
+                            labels.push(format1(this.timestamp));
+                        }
+                        datas.push(this.value.toString());
                     });
                 }
             });
@@ -349,4 +395,8 @@ function applyCountersData(appUuid, counterName, restStr) {
 
 function format1(timeST) {
     return date('Y-m-d', timeST);
+}
+
+function formatTimeHour(timeST) {
+    return date('Y-m-d h:m:s', timeST);
 }

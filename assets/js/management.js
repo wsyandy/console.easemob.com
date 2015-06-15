@@ -1,5 +1,6 @@
 ﻿// Host
-var baseUrl = 'http://a1.easemob.com';
+//var baseUrl = 'https://a1.easemob.com';
+var baseUrl = 'https://a1.easemob.com';
 
 
 // 初始化加载
@@ -27,7 +28,7 @@ $(function() {
 		$('#formSubBtn').removeClass('btn-success');
 		$('#formSubBtn').disabled = true;
 	}
-}) 
+});
 
 // 全角转换成半角
 function ToCDB(str) {
