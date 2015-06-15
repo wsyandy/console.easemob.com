@@ -46,7 +46,7 @@ var loadI18NENProperties = function(){
 }();
 
 $(function () {
-    loadI18NENProperties.init();
+    //loadI18NENProperties.init();
 
     var browserVersion = getBrowserVersion();
     if (browserVersion != '' && browserVersion < 10) {
