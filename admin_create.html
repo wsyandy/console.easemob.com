@@ -6,8 +6,9 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-admin.js"></script>
+    <script src="assets/js/easemob/easemob-i18n.js"></script>
 
-    <script type="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         var count = 0;
         $(function () {
             if (!getToken() || getToken() == '') {
@@ -16,34 +17,38 @@
             count = 0;
             loginAdminInfo();
 
-            $('#adminUserNameMsg').show();
-            $('#adminUserNameEMsg').hide();
-            $('#adminUserNameEEMsg').hide();
-            $('#adminUserNameOMsg').hide();
-            $('#adminPasswordMsg').show();
-            $('#adminPasswordOMsg').hide();
-            $('#adminRePasswordMsg').show();
-            $('#adminRePasswordEMsg').hide();
-            $('#adminRePasswordOMsg').hide();
-            $('#adminEmailMsg').show();
-            $('#adminEmailEMsg').hide();
-            $('#adminEmailEEMsg').hide();
-            $('#adminEmailOMsg').hide();
-            $('#adminTelMsg').show();
-            $('#adminTelEMsg').hide();
-            $('#adminTelOMsg').hide();
-            $('#adminCompanyMsg').show();
-            $('#adminCompanyEMsg').hide();
-            $('#adminCompanyOMsg').hide();
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_admin_create()
+
+            $('#admin_create_adminUserNameMsg').show();
+            $('#admin_create_adminUserNameEMsg').hide();
+            $('#admin_create_adminUserNameEEMsg').hide();
+            $('#admin_create_adminUserNameOMsg').hide();
+            $('#admin_create_adminPasswordMsg').show();
+            $('#admin_create_adminPasswordEMsg').hide();
+            $('#admin_create_adminPasswordOMsg').hide();
+            $('#admin_create_adminRePasswordMsg').show();
+            $('#admin_create_adminRePasswordEMsg').hide();
+            $('#admin_create_adminRePasswordOMsg').hide();
+            $('#admin_create_adminEmailMsg').show();
+            $('#admin_create_adminEmailEMsg').hide();
+            $('#admin_create_adminEmailEEMsg').hide();
+            $('#admin_create_adminEmailOMsg').hide();
+            $('#admin_create_adminTelMsg').show();
+            $('#admin_create_adminTelEMsg').hide();
+            $('#admin_create_adminTelOMsg').hide();
+            $('#admin_create_adminCompanyMsg').show();
+            $('#admin_create_adminCompanyEMsg').hide();
+            $('#admin_create_adminCompanyOMsg').hide();
         });
 
 
         function saveNewAdminUser() {
-            var adminUsernameInput = $('#adminUserName').val();
-            var adminEmailInput = $('#adminEmail').val();
-            var adminPasswordInput = $('#adminPassword').val();
-            var adminCompanyInput = $('#adminCompany').val();
-            var adminTelInput = $('#adminTel').val();
+            var adminUsernameInput = $('#admin_create_adminUserName').val();
+            var adminEmailInput = $('#admin_create_adminEmail').val();
+            var adminPasswordInput = $('#admin_create_adminPassword').val();
+            var adminCompanyInput = $('#admin_create_adminCompany').val();
+            var adminTelInput = $('#admin_create_adminTel').val();
 
             saveNewAdminUserSubmit(adminUsernameInput, adminPasswordInput, adminEmailInput, adminCompanyInput, adminTelInput);
         }
@@ -67,152 +72,155 @@
 
         //　用户名输入框失焦检测
         function onBlurAdminUserNameCheck() {
-            $('#adminUserName').val($('#adminUserName').val().trim());
+            $('#admin_create_adminUserName').val($('#admin_create_adminUserName').val().trim());
 
-            var adminUserName = $('#adminUserName').val();
+            var adminUserName = $('#admin_create_adminUserName').val();
             if (adminUserName == '') {
-                $('#adminUserNameMsg').show();
-                $('#adminUserNameEEMsg').hide();
-                $('#adminUserNameEMsg').hide();
-                $('#adminUserNameOMsg').hide();
+                $('#admin_create_adminUserNameMsg').show();
+                $('#admin_create_adminUserNameEEMsg').hide();
+                $('#admin_create_adminUserNameEMsg').hide();
+                $('#admin_create_adminUserNameOMsg').hide();
                 return;
             }
 
             var adminUserNameRegex = /^[0-9a-zA-Z]*$/;
             if (adminUserName != '' && !adminUserNameRegex.test(adminUserName)) {
-                $('#adminUserNameMsg').hide();
-                $('#adminUserNameEEMsg').hide();
-                $('#adminUserNameOMsg').hide();
-                $('#adminUserNameEMsg').show();
+                $('#admin_create_adminUserNameMsg').hide();
+                $('#admin_create_adminUserNameEEMsg').hide();
+                $('#admin_create_adminUserNameOMsg').hide();
+                $('#admin_create_adminUserNameEMsg').show();
                 return;
             }
 
-            $('#adminUserNameMsg').hide();
-            $('#adminUserNameOMsg').show();
-            $('#adminUserNameEEMsg').hide();
-            $('#adminUserNameEMsg').hide();
+            $('#admin_create_adminUserNameMsg').hide();
+            $('#admin_create_adminUserNameOMsg').show();
+            $('#admin_create_adminUserNameEEMsg').hide();
+            $('#admin_create_adminUserNameEMsg').hide();
         }
 
         //　密码输入框失焦检测
         function onBlurAdminPasswordCheck() {
-            $('#adminPassword').val($('#adminPassword').val().trim());
+            $('#admin_create_adminPassword').val($('#admin_create_adminPassword').val().trim());
 
-            var adminPassword = $('#adminPassword').val();
+            var adminPassword = $('#admin_create_adminPassword').val();
 
             if (adminPassword == '') {
-                $('#adminPasswordMsg').show();
-                $('#adminPasswordOMsg').hide();
+                $('#admin_create_adminPasswordMsg').hide();
+                $('#admin_create_adminPasswordEMsg').show();
+                $('#admin_create_adminPasswordOMsg').hide();
                 return;
             }
 
-            $('#adminPasswordMsg').hide();
-            $('#adminPasswordOMsg').show();
+            $('#admin_create_adminPasswordMsg').hide();
+            $('#admin_create_adminPasswordEMsg').hide();
+            $('#admin_create_adminPasswordOMsg').show();
         }
 
         //　重复密码输入框失焦检测
         function onBlurAdminRePasswordCheck() {
-            $('#adminRePassword').val($('#adminRePassword').val().trim());
+            $('#admin_create_adminRePassword').val($('#admin_create_adminRePassword').val().trim());
 
-            var adminRePassword = $('#adminRePassword').val();
-            var adminPassword = $('#adminPassword').val();
+            var adminRePassword = $('#admin_create_adminRePassword').val();
+            var adminPassword = $('#admin_create_adminPassword').val();
             if (adminRePassword == '') {
                 if(adminPassword != ''){
-                    $('#adminRePasswordMsg').hide();
-                    $('#adminRePasswordEMsg').show();
-                    $('#adminRePasswordOMsg').hide();
+                    $('#admin_create_adminRePasswordMsg').hide();
+                    $('#admin_create_adminRePasswordEMsg').show();
+                    $('#admin_create_adminRePasswordOMsg').hide();
                 } else {
-                    $('#adminRePasswordMsg').show();
-                    $('#adminRePasswordEMsg').hide();
-                    $('#adminRePasswordOMsg').hide();
+                    $('#admin_create_adminRePasswordMsg').show();
+                    $('#admin_create_adminRePasswordEMsg').hide();
+                    $('#admin_create_adminRePasswordOMsg').hide();
                 }
                 return;
             }
+
             if ('' != adminRePassword && adminPassword != adminRePassword) {
-                $('#adminRePasswordMsg').hide();
-                $('#adminRePasswordEMsg').show();
-                $('#adminRePasswordOMsg').hide();
+                $('#admin_create_adminRePasswordMsg').hide();
+                $('#admin_create_adminRePasswordEMsg').show();
+                $('#admin_create_adminRePasswordOMsg').hide();
                 return;
             }
 
-            $('#adminRePasswordMsg').hide();
-            $('#adminRePasswordEMsg').hide();
-            $('#adminRePasswordOMsg').show();
+            $('#admin_create_adminRePasswordMsg').hide();
+            $('#admin_create_adminRePasswordEMsg').hide();
+            $('#admin_create_adminRePasswordOMsg').show();
         }
 
         //　邮箱输入框失焦检测
         function onBlurAdminEmailCheck() {
-            $('adminEmail').val($('#adminEmail').val().trim());
-            var adminEmail = $('#adminEmail').val();
+            $('#admin_create_adminEmail').val($('#admin_create_adminEmail').val().trim());
+            var adminEmail = $('#admin_create_adminEmail').val();
 
             if (adminEmail == '') {
-                $('#adminEmailMsg').show();
-                $('#adminEmailEMsg').hide();
-                $('#adminEmailEEMsg').hide();
-                $('#adminEmailOMsg').hide();
+                $('#admin_create_adminEmailMsg').show();
+                $('#admin_create_adminEmailEMsg').hide();
+                $('#admin_create_adminEmailEEMsg').hide();
+                $('#admin_create_adminEmailOMsg').hide();
                 return;
             }
 
             var adminEmailRegex = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
             if (adminEmail != '' && !adminEmailRegex.test(adminEmail)) {
-                $('#adminEmailMsg').hide();
-                $('#adminEmailEMsg').show();
-                $('#adminEmailEEMsg').hide();
-                $('#adminEmailOMsg').hide();
+                $('#admin_create_adminEmailMsg').hide();
+                $('#admin_create_adminEmailEMsg').show();
+                $('#admin_create_adminEmailEEMsg').hide();
+                $('#admin_create_adminEmailOMsg').hide();
                 return;
             }
 
-            $('#adminEmailMsg').hide();
-            $('#adminEmailEMsg').hide();
-            $('#adminEmailEEMsg').hide();
-            $('#adminEmailOMsg').show();
+            $('#admin_create_adminEmailMsg').hide();
+            $('#admin_create_adminEmailEMsg').hide();
+            $('#admin_create_adminEmailEEMsg').hide();
+            $('#admin_create_adminEmailOMsg').show();
         }
 
         //　联系电话输入框失焦检测
         function onBlurAdminTelCheck() {
-            $('#adminTel').val($('#adminTel').val().trim());
-            var regTel = $('#adminTel').val();
+            $('#admin_create_adminTel').val($('#admin_create_adminTel').val().trim());
+            var regTel = $('#admin_create_adminTel').val();
             if (regTel == '') {
-                $('#adminTelMsg').show();
-                $('#adminTelEMsg').hide();
-                $('#adminTelOMsg').hide();
+                $('#admin_create_adminTelMsg').show();
+                $('#admin_create_adminTelEMsg').hide();
+                $('#admin_create_adminTelOMsg').hide();
                 return;
             }
 
             if (regTel != '' && !checkTel(regTel)) {
-                $('#adminTelMsg').hide();
-                $('#adminTelEMsg').show();
-                $('#adminTelOMsg').hide();
+                $('#admin_create_adminTelMsg').hide();
+                $('#admin_create_adminTelEMsg').show();
+                $('#admin_create_adminTelOMsg').hide();
                 return;
             }
 
-            $('#adminTelMsg').hide();
-            $('#adminTelEMsg').hide();
-            $('#adminTelOMsg').show();
+            $('#admin_create_adminTelMsg').hide();
+            $('#admin_create_adminTelEMsg').hide();
+            $('#admin_create_adminTelOMsg').show();
         }
 
         //　公司名称输入框失焦检测
         function onBlurAdminCompanyCheck() {
-            $('adminCompany').val($('#adminCompany').val().trim());
-            var adminCompany = $('#adminCompany').val();
+            $('#admin_create_adminCompany').val($('#admin_create_adminCompany').val().trim());
+            var adminCompany = $('#admin_create_adminCompany').val();
 
             if (adminCompany == '') {
-                $('#adminCompanyMsg').show();
-                $('#adminCompanyEMsg').hide();
-                $('#adminCompanyOMsg').hide();
+                $('#admin_create_adminCompanyMsg').show();
+                $('#admin_create_adminCompanyEMsg').hide();
+                $('#admin_create_adminCompanyOMsg').hide();
                 return;
             }
 
             var adminCompanyRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
             if (adminCompany != '' && !adminCompanyRegex.test(adminCompany)) {
-                $('#adminCompanyMsg').hide();
-                $('#adminCompanyEMsg').show();
-                $('#adminCompanyOMsg').hide();
+                $('#admin_create_adminCompanyMsg').hide();
+                $('#admin_create_adminCompanyEMsg').show();
+                $('#admin_create_adminCompanyOMsg').hide();
                 return;
             }
 
-            $('#adminCompanyMsg').hide();
-            $('#adminCompanyEMsg').hide();
-            $('#adminCompanyOMsg').show();
+            $('#admin_create_adminCompanyMsg').hide();
+            $('#admin_create_adminCompanyEMsg').hide();
+            $('#admin_create_adminCompanyOMsg').show();
         }
 
         function toOrgAdminUserList() {
@@ -221,12 +229,12 @@
 
         // 点击返回列表,清空表单数据
         function clearNewAdminUserBox() {
-            $('#adminUserName').val('');
-            $('#adminPassword').val('');
-            $('#adminRePassword').val('');
-            $('#adminEmail').val('');
-            $('#adminTel').val('');
-            $('#adminCompany').val('');
+            $('#admin_create_adminUserName').val('');
+            $('#admin_create_adminPassword').val('');
+            $('#admin_create_adminRePassword').val('');
+            $('#admin_create_adminEmail').val('');
+            $('#admin_create_adminTel').val('');
+            $('#admin_create_adminCompany').val('');
         }
 
         window.onresize = window.onload = function () {
@@ -312,11 +320,10 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminUserName" class="control-label"><span id="admin_create_form_username">用户名</span>：</label>
+                                                <label for="admin_create_adminUserName" class="control-label"><span id="admin_create_form_username">用户名</span>：</label>
 
                                                 <div class="controls">
-                                                    <input type="text" id="adminUserName" name="adminUserName" value=""
-                                                           onblur="onBlurAdminUserNameCheck()"/>
+                                                    <input type="text" id="admin_create_adminUserName" name="admin_create_adminUserName" value="" onblur="onBlurAdminUserNameCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminUserNameMsg">用户名至少一个字符,包括[字母,数字,下划线,横线,斜线,英文点],一旦注册成功不可以更改!</span>
                                                     <span id="admin_create_adminUserNameEMsg" style="font-size:12px;color:red;">用户名至少一个字符,可使用字母,数字或字母数字组合！</span>
@@ -329,11 +336,12 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminPassword" class="control-label"><span id="admin_create_form_password">密码</span>：</label>
+                                                <label for="admin_create_adminPassword" class="control-label"><span id="admin_create_form_password">密码</span>：</label>
                                                 <div class="controls">
-                                                    <input type="password" id="adminPassword" name="adminPassword" value="" onblur="onBlurAdminPasswordCheck()"/>
+                                                    <input type="password" id="admin_create_adminPassword" name="admin_create_adminPassword" value="" onblur="onBlurAdminPasswordCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminPasswordMsg">密码至少一个字符,可以输入任意字符！</span>
+                                                    <span id="admin_create_adminPasswordEMsg"><font color="red">密码至少一个字符,可以输入任意字符！</font></span>
                                                     <span id="admin_create_adminPasswordOMsg" style="font-size:12px;color:blue;">输入正确！</span>
                                                 </div>
                                             </div>
@@ -342,9 +350,9 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminRePassword" class="control-label"><span id="admin_create_form_repassword">重复密码</span>：</label>
+                                                <label for="admin_create_adminRePassword" class="control-label"><span id="admin_create_form_repassword">重复密码</span>：</label>
                                                 <div class="controls">
-                                                    <input type="password" id="adminRePassword" name="adminRePassword" value="" onblur="onBlurAdminRePasswordCheck()"/>
+                                                    <input type="password" id="admin_create_adminRePassword" name="admin_create_adminRePassword" value="" onblur="onBlurAdminRePasswordCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminRePasswordMsg">重复输入以确认密码无误!</span>
                                                     <span id="admin_create_adminRePasswordEMsg" style="font-size:12px;color:red;">两次密码输入不一致!</span>
@@ -356,10 +364,10 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminEmail" class="control-label"><span id="admin_create_form_email">邮箱</span>：</label>
+                                                <label for="admin_create_adminEmail" class="control-label"><span id="admin_create_form_email">邮箱</span>：</label>
 
                                                 <div class="controls">
-                                                    <input type="text" id="adminEmail" name="adminEmail" value="" onblur="onBlurAdminEmailCheck()"/>
+                                                    <input type="text" id="admin_create_adminEmail" name="admin_create_adminEmail" value="" onblur="onBlurAdminEmailCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminEmailMsg">输入一个常用邮箱地址,一旦注册成功不可以更改!</span>
                                                     <span id="admin_create_adminEmailEMsg" style="font-size:12px;color:red;">请输入有效的邮箱地址!</span>
@@ -372,9 +380,9 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminTel" class="control-label"><span id="admin_create_form_adminTel">联系电话</span>：</label>
+                                                <label for="admin_create_adminTel" class="control-label"><span id="admin_create_form_adminTel">联系电话</span>：</label>
                                                 <div class="controls">
-                                                    <input type="text" id="adminTel" name="adminTel" value="" onblur="onBlurAdminTelCheck()"/>
+                                                    <input type="text" id="admin_create_adminTel" name="admin_create_adminTel" value="" onblur="onBlurAdminTelCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminTelMsg">输入一个正常使用的固话或移动电话号,方便与您取得联系!</span>
                                                     <span id="admin_create_adminTelEMsg" style="font-size:12px;color:red;">请输入有效的联系电话号码!</span>
@@ -386,10 +394,10 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminCompany" class="control-label"><span id="admin_create_form_adminCompany">公司名称</span>：</label>
+                                                <label for="admin_create_adminCompany" class="control-label"><span id="admin_create_form_adminCompany">公司名称</span>：</label>
 
                                                 <div class="controls">
-                                                    <input type="text" id="adminCompany" name="adminCompany" value="" onblur="onBlurAdminCompanyCheck()"/>
+                                                    <input type="text" id="admin_create_adminCompany" name="admin_create_adminCompany" value="" onblur="onBlurAdminCompanyCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
                                                     <span id="admin_create_adminCompanyMsg">输入您所在公司的全名称!</span>
                                                     <span id="admin_create_adminCompanyEMsg" style="font-size:12px;color:red;">公司名称只能是汉字,字母,数字、横线、下划线及其组合!</span>

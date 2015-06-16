@@ -6,13 +6,17 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-app.js"></script>
-    <script type="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
-            } else {
-                getAppList();
+                return ;
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_list();
+
+            getAppList();
         });
         window.onresize = window.onload = function () {
             var w, h;

@@ -6,12 +6,16 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-app.js"></script>
-    <script language="JavaScript">
+    <script language="JavaScript" charset="utf-8">
         var count = 0;
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_create();
+
             count = 0;
             if ($('#allow_open_registration1').attr('checked') == 'checked') {
                 $('#allowOpenMsg').text('允许在该应用下自由注册新用户');

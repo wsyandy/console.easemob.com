@@ -6,51 +6,8 @@ var Login = function(){
 
 }();
 
-var loadI18NENProperties = function(){
-    return {
-        init:function(){
-            $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
-                mode : 'map',
-                language : 'en',
-                callback : function() {
-                    $('#index_title').text($.i18n.prop('index_title'));
-                    $('#index_span_login').text($.i18n.prop('index_span_login'));
-                    $('#index_span_register').text($.i18n.prop('index_span_register'));
-                    $('#index_login_username').text($.i18n.prop('index_login_username'));
-                    $('#index_login_password').text($.i18n.prop('index_login_password'));
-                    $('#index_login_rememberme').text($.i18n.prop('index_login_rememberme'));
-                    $('#index_bnt_login').text($.i18n.prop('index_bnt_login'));
-                    $('#index_input_username').text($.i18n.prop('index_input_username'));
-                    $('#index_forgot_password_link').text($.i18n.prop('index_forgot_password_link'));
-                    $('#index_bnt_find_password').text($.i18n.prop('index_bnt_find_password'));
-                    $('#index_bnt_backtologin').text($.i18n.prop('index_bnt_backtologin'));
-                    $('#index_span_register_orgname').text($.i18n.prop('index_span_register_orgname'));
-                    $('#index_span_register_userneme').text($.i18n.prop('index_span_register_userneme'));
-                    $('#index_span_register_password').text($.i18n.prop('index_span_register_password'));
-                    $('#index_span_register_tel').text($.i18n.prop('index_span_register_tel'));
-                    $('#index_span_register_repassword').text($.i18n.prop('index_span_register_repassword'));
-                    $('#index_span_register_email').text($.i18n.prop('index_span_register_email'));
-                    $('#index_span_register_company').text($.i18n.prop('index_span_register_company'));
-                    $('#index_span_register_comefromInternet').text($.i18n.prop('index_span_register_comefromInternet'));
-                    $('#index_span_register_comefromFriends').text($.i18n.prop('index_span_register_comefromFriends'));
-                    $('#index_span_register_comefromOfficial').text($.i18n.prop('index_span_register_comefromOfficial'));
-                    $('#index_span_register_comefromExhibition').text($.i18n.prop('index_span_register_comefromExhibition'));
-                    $('#index_span_register_comefromMedia').text($.i18n.prop('index_span_register_comefromMedia'));
-                    $('#index_span_register_formSubBtn').text($.i18n.prop('index_span_register_formSubBtn'));
-                    $('#index_span_register_agree').text($.i18n.prop('index_span_register_agree'));
-                    $('#index_span_register_agree_service').text($.i18n.prop('index_span_register_agree_service'));
-                    $('#index_span_register_agree_returntilogin').text($.i18n.prop('index_span_register_agree_returntilogin'));
-                }
-            });
-        }
-    }
-}();
 
 $(function () {
-    //loadI18NENProperties.init();
-
     var browserVersion = getBrowserVersion();
     if (browserVersion != '' && browserVersion < 10) {
         alert($.i18n.prop('index_alert_IEDisable'));

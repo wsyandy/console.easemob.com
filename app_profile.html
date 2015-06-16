@@ -6,7 +6,7 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-app.js"></script>
-    <script tyep="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
         var Application = getQueryString('Application');
         if (Application != null) {
@@ -23,6 +23,10 @@
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_profile();
+
             getAppProfile(appUuid);
         });
 

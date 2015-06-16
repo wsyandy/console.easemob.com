@@ -277,95 +277,97 @@ function disConnAdminAndOrg(adminUserName){
 // 增加orgadminuser表单校验
 function createAdminUserFormValidate(){
     // 表单校验
-    $('#adminUserName').val($('#adminUserName').val().trim());
-    var adminUserName = $('#adminUserName').val();
+    $('#admin_create_adminUserName').val($('#admin_create_adminUserName').val().trim());
+    var adminUserName = $('#admin_create_adminUserName').val();
     if(adminUserName == ''){
-        $('#adminUserNameMsg').hide();
-        $('#adminUserNameEEMsg').hide();
-        $('#adminUserNameEMsg').show();
-        $('#adminUserNameOMsg').hide();
+        $('#admin_create_adminUserNameMsg').hide();
+        $('#admin_create_adminUserNameEEMsg').hide();
+        $('#admin_create_adminUserNameEMsg').show();
+        $('#admin_create_adminUserNameOMsg').hide();
         return false;
     }
+
     var adminUserNameRegex = /^[0-9a-zA-Z]*$/;
     if(adminUserName != '' && !adminUserNameRegex.test(adminUserName)){
-        $('#adminUserNameMsg').hide();
-        $('#adminUserNameOMsg').hide();
-        $('#adminUserNameEEMsg').hide();
-        $('#adminUserNameEMsg').show();
+        $('#admin_create_adminUserNameMsg').hide();
+        $('#admin_create_adminUserNameOMsg').hide();
+        $('#admin_create_adminUserNameEEMsg').hide();
+        $('#admin_create_adminUserNameEMsg').show();
         return false;
     }
 
-    $('#adminPassword').val($('#adminPassword').val().trim());
-    var adminPassword = $('#adminPassword').val();
+    $('#admin_create_adminPassword').val($('#admin_create_adminPassword').val().trim());
+    var adminPassword = $('#admin_create_adminPassword').val();
     if(adminPassword == ''){
-        $('#adminPasswordMsg').show();
-        $('#adminPasswordOMsg').hide();
+        $('#admin_create_adminPasswordMsg').hide();
+        $('#admin_create_adminPasswordEMsg').show();
+        $('#admin_create_adminPasswordOMsg').hide();
         return false;
     }
 
-    $('#adminRePassword').val($('#adminRePassword').val().trim());
-    var adminRePassword = $('#adminRePassword').val();
-    var adminPassword = $('#adminPassword').val();
+    $('#admin_create_adminRePassword').val($('#admin_create_adminRePassword').val().trim());
+    var adminRePassword = $('#admin_create_adminRePassword').val();
+    var adminPassword = $('#admin_create_adminPassword').val();
 
     if(adminRePassword == ''){
-        $('#adminRePasswordMsg').hide();
-        $('#adminRePasswordEMsg').show();
-        $('#adminRePasswordEMsg').show();
+        $('#admin_create_adminRePasswordMsg').hide();
+        $('#admin_create_adminRePasswordEMsg').show();
+        $('#admin_create_adminRePasswordOMsg').hide();
         return false;
     }
     if('' != adminRePassword && adminPassword != adminRePassword){
-        $('#adminRePasswordMsg').hide();
-        $('#adminRePasswordEMsg').show();
-        $('#adminRePasswordOMsg').hide();
+        $('#admin_create_adminRePasswordMsg').hide();
+        $('#admin_create_adminRePasswordEMsg').show();
+        $('#admin_create_adminRePasswordOMsg').hide();
         return false;
     }
 
-    $('adminEmail').val($('#adminEmail').val().trim());
-    var adminEmail = $('#adminEmail').val();
+    $('admin_create_adminEmail').val($('#admin_create_adminEmail').val().trim());
+    var adminEmail = $('#admin_create_adminEmail').val();
     if(adminEmail == ''){
-        $('#adminEmailMsg').show();
-        $('#adminEmailEMsg').hide();
-        $('#adminEmailEEMsg').hide();
-        $('#adminEmailOMsg').hide();
+        $('#admin_create_adminEmailMsg').show();
+        $('#admin_create_adminEmailEMsg').hide();
+        $('#admin_create_adminEmailEEMsg').hide();
+        $('#admin_create_adminEmailOMsg').hide();
         return false;
     }
     var adminEmailRegex = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
     if(adminEmail != '' && !adminEmailRegex.test(adminEmail)){
-        $('#adminEmailMsg').hide();
-        $('#adminEmailEMsg').show();
-        $('#adminEmailEEMsg').hide();
-        $('#adminEmailOMsg').hide();
+        $('#admin_create_adminEmailMsg').hide();
+        $('#admin_create_adminEmailEMsg').show();
+        $('#admin_create_adminEmailEEMsg').hide();
+        $('#admin_create_adminEmailOMsg').hide();
         return false;
     }
 
-    var adminCompany = $('#adminCompany').val();
+    var adminCompany = $('#admin_create_adminCompany').val();
     if(adminCompany == ''){
-        $('#adminCompanyMsg').show();
-        $('#adminCompanyEMsg').hide();
-        $('#adminCompanyOMsg').hide();
+        $('#admin_create_adminCompanyMsg').show();
+        $('#admin_create_adminCompanyEMsg').hide();
+        $('#admin_create_adminCompanyOMsg').hide();
         return false;
     }
     var adminCompanyRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
     if (adminCompany != '' && !adminCompanyRegex.test(adminCompany)) {
-        $('#adminCompanyMsg').hide();
-        $('#adminCompanyEMsg').show();
-        $('#adminCompanyOMsg').hide();
+        $('#admin_create_adminCompanyMsg').hide();
+        $('#admin_create_adminCompanyEMsg').show();
+        $('#admin_create_adminCompanyOMsg').hide();
         return false;
     }
 
-    $('#adminTel').val($('#adminTel').val().trim());
-    var regTel = $('#adminTel').val();
+    $('admin_create_adminTel').val($('#admin_create_adminTel').val().trim());
+    var regTel = $('#admin_create_adminTel').val();
     if(regTel == ''){
-        $('#adminTelMsg').show();
-        $('#adminTelEMsg').hide();
-        $('#adminTelOMsg').hide();
+        $('#admin_create_adminTelMsg').show();
+        $('#admin_create_adminTelEMsg').hide();
+        $('#admin_create_adminTelOMsg').hide();
         return false;
     }
 
     if(regTel != '' && !checkTel(regTel)){
-        $('#adminTelMsg').hide();
-        $('#adminTelEMsg').show();
-        $('#adminTelOMsg').hide();
+        $('#admin_create_adminTelMsg').hide();
+        $('#admin_create_adminTelEMsg').show();
+        $('#admin_create_adminTelOMsg').hide();
         return false;
     }
 

@@ -6,11 +6,14 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-admin.js"></script>
-    <script type="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_admin_home_password();
         });
         window.onresize = window.onload = function () {
             var w, h;
@@ -100,8 +103,7 @@
                                                 <label for="oldpassword" class="control-label"><span id="admin_home_password_form_oldpassword">当前密码</span>：</label>
 
                                                 <div class="controls">
-                                                    <input type="password" id="oldpassword" name="oldpassword" value=""
-                                                           onpaste='return false' oncopy='return false'/>
+                                                    <input type="password" id="oldpassword" name="oldpassword" value="" onpaste='return false' oncopy='return false'/>
                                                     &nbsp;&nbsp;<span id="oldpasswordEMsg" style="fontsize:10px;color:red"></span>
                                                 </div>
                                             </div>

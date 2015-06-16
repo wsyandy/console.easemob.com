@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title id="page_title">环信开发者中心</title>
+    <script src="/assets/js/easemob/easemob-header.js"></script>
 
     <style type="text/css">
         .out_box {
@@ -10,17 +11,14 @@
             background: #fff;
             font: 12px/20px Tahoma;
         }
-
         .list_box {
             border-bottom: 1px solid #eee;
             padding: 0 5px;
             cursor: pointer;
         }
-
         .focus_box {
             background: #f0f3f9;
         }
-
         .mark_box {
             color: #c00;
         }
@@ -30,7 +28,6 @@
         .login-layout {
             background: #29b6f6 url("assets/img/bj.png") top center no-repeat;
         }
-
         .login-layout .widget-box {
             background-color: #e5e5e5;
             border-bottom: 0 none;
@@ -43,46 +40,38 @@
             width: 100%;
             border-radius: 10px;
         }
-
         .azen-right {
             float: right;
             padding-top: 90px;
         }
-
         .azen-right a {
             color: #fff;
             font-size: 20px;
             padding: 0 5px;
         }
-
         .azen-right a:hover {
             color: #fff;
             font-size: 20px;
             text-decoration: none;
         }
-
         .azen-right .current {
             color: #d7d7d7;
             border-right: 1px solid #8ed8fa;
             display: inline-block;
             float: left;
         }
-
         .azen-getback {
             color: #fff;
             font-size: 20px;
         }
-
         .azen-getback:hover {
             color: #fff;
             font-size: 20px;
             text-decoration: none;
         }
-
         #signup-box .widget-main-clear {
             padding: 40px 80px 36px;
         }
-
         .azen-location {
             position: absolute;
             left: 10px;
@@ -93,7 +82,6 @@
             font-style: normal;
             font-family: 微软雅黑;
         }
-
         .azen-locations {
             width: 57px;
             text-align: right;
@@ -104,12 +92,10 @@
             font-style: normal;
             font-family: 微软雅黑;
         }
-
         .azen-renchi {
             float: left;
             padding-right: 10px;
         }
-
         #formbuttons .azen-buttons {
             width: 100%;
             background-color: #00aadd;
@@ -124,12 +110,24 @@
         }
     </style>
 
-    <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-login.js"></script>
     <script src="assets/js/i18n/jquery.i18n.properties-min-1.0.9.js"></script>
 
     <!-- 邮箱提示 -->
     <script src="assets/js/email.js"></script>
+
+    <script language="JavaScript" charset="utf-8">
+        $(function(){
+            //读取cookie
+            if($('#rememberme:checked').length>0){
+                $('#username').val($.cookie('tvs-cookies-userName'));
+                $('#password').val($.cookie('tvs-cookies-password'));
+            }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.loadIndex();
+        })
+    </script>
 </head>
 
 <body class="login-layout" onkeydown="keyLogin();" onLoad="app_org();">

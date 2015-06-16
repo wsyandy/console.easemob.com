@@ -7,12 +7,15 @@
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-admin.js"></script>
 
-    <script type="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
             }
             loginAdminInfo();
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_admin_home();
 
             $('#companyNameInput').val('');
             $('#telephoneInput').val('');

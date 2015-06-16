@@ -33,12 +33,15 @@
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-users.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
-    <script tyep="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_users_contacts();
         });
 
         // 上一页数据

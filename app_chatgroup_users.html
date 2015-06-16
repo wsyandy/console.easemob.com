@@ -32,13 +32,17 @@
     </style>
 
     <script src="assets/js/easemob/easemob-chatgroups.js"></script>
-    <script type="text/javascript">
+    <script language="JavaScript" charset="utf-8">
         var appUuid;
         var groupid = getQueryString('groupid');
         $(function () {
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_chatgroups_users();
+
             appUuid = $.cookie('Application');
             $('#showName').text(appUuid);
             getAppChatroomsuser(appUuid, groupid);

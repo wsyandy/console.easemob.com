@@ -8,7 +8,7 @@
     <script src="assets/js/jquery.form.js"></script>
     <script src="assets/js/easemob/easemob-chatgroups.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
-    <script language="JavaScript">
+    <script language="JavaScript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
         var Application = $.cookie('Application');
         var count = 0;
@@ -16,6 +16,10 @@
             if (!getToken() || getToken() == '') {
                 logout();
             }
+
+            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.load_app_chatgroups();
+
             count = 0;
             $('#showName').text(Application);
             getAppChatrooms(appUuid);
@@ -99,14 +103,14 @@
 
         //发送消息判断
         function sendMessage() {
-            var uploadresspan = $('#uploadresspan').text();
-            var messegeContent = $('#messegeContent').val();
-            if (uploadresspan == '等待上传图片' && messegeContent == '') {
-            } else if (uploadresspan != '等待上传图片' && messegeContent == '') {
+            var uploadResspan = $('#uploadresspan').text();
+            var messageContent = $('#messegeContent').val();
+            if (uploadResspan == '等待上传图片' && messageContent == '') {
+            } else if (uploadResspan != '等待上传图片' && messageContent == '') {
                 sendUserImgMessages();
-            } else if (uploadresspan == '等待上传图片' && messegeContent != '') {
+            } else if (uploadResspan == '等待上传图片' && messageContent != '') {
                 sendUserMessages();
-            } else if (uploadresspan != '等待上传图片' && messegeContent != '') {
+            } else if (uploadResspan != '等待上传图片' && messageContent != '') {
                 sendUserMessages();
                 sendUserImgMessages();
             }
@@ -184,7 +188,7 @@
 
                 $('#myForm').ajaxSubmit(ajax_option);
             } else {
-                alert('此文件不是图片！请选择图片');
+                alert('您要上传的文件不是图片！请选择图片!');
             }
 
         }
@@ -212,7 +216,6 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
-
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
                     <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
@@ -237,7 +240,6 @@
     </div>
 </div>
 <div id="main-container" class="container-fluid"><a href="javascript:void(0);" id="menu-toggler"> <span></span> </a>
-
     <div id="sidebar">
         <div id="sidebar-shortcuts">
             <div style="min-height: 40px;" id="sidebar-shortcuts-large"></div>
@@ -339,8 +341,7 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupName">群组名称：</label>
-
+                    <label class="control-label" for="groupName"><span id="app_chatgroups_form_add_groupName">群组名称</span>：</label>
                     <div class="controls">
                         <input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
                         <input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
