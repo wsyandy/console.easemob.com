@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>环信开发者中心</title>
+    <title id="page_title">环信开发者中心</title>
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-admin.js"></script>
@@ -248,18 +248,15 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png"
-                                                             alt="管理后台"/></a>
+            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
-                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5>
-                        文档</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5>帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5>社区</h5></a>
-                    </li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
@@ -268,8 +265,8 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i> 账户 </a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i> 退出 </a></li>
+                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -284,23 +281,23 @@
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
         <ul class="nav nav-list">
-            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span>我的应用</span> </a></li>
-            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span>企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span>个人信息</span></a></li>
+            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
+            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i> 企业信息<span class="divider"> <i class="icon-angle-right"></i> </span>添加企业管理员
+                <li><i class="icon-home"></i><span id="admin_create_second_nav_orgInfo">企业信息</span><span class="divider"> <i class="icon-angle-right"></i> </span>添加企业管理员
                 </li>
             </ul>
         </div>
         <div class="clearfix" id="page-content">
             <div class="pagination pagination-left">
                 <ul>
-                    <li><a href="admin_create.html">添加企业管理员</a></li>
+                    <li><a href="admin_create.html"><span id="admin_create_second_nav_addOrgAdmin">添加企业管理员</span></a></li>
                 </ul>
             </div>
             <div class="row-fluid">
@@ -315,16 +312,16 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminUserName" class="control-label">用户名：</label>
+                                                <label for="adminUserName" class="control-label"><span id="admin_create_form_username">用户名</span>：</label>
 
                                                 <div class="controls">
                                                     <input type="text" id="adminUserName" name="adminUserName" value=""
                                                            onblur="onBlurAdminUserNameCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminUserNameMsg">用户名至少一个字符,包括[字母,数字,下划线,横线,斜线,英文点],一旦注册成功不可以更改!</span>
-                                                    <span id="adminUserNameEMsg" style="font-size:12px;color:red;">用户名至少一个字符,可使用字母,数字或字母数字组合！</span>
-                                                    <span id="adminUserNameEEMsg" style="font-size:12px;color:red;">用户名已存在！</span>
-                                                    <span id="adminUserNameOMsg" style="font-size:12px;color:blue;">输入正确！</span>
+                                                    <span id="admin_create_adminUserNameMsg">用户名至少一个字符,包括[字母,数字,下划线,横线,斜线,英文点],一旦注册成功不可以更改!</span>
+                                                    <span id="admin_create_adminUserNameEMsg" style="font-size:12px;color:red;">用户名至少一个字符,可使用字母,数字或字母数字组合！</span>
+                                                    <span id="admin_create_adminUserNameEEMsg" style="font-size:12px;color:red;">用户名已存在！</span>
+                                                    <span id="admin_create_adminUserNameOMsg" style="font-size:12px;color:blue;">输入正确！</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -332,13 +329,12 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminPassword" class="control-label">密码：</label>
-
+                                                <label for="adminPassword" class="control-label"><span id="admin_create_form_password">密码</span>：</label>
                                                 <div class="controls">
                                                     <input type="password" id="adminPassword" name="adminPassword" value="" onblur="onBlurAdminPasswordCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminPasswordMsg">密码至少一个字符,可以输入任意字符！</span>
-                                                    <span id="adminPasswordOMsg" style="font-size:12px;color:blue;">输入正确！</span>
+                                                    <span id="admin_create_adminPasswordMsg">密码至少一个字符,可以输入任意字符！</span>
+                                                    <span id="admin_create_adminPasswordOMsg" style="font-size:12px;color:blue;">输入正确！</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -346,14 +342,13 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminRePassword" class="control-label">重复密码：</label>
-
+                                                <label for="adminRePassword" class="control-label"><span id="admin_create_form_repassword">重复密码</span>：</label>
                                                 <div class="controls">
                                                     <input type="password" id="adminRePassword" name="adminRePassword" value="" onblur="onBlurAdminRePasswordCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminRePasswordMsg">重复输入以确认密码无误!</span>
-                                                    <span id="adminRePasswordEMsg" style="font-size:12px;color:red;">两次密码输入不一致!</span>
-                                                    <span id="adminRePasswordOMsg" style="font-size:12px;color:blue;">输入正确！</span>
+                                                    <span id="admin_create_adminRePasswordMsg">重复输入以确认密码无误!</span>
+                                                    <span id="admin_create_adminRePasswordEMsg" style="font-size:12px;color:red;">两次密码输入不一致!</span>
+                                                    <span id="admin_create_adminRePasswordOMsg" style="font-size:12px;color:blue;">输入正确！</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -361,16 +356,15 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminEmail" class="control-label">邮箱：</label>
+                                                <label for="adminEmail" class="control-label"><span id="admin_create_form_email">邮箱</span>：</label>
 
                                                 <div class="controls">
-                                                    <input type="text" id="adminEmail" name="adminEmail" value=""
-                                                           onblur="onBlurAdminEmailCheck()"/>
+                                                    <input type="text" id="adminEmail" name="adminEmail" value="" onblur="onBlurAdminEmailCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminEmailMsg">输入一个常用邮箱地址,一旦注册成功不可以更改!</span>
-                                                    <span id="adminEmailEMsg" style="font-size:12px;color:red;">请输入有效的邮箱地址!</span>
-                                                    <span id="adminEmailEEMsg" style="font-size:12px;color:red;">邮箱地址已被占用!</span>
-                                                    <span id="adminEmailOMsg" style="font-size:12px;color:blue;">输入正确!</span>
+                                                    <span id="admin_create_adminEmailMsg">输入一个常用邮箱地址,一旦注册成功不可以更改!</span>
+                                                    <span id="admin_create_adminEmailEMsg" style="font-size:12px;color:red;">请输入有效的邮箱地址!</span>
+                                                    <span id="admin_create_adminEmailEEMsg" style="font-size:12px;color:red;">邮箱地址已被占用!</span>
+                                                    <span id="admin_create_adminEmailOMsg" style="font-size:12px;color:blue;">输入正确!</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -378,16 +372,13 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminTel" class="control-label">联系电话：</label>
-
+                                                <label for="adminTel" class="control-label"><span id="admin_create_form_adminTel">联系电话</span>：</label>
                                                 <div class="controls">
-                                                    <input type="text" id="adminTel" name="adminTel" value=""
-                                                           onblur="onBlurAdminTelCheck()"/>
+                                                    <input type="text" id="adminTel" name="adminTel" value="" onblur="onBlurAdminTelCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminTelMsg">输入一个正常使用的固话或移动电话号,方便与您取得联系!</span>
-                                                    <span id="adminTelEMsg" style="font-size:12px;color:red;">请输入有效的联系电话号码!</span>
-                                                    <span id="adminTelOMsg"
-                                                          style="font-size:12px;color:blue;">输入正确!</span>
+                                                    <span id="admin_create_adminTelMsg">输入一个正常使用的固话或移动电话号,方便与您取得联系!</span>
+                                                    <span id="admin_create_adminTelEMsg" style="font-size:12px;color:red;">请输入有效的联系电话号码!</span>
+                                                    <span id="admin_create_adminTelOMsg" style="font-size:12px;color:blue;">输入正确!</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -395,23 +386,22 @@
                                     <div class="row-fluid">
                                         <div class="span12">
                                             <div class="control-group">
-                                                <label for="adminCompany" class="control-label">公司名称：</label>
+                                                <label for="adminCompany" class="control-label"><span id="admin_create_form_adminCompany">公司名称</span>：</label>
 
                                                 <div class="controls">
                                                     <input type="text" id="adminCompany" name="adminCompany" value="" onblur="onBlurAdminCompanyCheck()"/>
                                                     <span style="color:red">*&nbsp;</span>
-                                                    <span id="adminCompanyMsg">输入您所在公司的全名称!</span>
-                                                    <span id="adminCompanyEMsg" style="font-size:12px;color:red;">公司名称只能是汉字,字母,数字、横线、下划线及其组合!</span>
-                                                    <span id="adminCompanyOMsg" style="font-size:12px;color:blue;">输入正确!</span>
+                                                    <span id="admin_create_adminCompanyMsg">输入您所在公司的全名称!</span>
+                                                    <span id="admin_create_adminCompanyEMsg" style="font-size:12px;color:red;">公司名称只能是汉字,字母,数字、横线、下划线及其组合!</span>
+                                                    <span id="admin_create_adminCompanyOMsg" style="font-size:12px;color:blue;">输入正确!</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-actions">
                                         <button onclick="toOrgAdminUserList();" class="btn btn-small btn-success"><i
-                                                class="icon-arrow-left icon-on-right bigger-110"></i> 返回列表
-                                        </button>
-                                        <button onclick="saveNewAdminUserPre();" class="btn btn-small btn-success"> 确定<i
+                                                class="icon-arrow-left icon-on-right bigger-110"></i><span id="admin_create_backtolist">返回列表</span></button>
+                                        <button onclick="saveNewAdminUserPre();" class="btn btn-small btn-success"><span id="admin_create_confirm">确定</span><i
                                                 class="icon-arrow-right icon-on-right bigger-110"></i></button>
                                     </div>
                                 </div>

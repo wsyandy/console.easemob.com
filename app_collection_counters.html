@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>环信开发者中心</title>
+    <title id="page_title">环信开发者中心</title>
 
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
@@ -16,7 +16,7 @@
 
     <script src="assets/js/easemob/easemob-counters.js"></script>
 
-    <script tyep="text/javascript" charset="utf-8">
+    <script language="JavaScript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
         var Application = $.cookie('Application');
 
@@ -181,17 +181,15 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" alt="管理后台"/></a>
+            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
-                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
-                    <li style="width:20%;"><a href="ttp://www.easemob.com/docs/gettingstart" target="_blank"><h5>文档</h5>
-                    </a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5>帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5>社区</h5></a>
-                    </li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
@@ -200,8 +198,8 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i> 账户 </a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i> 退出 </a></li>
+                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -209,24 +207,22 @@
     </div>
 </div>
 <div id="main-container" class="container-fluid"><a href="javascript:void(0);" id="menu-toggler"> <span></span> </a>
-
     <div id="sidebar">
         <div id="sidebar-shortcuts">
             <div style="min-height: 40px;" id="sidebar-shortcuts-large"></div>
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
         <ul class="nav nav-list">
-            <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span>我的应用</span>
-            </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span>企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span>个人信息</span></a></li>
+            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
+            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i> 我的应用 <span class="divider"> <i class="icon-angle-right"></i> </span></li>
+                <li><i class="icon-home"></i><span id="second_nav_myapp">我的应用</span><span class="divider"> <i class="icon-angle-right"></i> </span></li>
                 <li><a href="javascript:void(0);" target="_self"> <span id="showName"></span></a></li>
             </ul>
         </div>
@@ -234,23 +230,24 @@
             <div class="row-fluid">
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="javascript:toApppofile()">应用概况</a></li>
+                        <li><a href="javascript:toApppofile()"><span id="third_nav_appprofile">应用概况</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppUsersPage()">IM用户</a></li>
+                        <li><a href="javascript:toAppUsersPage()"><span id="third_nav_imusers">IM用户</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:togroupAppAdmin()">群组</a></li>
+                        <li><a href="javascript:toAppGroups()"><font color="green"><span id="third_nav_chatgroups">群组</span></font></a></li>
+                    </ul>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:toAppNotifiersPage()"><span id="third_nav_notifier">推送证书</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppCredentialsPage()">推送证书</a></li>
-                    </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <ul>
-                        <li><a href="javascript:toApppofileCounter()"><font color="green">统计数据</font></a></li>
+                        <li><a href="javascript:toAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>
@@ -258,19 +255,19 @@
             <!-- Counters Tabs -->
             <div>
                 <ul id="countersTab" class="nav nav-tabs">
-                    <li class="active"><a href="javascript:void(0);" onclick="showUsersChartTab()" data-toggle="tab">用&nbsp;&nbsp;户</a></li>
-                    <li><a href="javascript:void(0);" onclick="showChatmessagsChartTab()" id="tabChatmessages" data-toggle="tab">消&nbsp;&nbsp;息</a></li>
-                    <!--<li><a href="#chatgroups" onclick="javascript:showChatgroupsChartTab()" id="tabChatgroups" data-toggle="tab">群&nbsp;&nbsp;组</a></li>-->
+                    <li class="active"><a href="javascript:void(0);" onclick="showUsersChartTab()" data-toggle="tab"><span id="app_collection_counters_tab_user">用&nbsp;&nbsp;户</span></a></li>
+                    <li><a href="javascript:void(0);" onclick="showChatmessagsChartTab()" id="tabChatmessages" data-toggle="tab"><span id="app_collection_counters_tab_chatmessages">消&nbsp;&nbsp;息</span></a></li>
+                    <!--<li><a href="#chatgroups" onclick="javascript:showChatgroupsChartTab()" id="tabChatgroups" data-toggle="tab"><span id="app_collection_counters_tab_chatgroups">群&nbsp;&nbsp;组</span></a></li>-->
                 </ul>
                 <p/>
                 <!-- Counters Users Selectors -->
                 <div id="countersUsers">
-                    <div id="countersChartType">数据类型:
+                    <div id="countersChartType"><span id="app_collection_counters_text_dataType">数据类型</span>:
                         <select id="userChartSelector">
-                            <option value="register_users">注册用户数</option>
-                            <option value="daily_active_users">每日活跃用户数</option>
-                            <option value="daily_new_active_users">每日新增活跃用户数</option>
-                            <option value="daily_chat_users">每日发送消息用户数</option>
+                            <option value="register_users"><span id="app_collection_counters_chatType_imusers">注册用户数</span></option>
+                            <option value="daily_active_users"><span id="app_collection_counters_chatType_dailyActiveUser">每日活跃用户数</span></option>
+                            <option value="daily_new_active_users"><span id="app_collection_counters_chatType_dailyNewActiveUser">每日新增活跃用户数</span></option>
+                            <option value="daily_chat_users"><span id="app_collection_counters_chatType_dailySendMsgUser">每日发送消息用户数</span></option>
                         </select>
                         <!--<select id="chatmessagsChartSelector">-->
                             <!--<option value="msg_outgoing" disabled="disabled">消息</option>-->
@@ -292,11 +289,12 @@
                 </div>
 
                 <div style="position:absolute;right:25%;top:195px;z-index:100;">
-                    <span>查询时间段：</span>
-                            <span>从
+                    <span id="app_collection_counters_text_dateInterval">查询时间段</span>：
+                            <span>
+                                <span id="app_collection_counters_text_dateIntervalFrom">从</span>
                                 <input name="pickerStartDate" type="text" value="" id="pickerStartDate" style="width:80px;" size="10"
                                        maxlength="10" onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly"/>
-                                至
+                                <span id="app_collection_counters_text_dateIntervalTo">至</span>
                                 <input name="pickerEndDate" type="text" id="pickerEndDate" style="width:80px;" size="10" maxlength="10"
                                        onClick="WdatePicker({dateFmt:'yyyy-MM-dd'})" readonly="readonly"/>
                                 <input type="hidden" name="pickerEndDateHide" id="pickerEndDateHide" value="" />
@@ -305,9 +303,9 @@
                     <input type="hidden" id="drawCountersChartsType" value="">
                 </div>
                 <div style="position:absolute;right:5%;top:185px;z-index:100;">
-                    <input type="hidden" id="dtp_input3" value=""/><br/><span class="lbl">快速查询：</span>
-                    <input type="radio" name="chartsRadio1" value="oneday" id="chartsRadio1oneday" onclick="drawCountersCharts('oneday')"/><span class="lbl">一天</span>
-                    <input type="radio" name="chartsRadio1" value="sevendays" id="chartsRadio1sevendays" onclick="drawCountersCharts('sevendays')"/><span class="lbl">七天</span>
+                    <input type="hidden" id="dtp_input3" value=""/><br/><span class="lbl" id="app_collection_counters_text_quickSearch">快速查询</span>：
+                    <input type="radio" name="chartsRadio1" value="oneday" id="chartsRadio1oneday" onclick="drawCountersCharts('oneday')"/><span class="lbl" id="app_collection_counters_text_quickSearchOneDay">1天</span>
+                    <input type="radio" name="chartsRadio1" value="sevendays" id="chartsRadio1sevendays" onclick="drawCountersCharts('sevendays')"/><span class="lbl" id="app_collection_counters_text_quickSearchSevenDays">7天</span>
                 </div>
                 <br/><br/><br/>
                 <div><center><span id="chartTitle"></span></center></div>

@@ -2,13 +2,13 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>环信开发者中心</title>
+    <title id="page_title">环信开发者中心</title>
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/jquery.form.js"></script>
     <script src="assets/js/easemob/easemob-chatgroups.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
-    <script tyep="text/javascript">
+    <script language="JavaScript">
         var appUuid = getQueryString('appUuid');
         var Application = $.cookie('Application');
         var count = 0;
@@ -211,18 +211,15 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png"
-                                                             alt="管理后台"/></a>
+            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
-                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5>
-                        文档</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5>帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5>社区</h5></a>
-                    </li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
@@ -231,8 +228,8 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i> 账户 </a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i> 退出 </a></li>
+                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -247,16 +244,16 @@
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
         <ul class="nav nav-list">
-            <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span>我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span>企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span>个人信息</span></a></li>
+            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
+            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i> 我的应用 <span class="divider"> <i class="icon-angle-right"></i> </span></li>
+                <li><i class="icon-home"></i><span id="second_nav_myapp">我的应用</span><span class="divider"> <i class="icon-angle-right"></i> </span></li>
                 <li><a href="javascript:void(0);" target="_self"> <span id="showName"></span></a></li>
             </ul>
         </div>
@@ -264,40 +261,39 @@
             <div class="row-fluid">
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="javascript:toApppofile()">应用概况</a></li>
+                        <li><a href="javascript:toApppofile()"><span id="third_nav_appprofile">应用概况</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppUsersPage()">IM用户</a></li>
+                        <li><a href="javascript:toAppUsersPage()"><span id="third_nav_imusers">IM用户</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppGroups()"><font color="green">群组</font></a></li>
+                        <li><a href="javascript:toAppGroups()"><font color="green"><span id="third_nav_chatgroups">群组</span></font></a></li>
                     </ul>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppNotifiersPage()">推送证书</a></li>
+                        <li><a href="javascript:toAppNotifiersPage()"><span id="third_nav_notifier">推送证书</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppCollectionCounters()">统计数据</a></li>
+                        <li><a href="javascript:toAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
-
                 </div>
 
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="#passwordMondify" data-toggle="modal" role="button">添加群组</a></li>
+                        <li><a href="#passwordMondify" data-toggle="modal" role="button"><span id="app_chatgroups_btn_addchatgroup">添加群组</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:deleteAppChatgroupBox()">批量删除</a></li>
+                        <li><a href="javascript:deleteAppChatgroupBox()"><span id="app_chatgroups_btn_deleteBatch">批量删除</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:showSendMessge()">发送消息</a></li>
+                        <li><a href="javascript:showSendMessge()"><span id="app_chatgroups_btn_sendMsg">发送消息</span></a></li>
                     </ul>
                     <ul style="display:none">
                         <li><a href="#sendMessage" id="sendMessageA" data-toggle="modal" role="button"></a></li>
@@ -305,7 +301,7 @@
                     <form id="searchForm" action="#" class="form-search pull-right">
                         <div class="input-append">
                             <input class="m-wrap" value="" id="groupid" type="text" placeholder="输入完整群组ID"/>
-                            <button class="btn green" id="searchBtn" onClick="searchChatgroup()" type="button">搜索
+                            <button class="btn green" id="searchBtn" onClick="searchChatgroup()" type="button"><span id="app_chatgroups_btn_search">搜索</span>
                             </button>
                             <input value="" id="userInboxBak" type="hidden"/>
                         </div>
@@ -318,11 +314,10 @@
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th width="111px">全选<input style="opacity:1;" type="checkbox" id="checkAll"
-                                                       onChange="checkAll()"/></th>
-                            <th class="hidden-280 text-center" width="222px">群组ID</th>
-                            <th class="hidden-480 text-center" width="666px" style="word-break:break-all">群组名称</th>
-                            <th class="hidden-480 text-center" width="222px">操作</th>
+                            <th width="111px"><span id="app_chatgroups_table_checkall">全选</span><input style="opacity:1;" type="checkbox" id="checkAll" onChange="checkAll()"/></th>
+                            <th class="hidden-280 text-center" width="222px"><span id="app_chatgroups_table_groupid">群组ID</span></th>
+                            <th class="hidden-480 text-center" width="666px" style="word-break:break-all"><span id="app_chatgroups_table_groupname">群组名称</span></th>
+                            <th class="hidden-480 text-center" width="222px"><span id="app_chatgroups_table_cancel">操作</span></th>
                         </tr>
                         </thead>
                         <tbody id="appChatroomBody"></tbody>
@@ -332,12 +327,13 @@
         </div>
     </div>
 </div>
+
 <!--添加群组-->
 <div id="passwordMondify" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">添加群组</h3>
+        <h3 id="app_chatgroups_form_add_title">添加群组</h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
@@ -348,7 +344,7 @@
                     <div class="controls">
                         <input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
                         <input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
-                        <input type="hidden" id="appUuidHidd" name="appUuidHidd" value=""/>
+                        <input type="hidden" id="appUuidHide" name="appUuidHide" value=""/>
                         <span style="color: red;" id="groupnameSpan"></span>
                     </div>
                 </div>
@@ -357,11 +353,11 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupDesc">群组描述：</label>
+                    <label class="control-label" for="groupDesc"><span id="app_chatgroups_form_add_groupDesc">群组描述</span>：</label>
 
                     <div class="controls">
                         <input type="text" id="groupDesc" name="groupDesc" value="" placeholder="请输入群组描述"/>
-                        <span style="color: red;" id="groupdescSpan"></span>
+                        <span style="color: red;" id="app_chatgroups_form_add_groupdescSpan"></span>
                     </div>
                 </div>
             </div>
@@ -369,29 +365,28 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="grouppulic">是否公开:</label>
-
+                    <label class="control-label" for="private">是否公开:</label>
                     <div class="controls">
-                        <input type="radio" id="nopublic" name="public" onclick="numss();" checked="checked"
-                               value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
-                        <input type="radio" id="public" name="public" onclick="nums();" value="true"
-                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
+                        <input type="radio" id="private" name="isPublic" onclick="numss();" checked="checked"
+                               value="false" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_private">不公开</span>
+                        <input type="radio" id="public" name="isPublic" onclick="nums();" value="true"
+                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_public">公开</span>
                         <span style="color: red;" id="grouppulicSpan"></span>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row-fluid" id="validation">
+        <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupapproval">加群是否验证:</label>
+                    <label class="control-label" for="approval">加群是否验证:</label>
 
                     <div class="controls">
-                        <input type="radio" id="approvals" name="approval" onclick="approvals();" value="false"
-                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不验证
+                        <input type="radio" id="unApproval" name="approval" onclick="approvals();" value="false"
+                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不验证<span id="app_chatgroups_form_add_unApproval">公开</span>
                         <input type="radio" id="approval" name="approval" onclick="approvalon();" value="true"
-                               checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证
-                        <span style="color: red;" id="groupapprovalSpan"></span>
+                               checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_add_approval">验证</span>
+                        <span style="color: red;" id="app_chatgroups_form_add_groupApprovalSpan"></span>
                     </div>
                 </div>
             </div>
@@ -399,11 +394,10 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="maxusers">最大成员数：</label>
-
+                    <label class="control-label" for="maxusers"><span id="app_chatgroups_form_add_maxusers">最大成员数</span>：</label>
                     <div class="controls">
                         <input type="text" id="maxusers" name="maxusers" value="" placeholder="请输入最大成员数"/>
-                        <span style="color: red;" id="groupmaxuserSpan"></span>
+                        <span style="color: red;" id="app_chatgroups_form_add_groupMaxuserSpan"></span>
                     </div>
                 </div>
             </div>
@@ -411,11 +405,11 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupOwner">群主：</label>
+                    <label class="control-label" for="groupOwner"><span id="app_chatgroups_form_add_groupOwner">群主</span>：</label>
 
                     <div class="controls">
                         <input type="text" id="groupOwner" name="groupOwner" value="" placeholder="请输入群主账号"/>
-                        <span style="color: red;" id="qunzuguanSpan"></span>
+                        <span style="color: red;" id="app_chatgroups_form_add_groupOwnerSpan"></span>
                     </div>
                 </div>
             </div>
@@ -423,8 +417,8 @@
     </div>
 
     <div class="modal-footer">
-        <a class="btn" id="addNewChatgroupBtn" onclick="createNewChatgroupPre();">添加</a>
-        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
+        <a class="btn" onclick="createNewChatgroupPre();"><span id="app_chatgroups_form_add_BtnAdd">添加</span></a>
+        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true"><span id="app_chatgroups_form_add_BtnCancel">关闭</span></button>
     </div>
 </div>
 <!--添加群组end-->
@@ -433,19 +427,19 @@
      aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">修改群组</h3>
+        <h3 id="app_chatgroups_form_mondify_tille">修改群组</h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupName">群组名称：</label>
+                    <label class="control-label" for="groupName"><span id="app_chatgroups_form_modify_groupName">群组名称</span>：</label>
 
                     <div class="controls">
                         <input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
-                        <input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
-                        <input type="hidden" id="appUuidHidd" name="appUuidHidd" value=""/>
-                        <span style="color: red;" id="groupnameSpan"></span>
+                        <input type="hidden" id="usernameModify" name="usernameModify" value=""/>
+                        <input type="hidden" id="appUuidHide" name="appUuidHide" value=""/>
+                        <span style="color: red;" id="app_chatgroups_form_modify_groupNameSpan"></span>
                     </div>
                 </div>
             </div>
@@ -453,11 +447,11 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupDesc">群组描述：</label>
+                    <label class="control-label" for="groupDesc"><span id="app_chatgroups_form_modify_groupDesc">群组描述</span>：</label>
 
                     <div class="controls">
-                        <input type="text" id="groupDesc" name="groupDesc" value="" placeholder="请输入群组描述"/>
-                        <span style="color: red;" id="groupdescSpan"></span>
+                        <input type="text" id="modifyGroupDesc" name="groupDesc" value="" placeholder="请输入群组描述"/>
+                        <span style="color: red;" id="app_chatgroups_form_modify_groupDescSpan"></span>
                     </div>
                 </div>
             </div>
@@ -465,14 +459,13 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="grouppulic">是否公开:</label>
-
+                    <label class="control-label" for="isPublic">是否公开:</label>
                     <div class="controls">
-                        <input type="radio" id="nopublic" name="public" onclick="numss();" value="false"
-                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不公开
-                        <input type="radio" id="public" name="public" onclick="nums();" value="true" checked="checked"
-                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公开
-                        <span style="color: red;" id="grouppulicSpan"></span>
+                        <input type="radio" id="private" name="isPublic" onclick="numss();" value="false"
+                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_modify_groupIsPublic_private">不公开</span>
+                        <input type="radio" id="public" name="isPublic" onclick="nums();" value="true" checked="checked"
+                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_modify_groupIsPublic_public">公开</span>
+                        <span style="color: red;" id="app_chatgroups_form_modify_groupIsPublicSpan"></span>
                     </div>
                 </div>
             </div>
@@ -481,13 +474,12 @@
             <div class="span12">
                 <div class="control-group">
                     <label class="control-label" for="groupapproval">加群是否验证:</label>
-
                     <div class="controls">
-                        <input type="radio" id="approvals" name="approval" onclick="approvals();" value="false"
-                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不验证
-                        <input type="radio" id="approval" name="approval" onclick="approvalon();" value="true"
-                               checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;验证
-                        <span style="color: red;" id="groupapprovalSpan"></span>
+                        <input type="radio" id="unApproval" name="isApproval" onclick="approvals();" value="false"
+                               style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_modify_groupisApproval_unApproval"></span>不验证
+                        <input type="radio" id="approval" name="isApproval" onclick="approvalon();" value="true"
+                               checked="checked" style="opacity:1;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_chatgroups_form_modify_groupisApproval_approval">验证</span>
+                        <span style="color: red;" id="app_chatgroups_form_modify_isApprovalSpan"></span>
                     </div>
                 </div>
             </div>
@@ -495,11 +487,10 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="maxusers">最大成员数：</label>
-
+                    <label class="control-label" for="maxusers"><span id="app_chatgroups_form_modify_maxusers">最大成员数</span>：</label>
                     <div class="controls">
                         <input type="text" id="maxusers" name="maxusers" value="" placeholder="请输入最大成员数"/>
-                        <span style="color: red;" id="groupmaxuserSpan"></span>
+                        <span style="color: red;" id="app_chatgroups_form_modify_maxUsersSpan"></span>
                     </div>
                 </div>
             </div>
@@ -507,11 +498,11 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="groupOwner">群主：</label>
+                    <label class="control-label" for="groupOwner"><span id="app_chatgroups_form_modify_owner">群主</span>：</label>
 
                     <div class="controls">
                         <input type="text" id="groupOwner" name="groupOwner" value="" placeholder="请输入群主账号"/>
-                        <span style="color: red;" id="qunzuguanSpan"></span>
+                        <span style="color: red;" id="app_chatgroups_form_modify_ownerSpan"></span>
                     </div>
                 </div>
             </div>
@@ -519,8 +510,8 @@
     </div>
 
     <div class="modal-footer">
-        <a class="btn" id="addNewChatgroupBtn" onclick="createNewChatgroupPre();">添加</a>
-        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
+        <a class="btn" id="addNewChatgroupBtn" onclick="createNewChatgroupPre();"><span id="app_chatgroups_form_modify_btnAdd">添加</span></a>
+        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true"><span id="app_chatgroups_form_modify_btnCancel">关闭</span></button>
     </div>
 </div>
 <!--修改群组信息end-->
@@ -529,34 +520,32 @@
      aria-hidden="true">
     <div class="modal-header">
         <button id="closeButn" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">发送消息</h3>
+        <h3 id="app_chatgroups_form_sendMsg_title">发送消息</h3>
         <input type="hidden" id="imgUuid"/>
     </div>
     <div class="modal-header">
         <h3 id="msgType"><font style="font-size:13px;color:red">提醒：</font>
-            <font style="font-size:13px;color:red">&nbsp;可以文字和图片同时发送,也可任选其一发送</font>
+            <font style="font-size:13px;color:red">&nbsp;可以文字和图片同时发送,也可任选其一发送</font></h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
                 <form id="myForm" method="POST" enctype="multipart/form-data" action="">
                     <div class="control-group">
-                        <label class="control-label" for="messegeContent">选择图片：</label>
-
+                        <label class="control-label" for="messageContent"><span id="app_chatgroups_sendMsg_label_selectPicture">选择图片</span>：</label>
                         <div class="controls" id="div1">
                             <input type="text" readonly="readonly" id="f_file"/>
                             <input type="button" value="选择..." class="btn btn-mini btn-primary" onClick="file.click()"/>
                             <input type="file" name="file" id="file" onChange="f_file.value=this.value;imgMessage()"
                                    style="display:none">
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
-                                id="uploadresspan">等待上传图片</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span id="app_chatgroups_sendMsg_label_wait">等待上传图片</span>
                             <input type="hidden" id="share-secret"/>
                         </div>
                     </div>
                 </form>
                 <div class="control-group">
-                    <label class="control-label" for="messegeContent">输入文字：</label>
-
+                    <label class="control-label" for="messegeContent"><span id="app_chatgroups_sendMsg_label_input">输入文字</span>：</label>
                     <div class="controls" id="div1">
                         <textarea style="width:500px; height:100px;" id="messegeContent"
                                   name="messegeContent"></textarea>
@@ -571,8 +560,8 @@
     </div>
 
     <div class="modal-footer">
-        <a class="btn" onClick="sendMessage();" href="javascript:void(0);">发送</a>
-        <button id="messageCloseBtn" class="btn" data-dismiss="modal" onClick="clsupSpan()" aria-hidden="true">关闭
+        <a class="btn" onClick="sendMessage();" href="javascript:void(0);"><span id="app_chatgroups_sendMsg_btn_send">发送</span></a>
+        <button id="messageCloseBtn" class="btn" data-dismiss="modal" onClick="clsupSpan()" aria-hidden="true"><span id="app_chatgroups_sendMsg_btn_cancel">关闭</span>
         </button>
     </div>
 </div>

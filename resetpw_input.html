@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>环信开发者中心</title>
+    <title id="page_title">环信开发者中心</title>
 
   <script src="/assets/js/easemob/easemob-header.js"></script>
 
@@ -57,7 +57,7 @@
               <div class="visible widget-box no-border" id="login-box">
                 <div class="widget-body">
                   <div class="widget-main">
-                    <h4 class="header blue lighter bigger"> 设置新密码 </h4>
+                    <h4 class="header blue lighter bigger" id="resetpw_input_text_setNewPassword">设置新密码</h4>
                     <div class="space-6"></div>
                       <fieldset>                      
                         <label> <span class="block input-icon input-icon-right">
@@ -69,8 +69,8 @@
                           <i class="icon-lock"></i> <span class="Validform_checktip"></span></span> 
                         </label>
                         <div class="row-fluid">
-                          <a class="span4 btn btn-small btn-primary" onclick="presetPasswdReq();"> <i class="icon-key"></i> 确定 </a>
-                          <button class="span4 btn btn-small btn-primary" onclick="toConsole();"> <i class="icon-lock"></i> 放弃 </button>
+                          <a class="span4 btn btn-small btn-primary" onclick="presetPasswdReq();"> <i class="icon-key"></i><span id="resetpw_input_form_confirm">确定</span></a>
+                          <button class="span4 btn btn-small btn-primary" onclick="toConsole();"> <i class="icon-lock"></i><span id="resetpw_input_form_cancel">放弃</span></button>
                         </div>
                       </fieldset>
                   </div>

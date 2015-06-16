@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>环信开发者中心</title>
+    <title id="page_title">环信开发者中心</title>
 
     <script src="assets/js/jquery.form.js"></script>
     <script src="/assets/js/easemob/easemob-header.js"></script>
@@ -159,18 +159,14 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png"
-                                                             alt="管理后台"/></a>
-
+            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
-                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5>主页</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5>
-                        文档</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5>帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5>社区</h5></a>
-                    </li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5>下载SDK</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
@@ -179,8 +175,8 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i> 账户 </a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i> 退出 </a></li>
+                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -195,16 +191,16 @@
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
         <ul class="nav nav-list">
-            <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span>我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span>企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span>个人信息</span></a></li>
+            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
+            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i> 我的应用 <span class="divider"> <i class="icon-angle-right"></i> </span></li>
+                <li><i class="icon-home"></i><span id="second_nav_myapp">我的应用</span><span class="divider"> <i class="icon-angle-right"></i> </span></li>
                 <li><a href="javascript:void(0);" target="_self"> <span id="showName"></span></a></li>
             </ul>
         </div>
@@ -212,26 +208,26 @@
             <div class="row-fluid">
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="javascript:toApppofile()">应用概况</a></li>
+                        <li><a href="javascript:toApppofile()"><span id="third_nav_appprofile">应用概况</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppUsersPage()">IM用户</a></li>
+                        <li><a href="javascript:toAppUsersPage()"><span id="third_nav_imusers">IM用户</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppGroups()">群组</a></li>
+                        <li><a href="javascript:toAppGroups()"><font color="green"><span id="third_nav_chatgroups">群组</span></font></a></li>
                     </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <ul>
-                        <li><a href="javascript:toAppNotifiersPage()"><font color="green">推送证书</font></a></li>
-                    </ul>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <ul>
-                        <li><a href="javascript:toAppCollectionCounters()">统计数据</a></li>
-                    </ul>
-                    <hr>
 
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:toAppNotifiersPage()"><span id="third_nav_notifier">推送证书</span></a></li>
+                    </ul>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <ul>
+                        <li><a href="javascript:toAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                    </ul>
+                    <hr/>
                 </div>
             </div>
 
@@ -241,15 +237,13 @@
                         <div class="apply">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <thead>
-                                <p style="background-color:white;height:30px;font-size:16px;line-height:30px;overflow:hidden;"
-                                   width="100%" align="center">证书列表</p>
+                                <p style="background-color:white;height:30px;font-size:16px;line-height:30px;overflow:hidden;" width="100%" align="center"><span id="app_notifiers_table_title">证书列表</span></p>
                                 <tr>
-                                    <th>名称</th>
-                                    <th>类型</th>
-                                    <th>创建日期</th>
-                                    <th>最后修改日期</th>
-                                    <!--<th>证书状态</th>-->
-                                    <th>操作</th>
+                                    <th id="app_notifiers_table_th_notifierName">名称</th>
+                                    <th id="app_notifiers_table_th_notifierType">类型</th>
+                                    <th id="app_notifiers_table_th_created">创建日期</th>
+                                    <th id="app_notifiers_table_th_modified">最后修改日期</th>
+                                    <th id="app_notifiers_table_th_operation">操作</th>
                                 </tr>
                                 </thead>
                                 <tbody bgcolor="#FFFFFF" id="appCredentialBody">
@@ -269,17 +263,16 @@
                         <div class="pagination pagination-left" id="div" onMouseOver="displayCertificate();"
                              onMouseOut="hideCertificate();">
                             <ul>
-                                <li><a href="javascript:void(0);">新增证书</a></li>
+                                <li><a href="javascript:void(0);"><span id="app_notifiers_form_addNewNotifier">新增证书</span></a></li>
                             </ul>
                             <ul id="certificate">
-                                <li><a href="http://www.easemob.com/docs/ios/push/certificate/" target="_blank">>>
-                                    制作iOS推送证书</a></li>
+                                <li><a href="http://www.easemob.com/docs/ios/push/certificate/" target="_blank"><span id="app_notifiers_href_makeNotifier">制作iOS推送证书</span></a></li>
                             </ul>
                         </div>
                         <div class="apply">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td align="left" width="80px"><strong>应用名称&nbsp;&nbsp;&nbsp;:</strong></td>
+                                    <td align="left" width="80px"><strong id="app_notifiers_form_appName">应用名称&nbsp;&nbsp;&nbsp;:</strong></td>
                                     <td bgcolor="#FFFFFF"><span id="fileAppKey"></span></td>
                                 </tr>
                             </table>
@@ -289,8 +282,8 @@
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px"><strong>证书名称<font color='red'>
-                                                &nbsp;*&nbsp;</font>:</strong></td>
+                                            <td align="left" width="80px"><strong id="app_notifiers_form_notifierName">证书名称</strong>
+                                                <font color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF"><input type="text" name="name" id="name" value=""
                                                                          placeholder="请输入证书名称(必填)"/></td>
                                         </tr>
@@ -299,10 +292,9 @@
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px"><strong>证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书<font
-                                                    color='red'>&nbsp;*&nbsp;</font>:</strong></td>
+                                            <td align="left" width="80px"><strong id="app_notifiers_form_notifier">证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书</strong><font
+                                                    color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF">
-                                                <!--	<input type="file" name="file" id="file" class="btn btn-mini btn-primary" value="浏览…" onchange="validateSuffix(this.value)">-->
                                                 <input type="text" readonly="readonly" id="f_file"/>
                                                 <input type="button" value="浏览..." class="btn btn-mini btn-primary"
                                                        onClick="file.click()"/>
@@ -316,8 +308,8 @@
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px;"><strong>证书密码<font color='red'>
-                                                &nbsp;*&nbsp;</font>:</strong></td>
+                                            <td align="left" width="80px;"><strong id="app_notifiers_form_notifierPassword">证书密码</strong><font color='red'>
+                                                &nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF" width="280px;">
                                                 <input type="password" name="passphrase" id="passphrase" value=""
                                                        placeholder="请输入证书密码(必填)"/>
@@ -328,13 +320,11 @@
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px;"><strong>证书类型<font color='red'>
-                                                &nbsp;*&nbsp;</font>:</strong></td>
+                                            <td align="left" width="80px;"><strong id="app_notifiers_form_notifierType">证书类型</strong>
+                                                <font color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF">
-                                                <input type=radio value="DEVELOPMENT" name="environment"
-                                                       checked="checked"><span class="lbl">开发环境</span>
-                                                <input type=radio value="PRODUCTION" name="environment"><span
-                                                    class="lbl">生产环境</span>
+                                                <input type=radio value="DEVELOPMENT" name="environment" checked="checked"><span class="lbl" id="app_notifiers_form_notifierType_dev">开发环境</span>
+                                                <input type=radio value="PRODUCTION" name="environment"><span class="lbl" id="app_notifiers_form_notifierType_product">生产环境</span>
                                             </td>
                                         </tr>
                                     </table>
