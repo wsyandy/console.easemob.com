@@ -54,7 +54,9 @@
 
         var chartTileUsers = 'IM用户数趋势图';
         var chartTileChatmessages = '消息发送量趋势图';
-
+        var chartTileDailyActiveUser = '每日活跃用户数趋势图';
+        var chartTileDailyNewActiveUser = '每日新增活跃用户数趋势图';
+        var chartTileDailyChatUser = '每日发送消息用户数趋势图';
 
         $(function () {
             $('#showName').text(Application);
@@ -69,7 +71,7 @@
             showUsersChartTab();
 
             // 下拉菜单变化
-            /*$('#userChartSelector').change(function() {
+            $('#userChartSelector').change(function() {
                 timePikerInput.init();
                 applyCountersAndDraw(this);
             });
@@ -77,13 +79,29 @@
             $('#chatmessagsChartSelector').change(function() {
                 timePikerInput.init();
                 applyCountersAndDraw(this);
-            });*/
+            });
         });
 
 
         function applyCountersAndDraw(selector) {
             var counterType = $(selector).children("option:selected").val();
             $('#drawCountersChartsType').val(counterType);
+
+            var drawCountersChartsType = $('#drawCountersChartsType').val();
+            var chartTitle = $('#chartTitle');
+            switch(drawCountersChartsType){
+                case 'daily_active_users':
+                    chartTitle.text(chartTileDailyActiveUser);
+                    break;
+                case 'daily_chat_users':
+                    chartTitle.text(chartTileDailyChatUser);
+                    break;
+                case 'daily_new_active_users':
+                    chartTitle.text(chartTileDailyNewActiveUser);
+                    break;
+                default:
+                    break;
+            }
 
             var peroid = $("input[name='chartsRadio1']:checked").val();
             drawCountersCharts(peroid);
@@ -95,35 +113,35 @@
         }
 
         function showUsersChartTab() {
-//            $('#userChartSelector').show();
-//            $('#countersChartType').show();
+            $('#userChartSelector').show();
+            $('#countersChartType').show();
 //            $('#chatmessagsChartSelector').hide();
-//            $('#chatgroupsChartSelector').hide();
+            $('#chatgroupsChartSelector').hide();
             $('#drawCountersChartsType').val('register_users');
 
             var peroid = $("input[name='chartsRadio1']:checked").val();
             drawCountersCharts(peroid);
-            $('#chartTile').text(chartTileUsers);
+            $('#chartTitle').text(chartTileUsers);
         }
 
         function showChatmessagsChartTab() {
-//            $('#countersChartType').show();
+            $('#countersChartType').hide();
 //            $('#chatmessagsChartSelector').show();
-//            $('#userChartSelector').hide();
-//            $('#chatgroupsChartSelector').hide();
+            $('#userChartSelector').hide();
+            $('#chatgroupsChartSelector').hide();
             $('#drawCountersChartsType').val('msg_outgoing_chat');
 
             var peroid = $("input[name='chartsRadio1']:checked").val();
             drawCountersCharts(peroid);
-            $('#chartTile').text(chartTileChatmessages);
+            $('#chartTitle').text(chartTileChatmessages);
         }
 
-        /*function showChatgroupsChartTab() {
-            $('#userChartSelector').hide();
-            $('#chatmessagsChartSelector').hide();
-            $('#chatgroupsChartSelector').show();
-            $('#drawCountersChartsType').val('');
-        }*/
+//        function showChatgroupsChartTab() {
+//            $('#userChartSelector').hide();
+//            $('#chatmessagsChartSelector').hide();
+//            $('#chatgroupsChartSelector').show();
+//            $('#drawCountersChartsType').val('');
+//        }
 
         // 应用概述页
         function toApppofile() {
@@ -275,32 +293,32 @@
                 </ul>
                 <p/>
                 <!-- Counters Users Selectors -->
-                <!--<div id="countersUsers">
+                <div id="countersUsers">
                     <div id="countersChartType">数据类型:
                         <select id="userChartSelector">
                             <option value="register_users">注册用户数</option>
                             <option value="daily_active_users">每日活跃用户数</option>
-                            <option value="daily_chat_users">每日发消息的用户数</option>
-                            <option value="daily_new_active_users">每日新增的活跃用户数</option>
+                            <option value="daily_new_active_users">每日新增活跃用户数</option>
+                            <option value="daily_chat_users">每日发送消息用户数</option>
                         </select>
-                        <select id="chatmessagsChartSelector">
-                            &lt;!&ndash;<option value="msg_outgoing" disabled="disabled">消息</option>&ndash;&gt;
-                            <option value="msg_outgoing_chat">单聊 - 上行消息</option>
-                            <option value="msg_offline_chat">单聊 - 离线消息</option>
-                            &lt;!&ndash;<option value="msg_incoming_chat">单聊 - 服务器分发消息</option>&ndash;&gt;
-                            &lt;!&ndash;<option value="msg_sent_chat">单聊 - 下行消息</option>&ndash;&gt;
-                            <option value="msg_hr" disabled="disabled">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>
-                            <option value="msg_outgoing_groupchat">群聊 - 上行消息</option>
-                            &lt;!&ndash;<option value="msg_incoming_groupchat">群聊 - 服务器分发息</option>&ndash;&gt;
-                            <option value="msg_offline_groupchat">群聊 - 离线消息</option>
-                            &lt;!&ndash;<option value="msg_sent_groupchat">群聊 - 下行消息</option>&ndash;&gt;
-                        </select>
-                        &lt;!&ndash;<select id="chatgroupsChartSelector">
+                        <!--<select id="chatmessagsChartSelector">-->
+                            <!--<option value="msg_outgoing" disabled="disabled">消息</option>-->
+                            <!--<option value="msg_outgoing_chat">单聊 - 上行消息</option>-->
+                            <!--<option value="msg_offline_chat">单聊 - 离线消息</option>-->
+                            <!--<option value="msg_incoming_chat">单聊 - 服务器分发消息</option>-->
+                            <!--<option value="msg_sent_chat">单聊 - 下行消息</option>-->
+                            <!--<option value="msg_hr" disabled="disabled">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;</option>-->
+                            <!--<option value="msg_outgoing_groupchat">群聊 - 上行消息</option>-->
+                            <!--<option value="msg_incoming_groupchat">群聊 - 服务器分发息</option>-->
+                            <!--<option value="msg_offline_groupchat">群聊 - 离线消息</option>-->
+                            <!--<option value="msg_sent_groupchat">群聊 - 下行消息</option>-->
+                        <!--</select>-->
+                        <!--<select id="chatgroupsChartSelector">
                             <option value="chatgroups_total">群总数</option>
                             <option value="chatgroups_new">新增群组数</option>
-                        </select>&ndash;&gt;
+                        </select>-->
                     </div>
-                </div>-->
+                </div>
 
                 <div style="position:absolute;right:25%;top:195px;z-index:100;">
                     <span>查询时间段：</span>
@@ -321,7 +339,7 @@
                     <input type="radio" name="chartsRadio1" value="sevendays" id="chartsRadio1sevendays" onclick="drawCountersCharts('sevendays')"/><span class="lbl">七天</span>
                 </div>
                 <br/><br/><br/>
-                <div><center><span id="chartTile"></span></center></div>
+                <div><center><span id="chartTitle"></span></center></div>
                 <div id="countersTabContent" class="tab-content" style="width: 95%">
                     <div class="tab-pane fade in active" id="counters">
                         <canvas id="countersCharts" width="1200%" height="400"></canvas>
