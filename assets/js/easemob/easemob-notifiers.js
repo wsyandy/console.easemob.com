@@ -5,15 +5,13 @@
 
 // 分页条更新
 function updatequnzuPageStatus(){
-    var pageLi = $('#paginau').find('li');
 
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid + '/notifiers?limit=1000',
@@ -87,12 +85,8 @@ function getAppNotifiers(appUuid, pageAction){
 
             var option = '';
             $(respData.entities).each(function(){
-                var statusStr = '异常';
-
                 var name = this.name;
-                var credentialUuid = this.uuid;
                 var credentialId = this.uuid;
-                var passphrase = this.passphrase;
                 var environment = '';
                 if(this.environment == 'DEVELOPMENT') {
                     environment = '开发';

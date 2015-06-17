@@ -4,10 +4,6 @@
 
 document.write("<script src='/assets/js/easemob/confs.js' language=javascript></script>")
 
-var Easemob = function(){
-
-}();
-
 
 // 初始化加载
 $(function() {
@@ -20,19 +16,15 @@ $(function() {
     // 注册按钮状态
     $("#agreeCBox").bind("click", function () {
         if($('#agreeCBox').attr('checked')){
-            $('#formSubBtn').addClass('btn-success');
-            $('#formSubBtn').disabled = false;
+            $('#formSubBtn').addClass('btn-success').disabled = false;
         } else {
-            $('#formSubBtn').removeClass('btn-success');
-            $('#formSubBtn').disabled = true;
+            $('#formSubBtn').removeClass('btn-success').disabled = true;
         }
     });
     if($('#agreeCBox').attr('checked')){
-        $('#formSubBtn').addClass('btn-success');
-        $('#formSubBtn').disabled = false;
+        $('#formSubBtn').addClass('btn-success').disabled = false;
     } else {
-        $('#formSubBtn').removeClass('btn-success');
-        $('#formSubBtn').disabled = true;
+        $('#formSubBtn').removeClass('btn-success').disabled = true;
     }
 });
 
@@ -63,28 +55,6 @@ function getToken() {
     return access_token;
 }
 
-// app概况
-function showCode(boxId){
-    // IOS
-    if('iosTab' == boxId){
-        $('#iosTab').addClass('visible');
-
-        var androidTabClassVal = $('#androidTab').attr('class');
-        if(androidTabClassVal.indexOf("visible") > -1){
-            $('#androidTab').removeClass('visible');
-        }
-    }
-    // Android
-    if('androidTab' == boxId){
-        $('#androidTab').addClass('visible');
-
-        var iosTabClassVal = $('#iosTab').attr('class');
-        if(iosTabClassVal.indexOf("visible") > -1){
-            $('#iosTab').removeClass('visible');
-        }
-    }
-}
-
 
 // 设置新密码
 function resetPasswdReq(token,uuid){
@@ -94,7 +64,7 @@ function resetPasswdReq(token,uuid){
         'password1':password1,
         'password2':password2,
         'token':token
-    }
+    };
     if(resetPasswdReqFormValidate()){
         $.ajax({
             url:baseUrl + '/management/users/'+uuid+'/resetpw',
@@ -113,7 +83,6 @@ function resetPasswdReq(token,uuid){
         });
     }
 }
-
 
 
 function checkTel(value) {
@@ -161,15 +130,12 @@ cursors1[1] = '';
 
 // 分页条更新
 function updateUsersPageStatus(){
-    var pageLi = $('#paginau').find('li');
-
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid + '/users?limit=1000',
@@ -267,3 +233,68 @@ String.prototype.isTel = function() {
     //"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)"
     return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(this.Trim()));
 }
+
+var EasemobCommon = function() {
+    return {
+        disPatcher: {
+            toPageIndex: function () {
+                window.location.href = 'index.html';
+            },
+            toPageAppProfile: function() {
+                window.location.href = 'app_profile.html?appUuid=' + appUuid;
+            },
+            toPageAppUsers: function() {
+                window.location.href = 'app_users.html?appUuid=' + appUuid;
+            },
+            toPageAppChatGroups: function() {
+                window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
+            },
+            toPageAppNotifiers: function() {
+                window.location.href = 'app_notifiers.html?appUuid=' + appUuid;
+            },
+            toPageAppCollectionCounters: function() {
+                window.location.href = 'app_collection_counters.html?appUuid=' + appUuid;
+            },
+            toPageAppAdminCreate: function() {
+                window.location.href = 'app_admin_create.html?appUuid=' + appUuid;
+            },
+            toPageAppUsersAdmin: function() {
+                window.location.href = 'app_users_admin.html?appUuid=' + appUuid;
+            },
+            sessionTimeOut: function () {
+                this.logOut();
+            }
+        },
+        isSessionTimeOut: function() {
+            if (!getToken() || getToken() == '') {
+                this.logOut();
+            }
+        },
+        logOut: function() {
+            // 销毁cookie
+            $.cookie("access_token",null,{path:"/"});
+            $.cookie("cuser",null,{path:"/"});
+            $.cookie("cuserName",null,{path:"/"});
+            $.cookie("orgName",null,{path:"/"});
+            $.cookie("email",null,{path:"/"});
+            $.cookie("companyName",null,{path:"/"});
+            $.cookie("telephone",null,{path:"/"});
+
+            this.disPatcher.toPageIndex();
+        },
+        reSizeLogo: function () {
+            window.onresize = window.onload = function () {
+                var w, h;
+                if (!!(window.attachEvent && !window.opera)) {
+                    h = document.documentElement.clientHeight;
+                    w = document.documentElement.clientWidth;
+                } else {
+                    h = window.innerHeight;
+                    w = window.innerWidth;
+                }
+
+                $("#logo_home").width(w / 6.5).height(h / 16);
+            }
+        }
+    }
+}();

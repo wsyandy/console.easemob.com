@@ -16,10 +16,9 @@
             count = 0;
             $('#showName').text(Application);
             $('#fileAppKey').text(Application);
-            $('#certificate').hide();//页面加载时隐藏掉推送证书
-            if (!getToken() || getToken() == '') {
-                logout();
-            }
+            $('#certificate').hide();
+
+            EasemobCommon.isSessionTimeOut();
 
             I18NPropsLoader.loadCommon();
             I18NPropsLoader.load_app_notifiers();
@@ -99,40 +98,7 @@
             }
             return true;
         }
-        // 应用概述页
-        function toApppofile() {
-            window.location.href = 'app_profile.html?appUuid=' + appUuid;
-        }
 
-        // 用户管理页
-        function toAppUsersPage() {
-            window.location.href = 'app_users.html?appUuid=' + appUuid;
-        }
-
-        // 群组页面
-        function toAppGroups() {
-            window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
-        }
-
-        // 推送证书管理页
-        function toAppNotifierPage() {
-            window.location.href = 'app_notifiers.html?appUuid=' + appUuid;
-        }
-
-        // 数据统计页面
-        function toAppCollectionCounters() {
-            window.location.href = 'app_collection_counters.html?appUuid=' + appUuid;
-        }
-
-        // 应用管理员创建页面
-        function toCreateAppAdmin() {
-            window.location.href = 'app_admin_create.html?appUuid=' + appUuid;
-        }
-
-        // APP管理员列表页面
-        function toAppUserAdmin() {
-            window.location.href = 'app_users_admin.html?appUuid=' + appUuid;
-        }
         //显示制作证书按钮
         function displayCertificate() {
             $('#certificate').show();
@@ -143,18 +109,8 @@
             $('#certificate').hide();
             document.getElementById("div").style.width = 80 + "px";
         }
-        window.onresize = window.onload = function () {
-            var w, h;
-            if (!!(window.attachEvent && !window.opera)) {
-                h = document.documentElement.clientHeight;
-                w = document.documentElement.clientWidth;
-            } else {
-                h = window.innerHeight;
-                w = window.innerWidth;
-            }
-            $("#headerlogo").width(w / 6.5);
-            $("#headerlogo").height(h / 16)
-        }
+
+        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -162,13 +118,13 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png" /></a>
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
                     <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org" target="_blank"><h5 id="nav_community">社区</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
@@ -179,7 +135,7 @@
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
                         <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
+                        <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -194,8 +150,8 @@
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
         <ul class="nav nav-list">
-            <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
+            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
             <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
@@ -211,24 +167,24 @@
             <div class="row-fluid">
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="javascript:toApppofile()"><span id="third_nav_appprofile">应用概况</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppProfile()"><span id="third_nav_appprofile">应用概况</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppUsersPage()"><span id="third_nav_imusers">IM用户</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppUsers()"><span id="third_nav_imusers">IM用户</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppGroups()"><font color="green"><span id="third_nav_chatgroups">群组</span></font></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppChatGroups()"><span id="third_nav_chatgroups">群组</span></a></li>
                     </ul>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppNotifiersPage()"><span id="third_nav_notifier">推送证书</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppNotifiers()"><font color="green"><span id="third_nav_notifier">推送证书</span></font></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:toAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>

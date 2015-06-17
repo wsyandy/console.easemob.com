@@ -3,4 +3,5 @@
  */
 
 // Host
-var baseUrl = 'https://a1.easemob.com';
+//var baseUrl = 'https://a1.easemob.com';
+var baseUrl = 'http://a1.sdb.easemob.com';

@@ -28,4 +28,6 @@ document.write(
     <script src="/assets/js/ace.min.js"></script>\
     <script src="/assets/js/layer/layer.min.js"></script>\
     <script src="/assets/js/easemob/easemob-common.js"></script>\
+    <script src="/assets/js/i18n/jquery.i18n.properties-min-1.0.9.js"></script>\
+    <script src="/assets/js/easemob/easemob-i18n.js"></script>\
     ')

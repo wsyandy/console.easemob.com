@@ -54,7 +54,6 @@ function sendUserImgMessages(){
         var appUuid = document.getElementById('appUuidMessage').value;
         var orgName = $.cookie('orgName');
         var token = $.cookie('access_token');
-        var messageContent = $('#messegeContent').val();
         var target = users.split(',');
         var str = $('#share-secret').val().split(',');
         var d = {
@@ -96,8 +95,7 @@ function getAppChatrooms(appUuid, pageAction){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if('next' == pageAction){
             pageNo += 1;
@@ -131,8 +129,6 @@ function getAppChatrooms(appUuid, pageAction){
                     if(groupname == '' || groupname == null){
                         groupname = '-';
                     }
-                    var nums = 0;
-                    var admin='';
                     var selectOptions = '<tr>'+
                         '<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+groupid+'" />&nbsp;&nbsp;&nbsp;</label></td>'+
                         '<td class="text-center" width="222px" style="word-break:break-all">'+ groupid +'</td>'+
@@ -196,8 +192,7 @@ function getAppChatgroups(appUuid, groupid, pageAction){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if('forward' == pageAction){
             pageNo += 1;
@@ -284,8 +279,7 @@ function getAppChatroomsuser(appUuid,groupid,pageAction){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if('forward' == pageAction){
             pageNo += 1;
@@ -460,9 +454,7 @@ function addChatgroupMember(appUuid, groupid, newmember) {
 function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunzuguan){
     var orgName = $.cookie('orgName');
     var access_token = $.cookie('access_token');
-    var owner_username = $('#usernameFriend').val();
     var maxusers = $('#maxusers').val();
-    var friend_username = $('#friendUsername').val();
 
     if (qunzuname == ''){
         $('#groupnameSpan').text('群组名称不能为空!');

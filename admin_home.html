@@ -9,9 +9,8 @@
 
     <script language="JavaScript" charset="utf-8">
         $(function () {
-            if (!getToken() || getToken() == '') {
-                logout();
-            }
+            EasemobCommon.isSessionTimeOut();
+
             loginAdminInfo();
 
             I18NPropsLoader.loadCommon();
@@ -83,18 +82,7 @@
             updateAdminInfo(username, companyNameInput, telephoneInput);
         }
 
-        window.onresize = window.onload = function () {
-            var w, h;
-            if (!!(window.attachEvent && !window.opera)) {
-                h = document.documentElement.clientHeight;
-                w = document.documentElement.clientWidth;
-            } else {
-                h = window.innerHeight;
-                w = window.innerWidth;
-            }
-            $("#headerlogo").width(w / 6.5);
-            $("#headerlogo").height(h / 16)
-        }
+        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -102,14 +90,14 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="headerlogo" src="assets/images/home_logo.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
                     <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org/forum.php" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:20%;"><a href="http://www.imgeek.org" target="_blank"><h5 id="nav_community">社区</h5></a></li>
                     <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
@@ -120,7 +108,7 @@
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
                         <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
-                        <li><a onClick="logout();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
+                        <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
             </ul>
@@ -136,8 +124,8 @@
         </div>
         <ul class="nav nav-list">
             <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li class="active"><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li class="active"><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>

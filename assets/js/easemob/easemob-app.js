@@ -78,8 +78,7 @@ function saveNewApp(){
     };
 
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if(createAppFormValidate()){
             // 保存数据
@@ -114,8 +113,7 @@ function getAppList(){
     var orgName = $.cookie('orgName');
     userCount = 0;
     if(!access_token || access_token=='') {
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         var loading = '<tr id="tr_loading"><td class="text-center" colspan="9"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
         $('#appListBody').empty();
@@ -169,7 +167,7 @@ function getAppList(){
 
                     option += '<tr><td class="text-center"><a href="app_profile.html?appUuid='+key+'&Application='+key+'">'+key+'</a></td>'+
                         '<td class="text-center">'+userCount+'</td>'+
-                        '<td class="text-center">上线运行中</td>'+
+                        '<td class="text-center">' + $.i18n.prop('app_list_appstatus_content') +'</td>'+
                         '</tr>';
 
                 });
@@ -194,8 +192,7 @@ function getAppProfile(appUuid){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         // 获取app基本信息
         $.ajax({
@@ -209,13 +206,13 @@ function getAppProfile(appUuid){
             },
             success: function(respData, textStatus, jqXHR) {
                 $(respData.entities).each(function(){
-                    var uuid = this.uuid;
-                    var name = this.name;
                     var created = format(this.created);
                     var modified = format(this.modified);
                     var applicationName = this.applicationName;
                     var organizationName = this.organizationName;
-                    var allowOpen = this.allow_open_registration?'开放注册':'授权注册';
+                    var allowOpen = this.allow_open_registration?
+                        $.i18n.prop('app_profile_text_registrationModel_open'):
+                        $.i18n.prop('app_profile_text_registrationModel_auth');
                     var tag = this.allow_open_registration?'0':'1';
                     var image_thumbnail_width = '170';
                     if(this.image_thumbnail_width != null && this.image_thumbnail_width != undefined){
@@ -258,9 +255,6 @@ function getAppProfile(appUuid){
 
     }
 }
-
-
-
 
 
 //修改缩略图大小
@@ -320,15 +314,14 @@ function changeAllowOpen(){
     var appKey = $('#appKey').text().replace('#','/');
     var tag = $('#allowOpenHdd').val();
 
+    var allow_open_registration = true;
     if(tag == 0){
         allow_open_registration = false;
-    } else {
-        allow_open_registration = true;
     }
 
     var d = {
         'allow_open_registration':allow_open_registration
-    }
+    };
 
     $.ajax({
         url:baseUrl+'/'+ appKey,
@@ -339,22 +332,21 @@ function changeAllowOpen(){
             'Content-Type':'application/json'
         },
         success:function(respData){
-            alert('提示!\n\模式切换成功!');
-            //toApppofile();
+            alert($.i18n.prop('app_profile_btn_change_alert_succ'));
             $(respData.entities).each(function(){
                 var tag = this.allow_open_registration?'0':'1';
                 var modified = format(this.modified);
                 $('#modified').text(modified);
                 $('#allowOpenHdd').val(tag);
                 if(this.allow_open_registration){
-                    $('#allowOpen').text('开放注册');
+                    $('#allowOpen').text($.i18n.prop('app_profile_text_registrationModel_open'));
                 }else {
-                    $('#allowOpen').text('授权注册');
+                    $('#allowOpen').text($.i18n.prop('app_profile_text_registrationModel_auth'));
                 }
             });
         },
         error:function(data){
-            alert('提示!\n模式切换失败!');
+            alert($.i18n.prop('app_profile_btn_change_alert_failure'));
         }
     });
 }

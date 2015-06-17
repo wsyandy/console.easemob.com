@@ -15,6 +15,8 @@ var I18NPropsLoader = function(){
                 language: 'en',
                 callback: function () {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
+                    $('#logo_home').text($.i18n.prop('logo_home'));
                     $('#nav_index').text($.i18n.prop('nav_index'));
                     $('#nav_doc').text($.i18n.prop('nav_doc'));
                     $('#nav_help').text($.i18n.prop('nav_help'));
@@ -80,7 +82,11 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#admin_create_second_nav_orgInfo').text($.i18n.prop('admin_create_second_nav_orgInfo'));
+                    $('#admin_create_third_nav_addOrgAdmin').text($.i18n.prop('admin_create_third_nav_addOrgAdmin'));
                     $('#admin_create_second_nav_addOrgAdmin').text($.i18n.prop('admin_create_second_nav_addOrgAdmin'));
                     $('#admin_create_confirm').text($.i18n.prop('admin_create_confirm'));
                     $('#admin_create_backtolist').text($.i18n.prop('admin_create_backtolist'));
@@ -122,6 +128,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#admin_home_second_nav_accountInfo').text($.i18n.prop('admin_home_second_nav_accountInfo'));
                     $('#admin_home_second_nav_btn_accountInfo').text($.i18n.prop('admin_home_second_nav_btn_accountInfo'));
                     $('#admin_home_second_nav_resetpassword').text($.i18n.prop('admin_home_second_nav_resetpassword'));
@@ -145,6 +154,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#admin_home_password_second_nav_accountInfo').text($.i18n.prop('admin_home_password_second_nav_accountInfo'));
                     $('#admin_home_password_second_nav_btn_accountInfo').text($.i18n.prop('admin_home_password_second_nav_btn_accountInfo'));
                     $('#admin_home_password_second_nav_resetpassword').text($.i18n.prop('admin_home_password_second_nav_resetpassword'));
@@ -168,11 +180,17 @@ var I18NPropsLoader = function(){
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_myapp').text($.i18n.prop('second_nav_myapp'));
-                    $('#second_nav_createapp').text($.i18n.prop('second_nav_createapp'));
-                    $('#second_nav_appname').text($.i18n.prop('second_nav_appname'));
-                    $('#second_nav_appusercount').text($.i18n.prop('second_nav_appusercount'));
-                    $('#second_nav_appstatus').text($.i18n.prop('second_nav_appstatus'));
+                    $('#second_nav_orgInfo').text($.i18n.prop('second_nav_orgInfo'));
+                    $('#second_nav_orgAdminList').text($.i18n.prop('second_nav_orgAdminList'));
+                    $('#admin_list_second_nav_addOrgAdmin').text($.i18n.prop('admin_list_second_nav_addOrgAdmin'));
+                    $('#admin_list_table_username').text($.i18n.prop('admin_list_table_username'));
+                    $('#admin_list_table_email').text($.i18n.prop('admin_list_table_email'));
+                    $('#admin_list_table_company').text($.i18n.prop('admin_list_table_company'));
+                    $('#admin_list_table_telephone').text($.i18n.prop('admin_list_table_telephone'));
+                    $('#admin_list_table_accountstatus').text($.i18n.prop('admin_list_table_accountstatus'));
+                    $('#admin_list_table_operation').text($.i18n.prop('admin_list_table_operation'));
                 }
             });
         },
@@ -186,6 +204,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_chatgroups_form_add_title').text($.i18n.prop('app_chatgroups_form_add_title'));
                     $('#app_chatgroups_btn_deleteBatch').text($.i18n.prop('app_chatgroups_btn_deleteBatch'));
                     $('#app_chatgroups_btn_sendMsg').text($.i18n.prop('app_chatgroups_btn_sendMsg'));
@@ -240,6 +261,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
                     $('#second_nav_chatgroupmembers').text($.i18n.prop('second_nav_chatgroupmembers'));
                     $('#app_chatgroups_btn_addmembers').text($.i18n.prop('app_chatgroups_btn_addmembers'));
@@ -258,6 +282,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_collection_counters_tab_user').text($.i18n.prop('app_collection_counters_tab_user'));
                     $('#app_collection_counters_tab_chatmessages').text($.i18n.prop('app_collection_counters_tab_chatmessages'));
                     $('#app_collection_counters_tab_chatgroups').text($.i18n.prop('app_collection_counters_tab_chatgroups'));
@@ -285,6 +312,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_createApp').text($.i18n.prop('second_nav_createApp'));
                     $('#app_create_form_appName').text($.i18n.prop('app_create_form_appName'));
                     $('#app_create_form_appNameMsg').text($.i18n.prop('app_create_form_appNameMsg'));
@@ -332,6 +362,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_notifiers_table_title').text($.i18n.prop('app_notifiers_table_title'));
                     $('#app_notifiers_table_th_notifierName').text($.i18n.prop('app_notifiers_table_th_notifierName'));
                     $('#app_notifiers_table_th_notifierType').text($.i18n.prop('app_notifiers_table_th_notifierType'));
@@ -360,17 +393,24 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_profile_text_appkey').text($.i18n.prop('app_profile_text_appkey'));
                     $('#app_profile_text_created').text($.i18n.prop('app_profile_text_created'));
                     $('#app_profile_text_modified').text($.i18n.prop('app_profile_text_modified'));
                     $('#app_profile_text_model').text($.i18n.prop('app_profile_text_model'));
+                    $('#app_profile_btn_change').text($.i18n.prop('app_profile_btn_change'));
+                    $('#app_profile_btn_update').text($.i18n.prop('app_profile_btn_update'));
+                    $('#app_profile_text_thumbnail_long').text($.i18n.prop('app_profile_text_thumbnail_long'));
+                    $('#app_profile_text_thumbnail_Width').text($.i18n.prop('app_profile_text_thumbnail_Width'));
                     $('#app_profile_text_thumbnail').text($.i18n.prop('app_profile_text_thumbnail'));
                     $('#app_profile_text_quickIntegration').text($.i18n.prop('app_profile_text_quickIntegration'));
                     $('#app_profile_text_android').text($.i18n.prop('app_profile_text_android'));
                     $('#app_profile_text_ios').text($.i18n.prop('app_profile_text_ios'));
                     $('#app_profile_text_modifyThumbnail').text($.i18n.prop('app_profile_text_modifyThumbnail'));
-                    $('#app_profile_text_thumbnail_height').text($.i18n.prop('app_profile_text_thumbnail_height'));
-                    $('#app_profile_text_thumbnail_Width').text($.i18n.prop('app_profile_text_thumbnail_Width'));
+                    $('#app_profile_form_thumbnail_long').text($.i18n.prop('app_profile_form_thumbnail_long'));
+                    $('#app_profile_form_thumbnail_Width').text($.i18n.prop('app_profile_form_thumbnail_Width'));
                     $('#app_profile_text_thumbnail_confirm').text($.i18n.prop('app_profile_text_thumbnail_confirm'));
                     $('#app_profile_text_thumbnail_cancel').text($.i18n.prop('app_profile_text_thumbnail_cancel'));
                 }
@@ -386,6 +426,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#app_users_fourth_nav_deleteImUserBatch').text($.i18n.prop('app_users_fourth_nav_deleteImUserBatch'));
                     $('#app_users_fourth_nav_registImUser').text($.i18n.prop('app_users_fourth_nav_registImUser'));
                     $('#app_users_fourth_nav_sendMsg').text($.i18n.prop('app_users_fourth_nav_sendMsg'));
@@ -413,6 +456,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_imusers').text($.i18n.prop('second_nav_imusers'));
                     $('#second_nav_contacts').text($.i18n.prop('second_nav_contacts'));
                     $('#app_users_contacts_bnt_addNewContacts').text($.i18n.prop('app_users_contacts_bnt_addNewContacts'));
@@ -435,6 +481,9 @@ var I18NPropsLoader = function(){
                 language : 'en',
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
+                    $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_imuser').text($.i18n.prop('second_nav_imuser'));
                     $('#second_nav_create_imuser').text($.i18n.prop('second_nav_create_imuser'));
                     $('#app_users_create_form_password').text($.i18n.prop('app_users_create_form_password'));

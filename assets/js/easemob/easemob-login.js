@@ -554,7 +554,6 @@ function formSubmit(){
     var regPassword = $('#regPassword').val();
     var regCompanyName = $('#regCompanyName').val();
     var regTel = $('#regTel').val();
-    //var comefrom = $('#comefrom').val();
     var mailSuffix = regEmail.substring(regEmail.indexOf('@')+1);
     var comefrom = $('input:radio[name="comefrom"]:checked').val();
 

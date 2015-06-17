@@ -12,8 +12,7 @@ function loginAdminInfo(){
     var telephone = $.cookie('telephone');
     var email = $.cookie('email');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommonDispatcher.sessionTimeOut();
     } else {
         $('#username').text(cuser);
         $('#email').text(email);
@@ -39,8 +38,7 @@ function updateAdminInfo(username, companyName, telephone){
     }
 
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
             url: baseUrl + '/management/users/' + username,
@@ -168,8 +166,7 @@ function getOrgAdminList(){
     var orgName = $.cookie('orgName');
     var loginUser = $.cookie('cuser');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         var loading = '<tr id="tr_loading"><td class="text-center" colspan="9"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
         $('#orgadminsBody').empty();
@@ -236,13 +233,11 @@ function disConnAdminAndOrg(adminUserName){
     var orgName = $.cookie('orgName');
     var loginUser = $.cookie('cuser');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if(adminUserName != ''){
             if(loginUser == adminUserName){
                 alert('当前登录账户禁止操作');
-                return;
             } else {
                 if(confirm("确定要移出该管理员吗?")){
                     $.ajax({
@@ -380,8 +375,7 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
     var orgName = $.cookie('orgName');
 
     if(!access_token || access_token=='') {
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if(createAdminUserFormValidate()){
             if(confirm("确定提交?")) {
@@ -457,8 +451,7 @@ function showUpdateInfo(appUuid, username){
     var orgName = $.cookie('orgName');
 
     if(!access_token || access_token=='') {
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,

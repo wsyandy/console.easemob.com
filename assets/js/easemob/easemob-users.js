@@ -129,8 +129,7 @@ function getAppUserList(appUuid, pageAction){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         var loading = '<tr id="tr_loading"><td class="text-center" colspan="9"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
         $('#appUserBody').empty();
@@ -279,8 +278,6 @@ function getAppUserList(appUuid, pageAction){
     }
 }
 
-
-
 // 搜索IM用户
 function searchUser(appUuid, queryString){
     // 获取token
@@ -289,8 +286,7 @@ function searchUser(appUuid, queryString){
     var orgName = $.cookie('orgName');
 
     if(!access_token || access_token=='') {
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
 
         $.ajax({
@@ -321,9 +317,8 @@ function searchUser(appUuid, queryString){
                     if(nickname == undefined){
                         nickname='';
                     }
-                    var notification_no_disturbing=this.notification_no_disturbing;
+                    var notification_no_disturbing = this.notification_no_disturbing;
                     if(this.notification_no_disturbing){
-
                         var notification_no_disturbing='已开启';
                         var notification_no_disturbing_time = this.notification_no_disturbing_start + ':00'+'--'+this.notification_no_disturbing_end + ':00';
                     }else{
@@ -334,24 +329,7 @@ function searchUser(appUuid, queryString){
                     if(notifier_name == undefined){
                         notifier_name='';
                     }
-                    var userAdmin = '';
-                    var excute = '';
                     var user_name_show = username;
-                    var option = '<tr>'+
-                        '<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+username+'" />&nbsp;&nbsp;&nbsp;</label></td>'+
-                        '<td class="text-center">'+user_name_show+'</td>'+																'<td class="text-center">'+notification_display_style+'</td>'+
-                        '<td class="text-center">'+nickname+'</td>'+
-                        '<td class="text-center">'+notification_no_disturbing+'</td>'+
-                        '<td class="text-center">'+notification_no_disturbing_time+'</td>'+
-                        '<td class="text-center">'+notifier_name+'</td>'+
-                        '<td class="text-center">'+created+'</td>'+
-                        '<td class="text-center"><a href="javascript:toAppIMList(\''+username+'\')" class="btn btn-mini btn-info">查看用户好友</a>'+
-                        ' | <a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + appUuid + '\',\''+ username +'\');" data-toggle="modal" role="button" class="btn btn-mini btn-info">重置密码</a>'+
-                        '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+appUuid+'\',\''+username+'\')">修改信息</a></li>'+
-                        ' | <a  class="btn btn-mini btn-info" href="javascript:deleteAppUser(\''+appUuid+'\',\''+username+'\')">删除</a>'+
-                        ' | <a  class="btn btn-mini btn-info" href="javascript:sendMessgeOne(\''+appUuid+'\',\''+username+'\')">发送消息</a>'+
-                        '</td>'+
-                        '</tr>';
                     var selectOptions = '<tr>'+
                         '<td class="text-center"><label><input style="opacity:1;" name="checkbox" type="checkbox" value="'+username+'" />&nbsp;&nbsp;&nbsp;</label></td>'+
                         '<td class="text-center">'+user_name_show+'</td>'+
@@ -391,7 +369,6 @@ function searchUser(appUuid, queryString){
 function updateAppUserPassword(){
     var username = $('#usernameMondify').val();
     var orgName = $.cookie('orgName');
-    var cname = $.cookie('cuser');
     var token = $.cookie('access_token');
     var appUuid = $('#appUuidHidd').val();
 
@@ -436,7 +413,7 @@ function updateAppUserPassword(){
                 },
                 success:function(respData){
                     layer.close(layerNum);
-                    alert('提示!\n\密码重置成功!');
+                    alert('提示!\n密码重置成功!');
                     $('#pwdMondifySpan').text('');
                     $('#pwdMondifytwoSpan').text('');
                     $('#pwdMondify').val('');
@@ -445,7 +422,7 @@ function updateAppUserPassword(){
                 },
                 error:function(data){
                     layer.close(layerNum);
-                    alert('提示!\n\密码重置失败!');
+                    alert('提示!\n密码重置失败!');
                 }
             });
         }
@@ -617,7 +594,7 @@ function sendUserMessage(){
                 "type" : "txt",
                 "msg" : messageContent //消息内容
             }
-        }
+        };
         var layerNum = layer.load('正在发送...');
         $.ajax({
             url:baseUrl+'/'+ orgName + "/" + appUuid + '/messages',
@@ -661,7 +638,7 @@ function sendUserImgMessage(){
             "msg" : {
                 "type":"img","filename":str[0], "secret": str[1],"url":$('#imgUuid').val()
             }
-        }
+        };
         var layerNum = layer.load('正在发送...');
         $.ajax({
             url:baseUrl+'/'+ orgName + "/" + appUuid + '/messages',
@@ -693,6 +670,7 @@ function sendUserImgMessage(){
 function toAppIMList(owner_username){
     window.location.href = 'app_users_contacts.html?appUuid='+appUuid+'&owner_username='+owner_username;
 }
+
 //获取用户好友列表
 function getAppIMList(appUuid, owner_username){
     // 获取token
@@ -700,8 +678,7 @@ function getAppIMList(appUuid, owner_username){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         var loading = '<tr id="tr_loading"><td class="text-center" colspan="3"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
         $('#appIMBody').empty();
@@ -716,7 +693,6 @@ function getAppIMList(appUuid, owner_username){
             error: function(jqXHR, textStatus, errorThrown) {
             },
             success: function(respData, textStatus, jqXHR) {
-
                 $('tbody').html('');
                 var i=0;
                 var selectOptions = '';
@@ -761,8 +737,7 @@ function deleteAppIMFriend(appUuid, owner_username, friend_username){
     var orgName = $.cookie('orgName');
     var access_token = $.cookie('access_token');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if(window.confirm('确定删除此好友？')){
             $.ajax({
@@ -849,8 +824,7 @@ function updateIMPageStatus(owner_username){
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
     if(!access_token || access_token==''){
-        alert('提示\n\n会话已失效,请重新登录!');
-        window.location.href = 'index.html';
+        EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/'+owner_username+'/contacts/users?limit=1000',
