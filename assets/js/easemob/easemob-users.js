@@ -888,3 +888,176 @@ function updateIMPageStatus(owner_username){
 }
 
 
+//弹出修改信息框
+function showUpdateInfo(appUuid, username){
+    // 获取token
+    var access_token = $.cookie('access_token');
+    var cuser = $.cookie('cuser');
+    var orgName = $.cookie('orgName');
+
+    if(!access_token || access_token=='') {
+        alert('提示\n\n会话已失效,请重新登录!');
+        window.location.href = 'index.html';
+    } else {
+        $.ajax({
+            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+            type:'GET',
+            headers:{
+                'Authorization':'Bearer '+access_token,
+                'Content-Type':'application/json'
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            },
+            success: function(respData, textStatus, jqXHR) {
+                $(respData.entities).each(function(){
+                    var username = this.username;
+                    var notification_display_style = this.notification_display_style;
+                    var nickname = this.nickname;
+                    var notification_no_disturbing=this.notification_no_disturbing;
+                    var notification_no_disturbing_start = this.notification_no_disturbing_start;
+                    var notification_no_disturbing_end = this.notification_no_disturbing_end ;
+                    $('#username').text(username);
+                    document.getElementById('messageType_0').checked=false;
+                    document.getElementById('messageType_1').checked=false;
+                    if(notification_display_style == 0){
+                        document.getElementById('messageType_0').checked='checked';
+                    }else if(notification_display_style == 1){
+                        document.getElementById('messageType_1').checked='checked';
+                    }
+                    $('#nickname').val(nickname);
+                    document.getElementById('notification_true').checked=false;
+                    document.getElementById('notification_false').checked=false;
+                    if(notification_no_disturbing){
+                        document.getElementById('notification_true').checked='checked';
+                        document.getElementById('notification_time_div').style.display="block";
+                        $('#notification_starttime').val(notification_no_disturbing_start);
+                        $('#notification_endtime').val(notification_no_disturbing_end);
+                    }else if(!notification_no_disturbing){
+                        document.getElementById('notification_false').checked='checked';
+                        document.getElementById('notification_time_div').style.display="none";
+                        $('#notification_starttime').val('');
+                        $('#notification_endtime').val('');
+                    }
+                    $('#showUpdateInfoA').click();
+                });
+            }
+        });
+    }
+}
+
+//修改信息
+function updateInfo(appUuid){
+    var access_token = $.cookie('access_token');
+    var cuser = $.cookie('cuser');
+    var orgName = $.cookie('orgName');
+    var username =$('#username').text();
+    var notification_display_style;
+    if(document.getElementById('messageType_0').checked){
+        notification_display_style = 0;
+    }else if(document.getElementById('messageType_1').checked){
+        notification_display_style = 1;
+    }else{
+        notification_display_style = '';
+    }
+    var nickname =$('#nickname').val();
+    var notification_no_disturbing;
+    var notification_no_disturbing_start;
+    var notification_no_disturbing_end;
+    if(document.getElementById('notification_true').checked){
+        notification_no_disturbing = true;
+        notification_no_disturbing_start = $('#notification_starttime').val();
+        notification_no_disturbing_end = $('#notification_endtime').val();
+    }else if(document.getElementById('notification_false').checked){
+        notification_no_disturbing = false;
+        notification_no_disturbing_start = '';
+        notification_no_disturbing_end = '';
+    }else{
+
+    }
+    var flag = true;
+    if(nickname.length>20){
+        flag =false;
+    }
+
+    if(document.getElementById('notification_true').checked){
+        var numReg = /^[0-9]*$/;
+        if(numReg.test(notification_no_disturbing_start) && numReg.test(notification_no_disturbing_end)){
+
+            notification_no_disturbing_end = parseInt(notification_no_disturbing_end);
+            notification_no_disturbing_start = parseInt(notification_no_disturbing_start);
+
+            if(notification_no_disturbing_end >= 0 && notification_no_disturbing_end<=24 && notification_no_disturbing_start >= 0 && notification_no_disturbing_start <= 24){
+                var d ={
+                    notification_display_style : notification_display_style,
+                    nickname : nickname,
+                    notification_no_disturbing :  notification_no_disturbing,
+                    notification_no_disturbing_start : notification_no_disturbing_start,
+                    notification_no_disturbing_end : notification_no_disturbing_end
+                };
+                var layerNum = layer.load('正在修改...');
+                if(flag){
+                    $.ajax({
+                        url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+                        type:'PUT',
+                        headers:{
+                            'Authorization':'Bearer '+access_token,
+                            'Content-Type':'application/json'
+                        },
+                        data:JSON.stringify(d),
+                        error: function(jqXHR, textStatus, errorThrown) {
+                            layer.close(layerNum);
+                            alert('修改失败!');
+                        },
+                        success: function(respData, textStatus, jqXHR) {
+                            layer.close(layerNum);
+                            alert('修改成功!');
+                            $('#infoCloseButn').click();
+                            getAppUserList(appUuid,'no');
+                        }
+                    });
+                }else{
+                    alert('昵称不能超过20个字符!');
+                }
+            }else{
+                alert('时间格式不正确，请输入00 ~ 24！');
+            }
+
+        }else{
+            alert('时间格式不正确，请输入00 ~ 24！');
+        }
+
+    }else if(!document.getElementById('notification_true').checked){
+        var d ={
+            notification_display_style : notification_display_style,
+            nickname : nickname,
+            notification_no_disturbing :  notification_no_disturbing,
+            notification_no_disturbing_start : notification_no_disturbing_start,
+            notification_no_disturbing_end : notification_no_disturbing_end
+        };
+        if(flag){
+            $.ajax({
+                url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+                type:'PUT',
+                headers:{
+                    'Authorization':'Bearer '+access_token,
+                    'Content-Type':'application/json'
+                },
+                data:JSON.stringify(d),
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('修改失败!');
+                },
+                success: function(respData, textStatus, jqXHR) {
+                    alert('修改成功!');
+                    $('#infoCloseButn').click();
+                    getAppUserList(appUuid,'no');
+                }
+            });
+        }else{
+            alert('昵称不能超过20个字符!');
+        }
+    }
+}
+
+
+
+
