@@ -434,15 +434,23 @@ var I18NPropsLoader = function(){
                     $('#app_users_fourth_nav_sendMsg').text($.i18n.prop('app_users_fourth_nav_sendMsg'));
                     $('#app_users_fourth_nav_modify').text($.i18n.prop('app_users_fourth_nav_modify'));
                     $('#app_users_fourth_nav_search').text($.i18n.prop('app_users_fourth_nav_search'));
-                    $('#app_users_th_checkall').text($.i18n.prop('app_users_th_checkall'));
+                    $('#app_users_th_checkAll').text($.i18n.prop('app_users_th_checkAll'));
                     $('#app_users_th_username').text($.i18n.prop('app_users_th_username'));
                     $('#app_users_th_notification').text($.i18n.prop('app_users_th_notification'));
                     $('#app_users_th_nickname').text($.i18n.prop('app_users_th_nickname'));
                     $('#app_users_th_muteType').text($.i18n.prop('app_users_th_muteType'));
-                    $('#app_users_th_mutePeroid').text($.i18n.prop('app_users_th_mutePeroid'));
+                    $('#app_users_th_mutePeriod').text($.i18n.prop('app_users_th_mutePeriod'));
                     $('#app_users_th_notifiername').text($.i18n.prop('app_users_th_notifiername'));
                     $('#app_users_th_created').text($.i18n.prop('app_users_th_created'));
                     $('#app_users_th_operation').text($.i18n.prop('app_users_th_operation'));
+                    $('#app_users_selections_operation').text($.i18n.prop('app_users_selections_operation'));
+                    $('#app_users_selections_contacts').text($.i18n.prop('app_users_selections_contacts'));
+                    $('#app_users_selections_resetpassword').text($.i18n.prop('app_users_selections_resetpassword'));
+                    $('#app_users_selections_modify').text($.i18n.prop('app_users_selections_modify'));
+                    $('#app_users_selections_delete').text($.i18n.prop('app_users_selections_delete'));
+                    $('#app_users_selections_sendMessages').text($.i18n.prop('app_users_selections_sendMessages'));
+                    $('#userInbox').attr('placeholder', $.i18n.prop('app_users_text_search_box_placeholder'));
+                    $('#app_users_passwordModify_title').text($.i18n.prop('app_users_passwordModify_title'));
                 }
             });
         },

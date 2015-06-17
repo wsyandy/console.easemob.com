@@ -18,9 +18,10 @@
             EasemobCommon.isSessionTimeOut();
 
             I18NPropsLoader.loadCommon();
-            I18NPropsLoader.load_app_users();
 
             getAppUserList(appUuid);
+
+            I18NPropsLoader.load_app_users();
 
             $('#searchForm').submit(function () {
                 searchUserTmp();
@@ -31,7 +32,7 @@
 
         // 图片上传
         function imgMessage() {
-            $('#uploadresspan').text('图片上传中...');
+            $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_pending'));
             var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1);
             img = img.toLowerCase();
             if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
@@ -43,24 +44,24 @@
                         'Accept': 'application/json',
                         'restrict-access': true,
                         'Accept-Encoding': 'gzip,deflate',
-                        'Authorization': 'Bearer ' + access_token,
+                        'Authorization': 'Bearer ' + access_token
                     },
                     success: function (respData) {
                         $('#sndBtn').removeAttr('disabled');
-                        $('#uploadresspan').text('图片上传成功 !');
+                        $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_saved'));
                         var str = $('#file').val() + "," + respData.entities[0]['share-secret'];
                         $('#share-secret').val(str);
                         $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/' + respData.entities[0].uuid);
                     },
                     error: function (respData) {
-                        $('#uploadresspan').text('图片上传失败 !');
+                        $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_failure'));
                         $('#sndBtn').attr('disabled', "true");
                     }
                 }
 
                 $('#myForm').ajaxSubmit(ajax_option);
             } else {
-                alert('此文件不是图片！请选择图片');
+                alert($.i18n.prop('app_users_alert_upload_picture_wrongtype'));
             }
         }
 
@@ -78,12 +79,12 @@
         function searchUserTmp() {
             var username = $('#userInbox').val();
             if (username == '' || username == null) {
-                alert('请输入要查找的用户名');
+                alert($.i18n.prop('app_users_text_search_box_placeholder'));
             } else {
                 searchUser(appUuid, username);
             }
         }
-        // 注册测试用户
+        // 注册用户
         function addNewAppUsers() {
             window.location.href = 'app_users_create.html?appUuid=' + appUuid;
         }
@@ -105,14 +106,15 @@
 
         //发送消息判断
         function sendMessage() {
-            var uploadresspan = $('#uploadresspan').text();
-            var messegeContent = $('#messegeContent').val();
-            if (uploadresspan == '等待上传图片' && messegeContent == '') {
-            } else if (uploadresspan != '等待上传图片' && messegeContent == '') {
+            var waiting = $.i18n.prop('app_users_alert_upload_picture_waiting');
+            var uploadresspan = $('#app_users_alert_upload_picture_waiting').text();
+            var messageContent = $('#messegeContent').val();
+            if (uploadresspan == waiting && messageContent == '') {
+            } else if (uploadresspan != waiting && messageContent == '') {
                 sendUserImgMessage();
-            } else if (uploadresspan == '等待上传图片' && messegeContent != '') {
+            } else if (uploadresspan == waiting && messageContent != '') {
                 sendUserMessage();
-            } else if (uploadresspan != '等待上传图片' && messegeContent != '') {
+            } else if (uploadresspan != waiting && messageContent != '') {
                 sendUserMessage1();
                 sendUserImgMessage();
             }
@@ -147,7 +149,7 @@
         }
 
         function clsupSpan() {
-            $('#uploadresspan').text('等待上传图片');
+            $('#app_users_alert_upload_picture_waiting').text($.i18n.prop('app_users_alert_upload_picture_waiting'));
         }
 
         EasemobCommon.reSizeLogo();
@@ -184,7 +186,6 @@
     </div>
 </div>
 <div id="main-container" class="container-fluid"><a href="javascript:void(0);" id="menu-toggler"> <span></span> </a>
-
     <div id="sidebar">
         <div id="sidebar-shortcuts">
             <div style="min-height: 40px;" id="sidebar-shortcuts-large"></div>
@@ -251,7 +252,7 @@
                     </ul>
                     <form id="searchForm" action="#" class="form-search pull-right">
                         <div class="input-append">
-                            <input class="m-wrap" value="" id="userInbox" type="text" placeholder="输入完整用户名"/>
+                            <input class="m-wrap" value="" id="userInbox" type="text" placeholder=""/>
                             <button class="btn green" id="searchBtn" onClick="searchUserTmp()" type="button"><span id="app_users_fourth_nav_search">搜索</span></button>
                             <input value="" id="userInboxBak" type="hidden"/>
                         </div>
@@ -272,7 +273,7 @@
                             <th class="hidden-480 text-center" id="app_users_th_notification">消息提醒</th>
                             <th class="hidden-480 text-center" id="app_users_th_nickname">昵称</th>
                             <th class="hidden-480 text-center" id="app_users_th_muteType">免打扰模式</th>
-                            <th class="hidden-480 text-center" id="app_users_th_mutePeroid">免打扰时段</th>
+                            <th class="hidden-480 text-center" id="app_users_th_mutePeriod">免打扰时段</th>
                             <th class="hidden-480 text-center" id="app_users_th_notifiername">证书名称</th>
                             <th class="hidden-480 text-center" id="app_users_th_created">创建时间</th>
                             <th class="hidden-480 text-center" id="app_users_th_operation">操作</th>
@@ -290,14 +291,13 @@
      aria-hidden="true">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">重置IM用户密码</h3>
+        <h3 id="app_users_passwordModify_title">重置IM用户密码</h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
                     <label class="control-label" for="pwdMondify">新密码：</label>
-
                     <div class="controls">
                         <input type="password" id="pwdMondify" name="pwdMondify" value=""
                                placeholder="请输入新密码(1位以上字母或数字)" onKeyUp="value=removeAllSpace(value)"
@@ -356,7 +356,7 @@
                             <input type="file" name="file" id="file" onChange="f_file.value=this.value;imgMessage();"
                                    style="display:none">
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span id="uploadresspan">等待上传图片</span>
+                            <span id="app_users_alert_upload_picture_waiting">等待上传图片</span>
                             <input type="hidden" id="share-secret"/>
                         </div>
                     </div>

@@ -86,7 +86,7 @@ function saveNewApp(){
                 url:baseUrl+'/management/organizations/'+ orgName +'/applications',
                 type:'POST',
                 headers:{
-                    'Authorization':'Bearer '+access_token,
+                    'Authorization':'Bearer ' + access_token,
                     'Content-Type':'application/json'
                 },
                 data:JSON.stringify(dataBody),
@@ -267,11 +267,11 @@ function updateImage(appUuid){
     var imgheight = $('#imageHeight').val();
 
     if(imgwidth == ''){
-        $('#imageWidthSpan').text('缩略图高度不能为空!');
+        $('#imageWidthSpan').text($.i18n.prop('app_profile_alert_imageHeightSpan_empty'));
         return;
     }
     if(imgheight == ''){
-        $('#imageHeightSpan').text('缩略图长度不能为空!');
+        $('#imageHeightSpan').text($.i18n.prop('app_profile_alert_imageWidthSpan_empty'));
         return;
     }
 
@@ -279,9 +279,9 @@ function updateImage(appUuid){
     $('#imageHeightSpan').text('');
 
     if(!imgReg.test(imgheight)){
-        $('#imageHeightSpan').text('缩略图长宽只能是正整数');
+        $('#imageHeightSpan').text($.i18n.prop('app_profile_alert_imageHeightSpan_int'));
     }else if(!imgReg.test(imgwidth)){
-        $('#imageWidthSpan').text('缩略图长宽只能是正整数');
+        $('#imageWidthSpan').text($.i18n.prop('app_profile_alert_imageWidthSpan_int'));
     }else{
 
         var d ={
@@ -297,10 +297,10 @@ function updateImage(appUuid){
                 'Content-Type':'application/json'
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                alert('修改失败!');
+                alert($.i18n.prop('app_profile_alert_update_failure'));
             },
             success: function(respData, textStatus, jqXHR) {
-                alert('修改成功!');
+                alert($.i18n.prop('app_profile_alert_update_done'));
                 location.replace(location.href);
             }
         });
