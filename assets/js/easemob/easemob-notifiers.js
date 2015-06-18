@@ -27,8 +27,8 @@ function updatequnzuPageStatus(){
                 var totalPage = (total % 5 == 0) ? (parseInt(total / 5)) : (parseInt(total / 5) + 1);
                 var ulB = '<ul>';
                 var ulE = '</ul>';
-                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppUserList();">上一页</a> </li>';
-                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppUserList();">下一页</a> </li>';
+                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppUserList();">' + $.i18n.prop('app_notifiers_table_notifier_nav_previous') + '</a> </li>';
+                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppUserList();">' + $.i18n.prop('app_notifiers_table_notifier_nav_next') + '</a> </li>';
                 $('#paginau').html('');
                 // 首页
                 if(pageNo == 1){
@@ -63,7 +63,7 @@ function getAppNotifiers(appUuid, pageAction){
         temp = '&cursor='+cursors[pageNo];
     }
 
-    var loading = '<tr id="tr_loading"><td class="text-center" colspan="6"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
+    var loading = '<tr id="tr_loading"><td class="text-center" colspan="6"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;' + $.i18n.prop('app_notifiers_table_loading') + '</span></td></tr>';
     $('#appCredentialBody').empty();
     $('#appCredentialBody').append(loading);
     $.ajax({
@@ -89,9 +89,9 @@ function getAppNotifiers(appUuid, pageAction){
                 var credentialId = this.uuid;
                 var environment = '';
                 if(this.environment == 'DEVELOPMENT') {
-                    environment = '开发';
+                    environment = $.i18n.prop('app_notifiers_table_notifier_dev');
                 } else if(this.environment == 'PRODUCTION'){
-                    environment = '生产';
+                    environment = $.i18n.prop('app_notifiers_table_notifier_production');
                 }
 
                 var created = format(this.created);
@@ -101,7 +101,7 @@ function getAppNotifiers(appUuid, pageAction){
                     '<td class="text-center">'+environment+'</td>'+
                     '<td class="text-center">'+created+'</td>'+
                     '<td class="text-center">'+modified+'</td>'+
-                    '<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifiers(\''+ credentialId + '\',\''+ appUuid +'\')">删除</a></td>'+
+                    '<td class="text-center">&nbsp;<a href="javascript:deleteAppNotifiers(\''+ credentialId + '\',\''+ appUuid +'\')">' + $.i18n.prop('app_notifiers_table_notifier_delete') + '</a></td>'+
                     '</tr>';
 
             });
@@ -121,8 +121,8 @@ function getAppNotifiers(appUuid, pageAction){
             } else {
                 var ulB = '<ul>';
                 var ulE = '</ul>';
-                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppNotifiers();">上一页</a> </li>';
-                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppNotifiers();">下一页</a> </li>';
+                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getPrevAppNotifiers();">' + $.i18n.prop('app_notifiers_table_notifier_nav_previous') + '</a> </li>';
+                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getNextAppNotifiers();">' + $.i18n.prop('app_notifiers_table_notifier_nav_next') + '</a> </li>';
                 $('#paginau').html('');
 
                 // 首页
@@ -140,33 +140,8 @@ function getAppNotifiers(appUuid, pageAction){
                 }
             }
             if(respData.entities.length == 0){
-                var option = '<tr><td class="text-center" colspan="6">暂无证书!</td></tr>';
+                var option = '<tr><td class="text-center" colspan="6">' + $.i18n.prop('app_notifiers_table_notifier_nodata') + '</td></tr>';
                 $('#appCredentialBody').append(option);
-            }
-        }
-    });
-}
-
-// 证书验证
-function verifyCredential(credentialUuid,appUuid){
-    $('#'+credentialUuid).html('......');
-    var access_token = $.cookie('access_token');
-    var orgName = $.cookie('orgName');
-    $.ajax({
-        url:baseUrl + '/' +orgName +'/'+appUuid+'/verify/' + credentialUuid,
-        type:'GET',
-        headers:{
-            'Authorization':'Bearer ' + access_token
-        },
-        error:function(){
-            $('#'+credentialUuid).html('异常');
-        },
-        success:function(respData){
-            var creStatus = respData.status;
-            if(creStatus == 'ok'){
-                $('#'+credentialUuid).html('正常');
-            } else {
-                $('#'+credentialUuid).html('异常');
             }
         }
     });
@@ -176,8 +151,8 @@ function verifyCredential(credentialUuid,appUuid){
 function deleteAppNotifiers(credentialId,appUuid){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
-    if(confirm('确定删除这个证书吗?')){
-        var layerNum = layer.load('正在删除...');
+    if(confirm($.i18n.prop('app_notifiers_delete_confirm'))){
+        var layerNum = layer.load($.i18n.prop('app_notifiers_delete_layer_pending = 正在删除...'));
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid + '/notifiers/' + credentialId,
             type:'DELETE',
@@ -187,11 +162,11 @@ function deleteAppNotifiers(credentialId,appUuid){
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 layer.close(layerNum);
-                alert('证书删除失败!')
+                alert($.i18n.prop('app_notifiers_delete_failed'))
             },
             success: function(respData, textStatus, jqXHR) {
                 layer.close(layerNum);
-                alert('证书已删除!')
+                alert($.i18n.prop('app_notifiers_delete_succ'))
                 getAppNotifiers(appUuid,'no');
             }
         });

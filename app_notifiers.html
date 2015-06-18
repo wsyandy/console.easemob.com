@@ -255,7 +255,7 @@
                                                     color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF">
                                                 <input type="text" readonly="readonly" id="f_file"/>
-                                                <input type="button" value="浏览..." class="btn btn-mini btn-primary"
+                                                <input type="button" id="app_notifiers_form_button" value="浏览..." class="btn btn-mini btn-primary"
                                                        onClick="file.click()"/>
                                                 <input type="file" name="file" id="file"
                                                        onChange="f_file.value=this.value;validateSuffix(this.value)"
@@ -292,7 +292,7 @@
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
                                         <td align="left" width="80px;"><strong></strong></td>
-                                        <td bgcolor="#FFFFFF"><input type="button" class="btn btn-mini btn-primary"
+                                        <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_form_button_upload" class="btn btn-mini btn-primary"
                                                                      value="上传" onClick="changeform()"/></td>
                                     </tr>
                                 </table>

@@ -22,7 +22,6 @@
 
         var counterNameUsers = 'application.collection.users';
         var counterNameChatmessages = 'application.collection.chatmessages';
-
         var chartTileUsers = 'IM用户数趋势图';
         var chartTileChatmessages = '消息发送量趋势图';
         var chartTileDailyActiveUser = '每日活跃用户数趋势图';
@@ -36,6 +35,13 @@
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppCollectionCounters();
+
+            chartTileUsers = $.i18n.prop('app_collection_counters_chartTileUsers');
+            chartTileChatmessages = $.i18n.prop('app_collection_counters_chartTileChatmessages');
+            chartTileDailyActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyActiveUser');
+            chartTileDailyNewActiveUser = $.i18n.prop('app_collection_counters_chartTileDailyNewActiveUser');
+            chartTileDailyChatUser = $.i18n.prop('app_collection_counters_chartTileDailyChatUser');
+
 
 
             // default radio check
@@ -208,10 +214,10 @@
                 <div id="countersUsers">
                     <div id="countersChartType"><span id="app_collection_counters_text_dataType">数据类型</span>:
                         <select id="userChartSelector">
-                            <option value="register_users"><span id="app_collection_counters_chatType_imusers">注册用户数</span></option>
-                            <option value="daily_active_users"><span id="app_collection_counters_chatType_dailyActiveUser">每日活跃用户数</span></option>
-                            <option value="daily_new_active_users"><span id="app_collection_counters_chatType_dailyNewActiveUser">每日新增活跃用户数</span></option>
-                            <option value="daily_chat_users"><span id="app_collection_counters_chatType_dailySendMsgUser">每日发送消息用户数</span></option>
+                            <option value="register_users" id="app_collection_counters_chatType_imusers">注册用户数</option>
+                            <option value="daily_active_users" id="app_collection_counters_chatType_dailyActiveUser">每日活跃用户数</option>
+                            <option value="daily_new_active_users" id="app_collection_counters_chatType_dailyNewActiveUser">每日新增活跃用户数</option>
+                            <option value="daily_chat_users" id="app_collection_counters_chatType_dailySendMsgUser">每日发送消息用户数</option>
                         </select>
                         <!--<select id="chatmessagsChartSelector">-->
                             <!--<option value="msg_outgoing" disabled="disabled">消息</option>-->

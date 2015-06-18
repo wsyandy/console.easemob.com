@@ -83,7 +83,6 @@
 
         function addChatgroupMemberPre() {
             var newmember = $('#newmember').val().trim();
-            // check 成员数是否已经到达最大
             if (checkMaxusers()) {
                 $('#newmemberEMsg').text('');
                 addChatgroupMember(appUuid, groupid, newmember)

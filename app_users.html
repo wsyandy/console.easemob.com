@@ -297,7 +297,7 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="pwdMondify">新密码：</label>
+                    <label class="control-label" for="pwdMondify"><span id="app_users_passwordModify_label_newpassword">新密码</span>：</label>
                     <div class="controls">
                         <input type="password" id="pwdMondify" name="pwdMondify" value=""
                                placeholder="请输入新密码(1位以上字母或数字)" onKeyUp="value=removeAllSpace(value)"
@@ -312,8 +312,7 @@
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="pwdMondifytwo">再次输入新密码：</label>
-
+                    <label class="control-label" for="pwdMondifytwo"><span id="app_users_passwordModify_label_confirmnewpassword">再次输入新密码</span>：</label>
                     <div class="controls">
                         <input type="password" id="pwdMondifytwo" name="pwdMondifytwo" value="" placeholder="请再次输入新密码"
                                onKeyUp="value=removeAllSpace(value)" onBlur="value=removeAllSpace(value)"
@@ -326,8 +325,8 @@
     </div>
 
     <div class="modal-footer">
-        <a class="btn" onClick="updateAppUserPassword();" href="javascript:void(0);">修改</a>
-        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
+        <a class="btn" onClick="updateAppUserPassword();" href="javascript:void(0);"><span id="app_users_passwordModify_label_confirm">修改</span></a>
+        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true"><span id="app_users_passwordModify_label_cancel">关闭</span></button>
     </div>
 </div>
 <!--修改密码-->
@@ -336,19 +335,19 @@
      aria-hidden="true">
     <div class="modal-header">
         <button id="closeButn" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">发送消息</h3>
+        <h3 id="app_users_sendMessage_title">发送消息</h3>
         <input type="hidden" id="imgUuid"/>
     </div>
     <div class="modal-header">
-        <h3 id="msgType"><font style="font-size:13px;color:red">提醒：</font>
-            <font style="font-size:13px;color:red">&nbsp;可以文字和图片同时发送,也可任选其一发送</font>
+        <h3 id="msgType"><font style="font-size:13px;color:red"><span id="app_users_sendMessage_note">提醒</span>：</font>
+            <!--<font style="font-size:13px;color:red">&nbsp;可以文字和图片同时发送,也可任选其一发送</font>-->
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
                 <form id="myForm" method="POST" enctype="multipart/form-data" action="">
                     <div class="control-group">
-                        <label class="control-label" for="f_file">选择图片：</label>
+                        <label class="control-label" for="f_file"><span id="app_users_sendMessage_selectPicture">选择图片</span>：</label>
 
                         <div class="controls" id="div2">
                             <input type="text" readonly="readonly" id="f_file"/>
@@ -362,7 +361,7 @@
                     </div>
                 </form>
                 <div class="control-group">
-                    <label class="control-label" for="messegeContent">输入文字：</label>
+                    <label class="control-label" for="messegeContent"><span id="app_users_alert_upload_messageContent">输入文字</span>：</label>
 
                     <div class="controls" id="div1">
                         <textarea style="width:500px; height:100px;" id="messegeContent"
@@ -376,71 +375,66 @@
     </div>
 
     <div class="modal-footer">
-        <a class="btn" onClick="sendMessage();" id="sndBtn" href="javascript:void(0);">发送</a>
-        <button id="messageCloseBtn" class="btn" data-dismiss="modal" onClick="clsupSpan()" aria-hidden="true">关闭
+        <a class="btn" onClick="sendMessage();" id="sndBtn" href="javascript:void(0);"><span id="app_users_alert_sendMessage_confirm">发送</span></a>
+        <button id="messageCloseBtn" class="btn" data-dismiss="modal" onClick="clsupSpan()" aria-hidden="true"><span id="app_users_alert_sendMessage_cancel">关闭</span>
         </button>
     </div>
 </div>
 <!--发送消息end-->
+
 <!--修改信息-->
 <div id="updateInfo" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-header">
         <button id="infoCloseButn" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">修改信息</h3>
+        <h3 id="app_users_infoModify_title">修改信息</h3>
     </div>
     <div class="modal-body">
         <div class="row-fluid">
             <div class="span12">
                 <div class="control-group">
-                    <label class="control-label" for="username">用户名：</label>
-
+                    <label class="control-label" for="username"><span id="app_users_infoModify_form_label_username">用户名</span>：</label>
                     <div class="controls">
                         <span id="username" name="username"></span>
                         <input type="hidden" id="appUuidInfo" name="appUuidInfo" value=""/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="messegeType">消息提醒：</label>
-
+                    <label class="control-label" for="messageType_0"><span id="app_users_infoModify_form_label_messageType">消息提醒</span>：</label>
                     <div class="controls">
-                        <input type="radio" style="opacity:1;" name="messageType" id="messageType_0" value="0"/>&nbsp;&nbsp;&nbsp;&nbsp;仅通知
-                        <input type="radio" style="opacity:1;" name="messageType" id="messageType_1" value="1"/>&nbsp;&nbsp;&nbsp;&nbsp;发送详情
+                        <input type="radio" style="opacity:1;" name="messageType" id="messageType_0" value="0"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_users_infoModify_form_label_messageType_summary">仅通知</span>
+                        <input type="radio" style="opacity:1;" name="messageType" id="messageType_1" value="1"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_users_infoModify_form_label_messageType_detail">发送详情</span>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="nickname">昵称：</label>
-
+                    <label class="control-label" for="nickname"><span id="app_users_infoModify_form_label_nickname">昵称</span>：</label>
                     <div class="controls">
                         <input name="nickname" id="nickname" type="text"/>
                     </div>
                 </div>
                 <div class="control-group">
-                    <label class="control-label" for="notification">免打扰模式：</label>
-
+                    <label class="control-label" for="notification_true"><span id="app_users_infoModify_form_label_mute">免打扰模式</span>：</label>
                     <div class="controls">
                         <input type="radio" style="opacity:1;" name="notification" id="notification_true" value="true"
-                               onChange="showTimeDiv(true)"/>&nbsp;&nbsp;&nbsp;&nbsp;开启
+                               onChange="showTimeDiv(true)"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_users_infoModify_form_label_mute_open">开启</span>
                         <input type="radio" style="opacity:1;" name="notification" id="notification_false" value="false"
-                               onChange="showTimeDiv(false)"/>&nbsp;&nbsp;&nbsp;&nbsp;不开启
+                               onChange="showTimeDiv(false)"/>&nbsp;&nbsp;&nbsp;&nbsp;<span id="app_users_infoModify_form_label_mute_close">不开启</span>
                     </div>
                 </div>
             </div>
             <div class="control-group" id="notification_time_div">
-                <label class="control-label" for="notification_starttime">免打扰时段(范围:00 ~ 24)：</label>
-
+                <label class="control-label" for="notification_starttime"><span id="app_users_infoModify_form_label_mute_period">免打扰时段(范围:00 ~ 24)</span>：</label>
                 <div class="controls">
                     <input name="notification_starttime" id="notification_starttime" style="width:60px" type="text"/> --
                     <input name="notification_endtime" id="notification_endtime" style="width:60px" type="text"/>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="modal-footer">
-        <a class="btn" onClick="updateInfoHTML();" href="javascript:void(0);">确定</a>
-        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true">关闭</button>
+        <a class="btn" onClick="updateInfoHTML();" href="javascript:void(0);"><span id="app_users_infoModify_form_confirm">确定</span></a>
+        <button class="btn" data-dismiss="modal" onClick="clsSpan()" aria-hidden="true"><span id="app_users_infoModify_form_cancel">关闭</span></button>
     </div>
 </div>
 <!--修改信息end-->

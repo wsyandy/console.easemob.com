@@ -214,49 +214,14 @@ var I18NPropsLoader = function(){
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
+                    $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
+                    $('#second_nav_chatgroupmembers').text($.i18n.prop('second_nav_chatgroupmembers'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
-                    $('#app_chatgroups_form_add_title').text($.i18n.prop('app_chatgroups_form_add_title'));
-                    $('#app_chatgroups_btn_deleteBatch').text($.i18n.prop('app_chatgroups_btn_deleteBatch'));
-                    $('#app_chatgroups_btn_sendMsg').text($.i18n.prop('app_chatgroups_btn_sendMsg'));
-                    $('#app_chatgroups_btn_search').text($.i18n.prop('app_chatgroups_btn_search'));
-                    $('#app_chatgroups_table_checkall').text($.i18n.prop('app_chatgroups_table_checkall'));
-                    $('#app_chatgroups_table_cancel').text($.i18n.prop('app_chatgroups_table_cancel'));
-                    $('#app_chatgroups_form_add_groupName').text($.i18n.prop('app_chatgroups_form_add_groupName'));
-                    $('#app_chatgroups_form_add_groupDesc').text($.i18n.prop('app_chatgroups_form_add_groupDesc'));
-                    $('#app_chatgroups_form_add_groupdescSpan').text($.i18n.prop('app_chatgroups_form_add_groupdescSpan'));
-                    $('#app_chatgroups_form_add_private').text($.i18n.prop('app_chatgroups_form_add_private'));
-                    $('#app_chatgroups_form_add_public').text($.i18n.prop('app_chatgroups_form_add_public'));
-                    $('#app_chatgroups_form_add_unApproval').text($.i18n.prop('app_chatgroups_form_add_unApproval'));
-                    $('#app_chatgroups_form_add_approval').text($.i18n.prop('app_chatgroups_form_add_approval'));
-                    $('#app_chatgroups_form_add_groupApprovalSpan').text($.i18n.prop('app_chatgroups_form_add_groupApprovalSpan'));
-                    $('#app_chatgroups_form_add_maxusers').text($.i18n.prop('app_chatgroups_form_add_maxusers'));
-                    $('#app_chatgroups_form_add_groupMaxuserSpan').text($.i18n.prop('app_chatgroups_form_add_groupMaxuserSpan'));
-                    $('#app_chatgroups_form_add_groupOwner').text($.i18n.prop('app_chatgroups_form_add_groupOwner'));
-                    $('#app_chatgroups_form_add_groupOwnerSpan').text($.i18n.prop('app_chatgroups_form_add_groupOwnerSpan'));
-                    $('#app_chatgroups_form_add_BtnAdd').text($.i18n.prop('app_chatgroups_form_add_BtnAdd'));
-                    $('#app_chatgroups_form_add_BtnCancel').text($.i18n.prop('app_chatgroups_form_add_BtnCancel'));
-                    $('#app_chatgroups_form_modify_title').text($.i18n.prop('app_chatgroups_form_modify_title'));
-                    $('#app_chatgroups_form_modify_groupName').text($.i18n.prop('app_chatgroups_form_modify_groupName'));
-                    $('#app_chatgroups_form_modify_groupNameSpan').text($.i18n.prop('app_chatgroups_form_modify_groupNameSpan'));
-                    $('#app_chatgroups_form_modify_groupDesc').text($.i18n.prop('app_chatgroups_form_modify_groupDesc'));
-                    $('#app_chatgroups_form_modify_groupIsPublic_private').text($.i18n.prop('app_chatgroups_form_modify_groupIsPublic_private'));
-                    $('#app_chatgroups_form_modify_groupIsPublic_public').text($.i18n.prop('app_chatgroups_form_modify_groupIsPublic_public'));
-                    $('#app_chatgroups_form_modify_groupIsPublicSpan').text($.i18n.prop('app_chatgroups_form_modify_groupIsPublicSpan'));
-                    $('#app_chatgroups_form_modify_groupisApproval_unApproval').text($.i18n.prop('app_chatgroups_form_modify_groupisApproval_unApproval'));
-                    $('#app_chatgroups_form_modify_groupisApproval_approval').text($.i18n.prop('app_chatgroups_form_modify_groupisApproval_approval'));
-                    $('#app_chatgroups_form_modify_isApprovalSpan').text($.i18n.prop('app_chatgroups_form_modify_isApprovalSpan'));
-                    $('#app_chatgroups_form_modify_maxusers').text($.i18n.prop('app_chatgroups_form_modify_maxusers'));
-                    $('#app_chatgroups_form_modify_maxUsersSpan').text($.i18n.prop('app_chatgroups_form_modify_maxUsersSpan'));
-                    $('#app_chatgroups_form_modify_owner').text($.i18n.prop('app_chatgroups_form_modify_owner'));
-                    $('#app_chatgroups_form_modify_btnAdd').text($.i18n.prop('app_chatgroups_form_modify_btnAdd'));
-                    $('#app_chatgroups_form_modify_btnCancel').text($.i18n.prop('app_chatgroups_form_modify_btnCancel'));
-                    $('#app_chatgroups_form_sendMsg_title').text($.i18n.prop('app_chatgroups_form_sendMsg_title'));
-                    $('#app_chatgroups_sendMsg_label_selectPicture').text($.i18n.prop('app_chatgroups_sendMsg_label_selectPicture'));
-                    $('#app_chatgroups_sendMsg_label_wait').text($.i18n.prop('app_chatgroups_sendMsg_label_wait'));
-                    $('#app_chatgroups_sendMsg_label_input').text($.i18n.prop('app_chatgroups_sendMsg_label_input'));
-                    $('#app_chatgroups_sendMsg_btn_send').text($.i18n.prop('app_chatgroups_sendMsg_btn_send'));
-                    $('#app_chatgroups_sendMsg_btn_cancel').text($.i18n.prop('app_chatgroups_sendMsg_btn_cancel'));
+                    $('#app_chatgroups_btn_addmembers').text($.i18n.prop('app_chatgroups_btn_addmembers'));
+                    $('#app_chatgroups_users_table_members').text($.i18n.prop('app_chatgroups_users_table_members'));
+                    $('#app_chatgroups_users_table_operation').text($.i18n.prop('app_chatgroups_users_table_operation'));
+                    $('#newmember').attr('placeholder', $.i18n.prop('app_chatgroups_btn_newmember_placeholder'));
                 }
             });
         },
@@ -275,9 +240,44 @@ var I18NPropsLoader = function(){
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
                     $('#second_nav_chatgroupmembers').text($.i18n.prop('second_nav_chatgroupmembers'));
+                    $('#app_chatgroups_btn_addchatgroup').text($.i18n.prop('app_chatgroups_btn_addchatgroup'));
+                    $('#app_chatgroups_btn_deleteBatch').text($.i18n.prop('app_chatgroups_btn_deleteBatch'));
+                    $('#app_chatgroups_btn_sendMsg').text($.i18n.prop('app_chatgroups_btn_sendMsg'));
+                    $('#app_chatgroups_btn_search').text($.i18n.prop('app_chatgroups_btn_search'));
+                    $('#groupid').attr('placeholder', $.i18n.prop('app_chatgroups_btn_search_placeholder'));
+                    $('#app_chatgroups_table_checkall').text($.i18n.prop('app_chatgroups_table_checkall'));
+                    $('#app_chatgroups_table_groupid').text($.i18n.prop('app_chatgroups_table_groupid'));
+                    $('#app_chatgroups_table_groupname').text($.i18n.prop('app_chatgroups_table_groupname'));
+                    $('#app_chatgroups_table_operation').text($.i18n.prop('app_chatgroups_table_operation'));
+                    $('#app_chatgroups_form_add_title').text($.i18n.prop('app_chatgroups_form_add_title'));
+                    $('#app_chatgroups_form_add_groupName').text($.i18n.prop('app_chatgroups_form_add_groupName'));
+                    $('#app_chatgroups_form_add_groupDesc').text($.i18n.prop('app_chatgroups_form_add_groupDesc'));
+                    $('#app_chatgroups_form_add_private').text($.i18n.prop('app_chatgroups_form_add_private'));
+                    $('#app_chatgroups_form_add_public').text($.i18n.prop('app_chatgroups_form_add_public'));
+                    $('#app_chatgroups_form_add_unApproval').text($.i18n.prop('app_chatgroups_form_add_unApproval'));
+                    $('#app_chatgroups_form_add_approval').text($.i18n.prop('app_chatgroups_form_add_approval'));
+                    $('#app_chatgroups_form_add_maxusers').text($.i18n.prop('app_chatgroups_form_add_maxusers'));
+                    $('#app_chatgroups_form_add_groupOwner').text($.i18n.prop('app_chatgroups_form_add_groupOwner'));
+                    $('#app_chatgroups_form_add_BtnAdd').text($.i18n.prop('app_chatgroups_form_add_BtnAdd'));
+                    $('#app_chatgroups_form_add_BtnCancel').text($.i18n.prop('app_chatgroups_form_add_BtnCancel'));
+                    $('#groupName').attr('placeholder', $.i18n.prop('app_chatgroups_form_add_groupName_placeholder'));
+                    $('#groupDesc').attr('placeholder', $.i18n.prop('app_chatgroups_form_add_groupDesc_placeholder'));
+                    $('#maxusers').attr('placeholder', $.i18n.prop('app_chatgroups_form_add_maxusers_placeholder'));
+                    $('#groupOwner').attr('placeholder', $.i18n.prop('app_chatgroups_form_add_groupOwner_placeholder'));
+                    $('#app_chatgroups_form_label_isPublic').text($.i18n.prop('app_chatgroups_form_label_isPublic'));
+                    $('#app_chatgroups_form_label_isApprovals').text($.i18n.prop('app_chatgroups_form_label_isApprovals'));
+                    $('#app_chatgroups_form_sendMsg_title').text($.i18n.prop('app_chatgroups_form_sendMsg_title'));
+                    $('#app_chatgroups_sendMsg_label_selectPicture').text($.i18n.prop('app_chatgroups_sendMsg_label_selectPicture'));
+                    $('#app_chatgroups_sendMsg_label_wait').text($.i18n.prop('app_chatgroups_sendMsg_label_wait'));
+                    $('#app_chatgroups_sendMsg_label_input').text($.i18n.prop('app_chatgroups_sendMsg_label_input'));
+                    $('#app_chatgroups_sendMsg_btn_send').text($.i18n.prop('app_chatgroups_sendMsg_btn_send'));
+                    $('#app_chatgroups_sendMsg_btn_cancel').text($.i18n.prop('app_chatgroups_sendMsg_btn_cancel'));
                     $('#app_chatgroups_btn_addmembers').text($.i18n.prop('app_chatgroups_btn_addmembers'));
                     $('#app_chatgroups_users_table_members').text($.i18n.prop('app_chatgroups_users_table_members'));
                     $('#app_chatgroups_users_table_operation').text($.i18n.prop('app_chatgroups_users_table_operation'));
+                    $('#app_chatgroups_label_tips').text($.i18n.prop('app_chatgroups_label_tips'));
+
+
                 }
             });
         },
@@ -308,6 +308,7 @@ var I18NPropsLoader = function(){
                     $('#app_collection_counters_text_quickSearch').text($.i18n.prop('app_collection_counters_text_quickSearch'));
                     $('#app_collection_counters_text_quickSearchOneDay').text($.i18n.prop('app_collection_counters_text_quickSearchOneDay'));
                     $('#app_collection_counters_text_quickSearchSevenDays').text($.i18n.prop('app_collection_counters_text_quickSearchSevenDays'));
+                    $('#countersSearchBtn').val($.i18n.prop('app_collection_counters_text_searchBtn'));
                 }
             });
         },
@@ -385,6 +386,10 @@ var I18NPropsLoader = function(){
                     $('#app_notifiers_form_appName').text($.i18n.prop('app_notifiers_form_appName'));
                     $('#app_notifiers_form_notifierName').text($.i18n.prop('app_notifiers_form_notifierName'));
                     $('#app_notifiers_form_notifier').text($.i18n.prop('app_notifiers_form_notifier'));
+                    $('#name').attr('placeholder' ,$.i18n.prop('app_notifiers_form_name_placeholder'));
+                    $('#passphrase').attr('placeholder' ,$.i18n.prop('app_notifiers_form_passphrase_placeholder'));
+                    $('#app_notifiers_form_button').attr('value' ,$.i18n.prop('app_notifiers_form_button_value'));
+                    $('#app_notifiers_form_button_upload').attr('value' ,$.i18n.prop('app_notifiers_form_button_upload_value'));
                     $('#app_notifiers_form_notifierPassword').text($.i18n.prop('app_notifiers_form_notifierPassword'));
                     $('#app_notifiers_form_notifierType').text($.i18n.prop('app_notifiers_form_notifierType'));
                     $('#app_notifiers_form_notifierType_dev').text($.i18n.prop('app_notifiers_form_notifierType_dev'));
@@ -460,6 +465,47 @@ var I18NPropsLoader = function(){
                     $('#app_users_selections_sendMessages').text($.i18n.prop('app_users_selections_sendMessages'));
                     $('#userInbox').attr('placeholder', $.i18n.prop('app_users_text_search_box_placeholder'));
                     $('#app_users_passwordModify_title').text($.i18n.prop('app_users_passwordModify_title'));
+                    $('#app_users_infoModify_title').text($.i18n.prop('app_users_infoModify_title'));
+                    $('#app_users_infoModify_form_label_username').text($.i18n.prop('app_users_infoModify_form_label_username'));
+                    $('#app_users_infoModify_form_label_messageType').text($.i18n.prop('app_users_infoModify_form_label_messageType'));
+                    $('#app_users_infoModify_form_label_messageType_summary').text($.i18n.prop('app_users_infoModify_form_label_messageType_summary'));
+                    $('#app_users_infoModify_form_label_messageType_detail').text($.i18n.prop('app_users_infoModify_form_label_messageType_detail'));
+                    $('#app_users_infoModify_form_label_mute').text($.i18n.prop('app_users_infoModify_form_label_mute'));
+                    $('#app_users_infoModify_form_label_nickname').text($.i18n.prop('app_users_infoModify_form_label_nickname'));
+                    $('#app_users_infoModify_form_label_mute_open').text($.i18n.prop('app_users_infoModify_form_label_mute_open'));
+                    $('#app_users_infoModify_form_label_mute_close').text($.i18n.prop('app_users_infoModify_form_label_mute_close'));
+                    $('#app_users_infoModify_form_label_mute_period').text($.i18n.prop('app_users_infoModify_form_label_mute_period'));
+                    $('#app_users_infoModify_form_confirm').text($.i18n.prop('app_users_infoModify_form_confirm'));
+                    $('#app_users_infoModify_form_cancel').text($.i18n.prop('app_users_infoModify_form_cancel'));
+                    $('#app_users_infoModify_layer_saved').text($.i18n.prop('app_users_infoModify_layer_saved'));
+                    $('#app_users_infoModify_layer_content').text($.i18n.prop('app_users_infoModify_layer_content'));
+                    $('#app_users_infoModify_layer_saveerror').text($.i18n.prop('app_users_infoModify_layer_saveerror'));
+                    $('#app_users_infoModify_layer_nicknameError').text($.i18n.prop('app_users_infoModify_layer_nicknameError'));
+                    $('#app_users_infoModify_layer_periodError').text($.i18n.prop('app_users_infoModify_layer_periodError'));
+                    $('#app_users_table_tab_previous').text($.i18n.prop('app_users_table_tab_previous'));
+                    $('#app_users_table_tab_next').text($.i18n.prop('app_users_table_tab_next'));
+                    $('#app_users_table_nav_previous').text($.i18n.prop('app_users_table_nav_previous'));
+                    $('#app_users_table_nav_next').text($.i18n.prop('app_users_table_nav_next'));
+                    $('#app_users_confirm_delete_user').text($.i18n.prop('app_users_confirm_delete_user'));
+                    $('#app_users_delete_layer_user').text($.i18n.prop('app_users_delete_layer_user'));
+                    $('#app_users_delete_alert_deleted').text($.i18n.prop('app_users_delete_alert_deleted'));
+                    $('#app_users_delete_alert_deleteError').text($.i18n.prop('app_users_delete_alert_deleteError'));
+                    $('#app_users_alert_deleteNoteItem').text($.i18n.prop('app_users_alert_deleteNoteItem'));
+                    $('#app_users_delete_alert_deleteNoteDone').text($.i18n.prop('app_users_delete_alert_deleteNoteDone'));
+                    $('#app_users_passwordModify_label_newpassword').text($.i18n.prop('app_users_passwordModify_label_newpassword'));
+                    $('#pwdMondify').attr('placeholder', $.i18n.prop('app_users_passwordModify_label_newpassword_placeholder'));
+                    $('#pwdMondifytwo').attr('placeholder', $.i18n.prop('app_users_passwordModify_label_confirm_newpassword_placeholder'));
+                    $('#app_users_passwordModify_label_confirmnewpassword').text($.i18n.prop('app_users_passwordModify_label_confirmnewpassword'));
+                    $('#app_users_passwordModify_label_confirmnewpasswordplaceholder').text($.i18n.prop('app_users_passwordModify_label_confirmnewpasswordplaceholder'));
+                    $('#app_users_passwordModify_label_confirm').text($.i18n.prop('app_users_passwordModify_label_confirm'));
+                    $('#app_users_passwordModify_label_cancel').text($.i18n.prop('app_users_passwordModify_label_cancel'));
+                    $('#app_users_sendMessage_title').text($.i18n.prop('app_users_sendMessage_title'));
+                    $('#app_users_sendMessage_note').text($.i18n.prop('app_users_sendMessage_note'));
+                    $('#app_users_sendMessage_selectPicture').text($.i18n.prop('app_users_sendMessage_selectPicture'));
+                    $('#app_users_alert_upload_picture_waiting').text($.i18n.prop('app_users_alert_upload_picture_waiting'));
+                    $('#app_users_alert_sendMessage_confirm').text($.i18n.prop('app_users_alert_sendMessage_confirm'));
+                    $('#app_users_alert_sendMessage_cancel').text($.i18n.prop('app_users_alert_sendMessage_cancel'));
+                    $('#app_users_alert_sendMessage_messageContent').text($.i18n.prop('app_users_alert_sendMessage_messageContent'));
                 }
             });
         },
@@ -479,12 +525,13 @@ var I18NPropsLoader = function(){
                     $('#second_nav_imusers').text($.i18n.prop('second_nav_imusers'));
                     $('#second_nav_contacts').text($.i18n.prop('second_nav_contacts'));
                     $('#app_users_contacts_bnt_addNewContacts').text($.i18n.prop('app_users_contacts_bnt_addNewContacts'));
-                    $('#app_users_contacts_table_operation').text($.i18n.prop('app_users_contacts_table_operation'));
                     $('#app_users_contacts_table_username').text($.i18n.prop('app_users_contacts_table_username'));
                     $('#app_users_contacts_text_addNewContacts').text($.i18n.prop('app_users_contacts_text_addNewContacts'));
                     $('#app_users_contacts_text_contactsName').text($.i18n.prop('app_users_contacts_text_contactsName'));
                     $('#app_users_contacts_bnt_add').text($.i18n.prop('app_users_contacts_bnt_add'));
                     $('#app_users_contacts_bnt_cancel').text($.i18n.prop('app_users_contacts_bnt_cancel'));
+                    $('#app_users_contacts_table_loading').text($.i18n.prop('app_users_contacts_table_loading'));
+                    $('#app_users_contacts_table_operation').text($.i18n.prop('app_users_contacts_table_operation'));
                 }
             });
         },

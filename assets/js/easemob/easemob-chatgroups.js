@@ -15,12 +15,12 @@ function sendUserMessages(){
         alert('消息不能为空');
     }else{
         var d = {
-            "target_type" : "chatgroups", //or chatgroups
-            "target" : target, //注意这里需要用数组, 即使只有一个用户, 也要用数组 ['u1']
+            "target_type" : "chatgroups",
+            "target" : target,
 
             "msg" : {
                 "type" : "txt",
-                "msg" : messageContent //消息内容，参考[聊天记录](http://developer.easemob.com/docs/emchat/rest/chatmessage.html)里的bodies内容
+                "msg" : messageContent
             }
         }
         var layerNum = layer.load('正在发送...');
@@ -48,7 +48,7 @@ function sendUserMessages(){
 //群组发送图片
 function sendUserImgMessages(){
     if( $('#share-secret').val() == ''|| $('#share-secret').val() == null){
-        alert('请先选择图片');
+        alert($.i18n.prop('app_chatgroups_sendMsg_label_selectPicture'));
     }else{
         var users = document.getElementById('usernameMessage').value;
         var appUuid = document.getElementById('appUuidMessage').value;
@@ -63,7 +63,7 @@ function sendUserImgMessages(){
                 "type":"img","filename":str[0], "secret": str[1],"url":$('#imgUuid').val()
             }
         }
-        var layerNum = layer.load('正在发送...');
+        var layerNum = layer.load($.i18n.prop('app_chatgroups_sendMsg_layer_sending'));
         $.ajax({
             url:baseUrl+'/'+ orgName + "/" + appUuid + '/messages',
             type:'POST',
@@ -74,13 +74,13 @@ function sendUserImgMessages(){
             data:JSON.stringify(d),
             error:function(respData){
                 layer.close(layerNum);
-                alert('发送失败');
+                alert($.i18n.prop('app_chatgroups_sendMsg_label_sendError'));
             },
             success:function(respData){
                 layer.close(layerNum);
                 $('#closeButn').click();
-                $('#uploadresspan').text('等待上传图片');
-                alert('发送成功');
+                $('#uploadresspan').text($.i18n.prop('app_chatgroups_sendMsg_label_wait'));
+                alert($.i18n.prop('app_chatgroups_sendMsg_label_sent'));
             }
         });
     }
@@ -135,11 +135,11 @@ function getAppChatrooms(appUuid, pageAction){
                         '<td class="text-center" width="666px" style="word-break:break-all">'+ groupname +'</td>'+
                         '<td class="text-center">'+
                         '<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
-                        '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
+                        '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_chatgroups_table_operation') + '<b class="caret"></b></a>'+
                         '<ul class="dropdown-menu">'+
-                        '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
-                        '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
-                        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
+                        '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_members') + '</a></li>'+
+                        '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_delete') + '</a></li>'+
+                        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_sendmessage') + '</a></li>'+
                         '</ul>'+
                         '</li>'+
                         '</ul>'+
@@ -151,7 +151,7 @@ function getAppChatrooms(appUuid, pageAction){
 
                 var tbody = document.getElementsByTagName("tbody")[0];
                 if(!tbody.hasChildNodes()){
-                    var option = '<tr><td class="text-center" colspan="7">无数据!</td></tr>';
+                    var option = '<tr><td class="text-center" colspan="7">' + $.i18n.prop('table_data_nodata') + '</td></tr>';
                     $('#appChatroomBody').append(option);
                     var pageLi = $('#pagina').find('li');
                     for(var i=0;i<pageLi.length;i++){
@@ -161,8 +161,8 @@ function getAppChatrooms(appUuid, pageAction){
 
                 var ulB = '<ul>';
                 var ulE = '</ul>';
-                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'forward\')">上一页</a> </li>';
-                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'next\')">下一页</a> </li>';
+                var textOp1 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'forward\')">' + $.i18n.prop('app_chatgroups_table_nav_previous') + '</a> </li>';
+                var textOp2 = '<li> <a href="javascript:void(0);" onclick="getAppChatrooms(\'' + appUuid + '\',\'next\')">' + $.i18n.prop('app_chatgroups_table_nav_next') + '</a> </li>';
                 $('#paginau').html('');
                 var hasNext = (respData.cursor != undefined);
                 cursors[pageNo+1] = respData.cursor;
@@ -199,11 +199,6 @@ function getAppChatgroups(appUuid, groupid, pageAction){
         } else if('next' == pageAction){
             pageNo -= 1;
         }
-
-        var tmp = '';
-        if(typeof(pageAction)!='undefined' && pageAction != ''){
-            tmp = '&cursor=' + cursors[pageNo];
-        }
         var loading = '<tr id="tr_loading"><td class="text-center" colspan="4"><img src ="assets/img/loading.gif">&nbsp;&nbsp;&nbsp;<span>正在读取数据...</span></td></tr>';
         $('#appChatroomBody').empty();
         $('#appChatroomBody').append(loading);
@@ -218,12 +213,11 @@ function getAppChatgroups(appUuid, groupid, pageAction){
                 var error = jQuery.parseJSON(respData.responseText).error;
                 $('tbody').html('');
                 if('service_resource_not_found' == error || 'illegal_argument' == error){
-                    var option = '<tr><td class="text-center" colspan="4">该群id不存在，请重新输入!</td></tr>';
+                    var option = '<tr><td class="text-center" colspan="4">' + $.i18n.prop('app_chatgroups_btn_search_alert') + '</td></tr>';
                     $('#appChatroomBody').append(option);
                 }
             },
             success:function(respData){
-                // 缓存游标,下次next时候存新的游标
                 if(pageAction!='forward'){
                     cursors[pageNo+1] =	respData.cursor;
                 } else {
@@ -234,7 +228,7 @@ function getAppChatgroups(appUuid, groupid, pageAction){
                 var groupname = respData.data[0].name;
                 var errors=respData.data[0].error;
                 if(errors != null){
-                    var option = '<tr><td class="text-center" colspan="4">该群id不存在，请重新输入!</td></tr>';
+                    var option = '<tr><td class="text-center" colspan="4">' + $.i18n.prop('app_chatgroups_btn_search_alert') + '</td></tr>';
                     $('#appChatroomBody').append(option);
                     return;
                 }
@@ -248,11 +242,11 @@ function getAppChatgroups(appUuid, groupid, pageAction){
                     '<td class="text-center">'+ groupname +'</td>'+
                     '<td class="text-center">'+
                     '<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
-                    '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
+                    '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_chatgroups_table_operation') + '<b class="caret"></b></a>'+
                     '<ul class="dropdown-menu">'+
-                    '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">查看群组成员</a></li>'+
-                    '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">删除</a></li>'+
-                    '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">发送消息</a></li>'+
+                    '<li data-filter-camera-type="all"><a href="javascript:togroupaddAppAdminuserusers(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_members') + '</a></li>'+
+                    '<li data-filter-camera-type="Alpha"><a href="javascript:deleteAppChatroom(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_delete') + '</a></li>'+
+                    '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+groupid+'\')">' + $.i18n.prop('app_chatgroups_table_operation_sendmessage') + '</a></li>'+
                     '</ul>'+
                     '</li>'+
                     '</ul>'+
@@ -320,7 +314,7 @@ function getAppChatroomsuser(appUuid,groupid,pageAction){
 
                             var selectOptions = '<tr>'+
                                 '<td class="text-center" style="color:#FF0000;"><i class="icon-user"></i>&nbsp;'+owner+'</td>'+
-                                '<td class="text-center">对群主禁用'+
+                                '<td class="text-center">'+ $.i18n.prop('app_chatgroups_users_table_disable') +
                                 '</td>'+
                                 '</tr>';
 
@@ -332,9 +326,9 @@ function getAppChatroomsuser(appUuid,groupid,pageAction){
                                 '<td class="text-center">'+members+'</td>'+
                                 '<td class="text-center">'+
                                 '<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
-                                '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">操作<b class="caret"></b></a>'+
+                                '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_chatgroups_users_table_selection_operation') + '<b class="caret"></b></a>'+
                                 '<ul class="dropdown-menu" style="left:200px">'+
-                                '<li><a href="javascript:deleteAppChatroomUsers(\''+appUuid+'\',\''+groupid+'\',\''+members+'\')">移除</a></li>'+
+                                '<li><a href="javascript:deleteAppChatroomUsers(\''+appUuid+'\',\''+groupid+'\',\''+members+'\')">' + $.i18n.prop('app_chatgroups_users_table_selection_remove') + '</a></li>'+
                                 '</ul>'+
                                 '</li>'+
                                 '</ul>'+
@@ -364,20 +358,20 @@ function deleteAppChatroom(appUuid,groupuuid){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
 
-    if(confirm('确定要删除此群组吗?')){
+    if(confirm($.i18n.prop('app_chatgroups_delete_confirm'))){
         $.ajax({
-            url:baseUrl + '/' +orgName +'/'+appUuid+'/chatgroups/' + groupuuid,
+            url:baseUrl + '/' +orgName + '/' + appUuid + '/chatgroups/' + groupuuid,
             type:'DELETE',
             headers:{
                 'Authorization':'Bearer ' + access_token,
                 'Content-Type':'application/json'
             },
             error:function(){
-                alert('提示\n\n删除失败!');
+                alert($.i18n.prop('app_chatgroups_delete_failed'));
             },
             success:function(respData){
-                alert('提示\n\n删除成功!');
-                window.location.href = 'app_chatgroups.html?appUuid='+appUuid;
+                alert($.i18n.prop('app_chatgroups_delete_succ'));
+                window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
             }
         });
     }
@@ -387,7 +381,7 @@ function deleteAppChatroomUsers(appUuid,groupuuid,usersname){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
 
-    if(confirm('确定要把该成员移除此群组吗?')){
+    if(confirm($.i18n.prop('app_chatgroups_users_delete_confirm'))){
         $.ajax({
             url:baseUrl + '/' +orgName +'/'+appUuid+'/chatgroups/' +groupuuid+'/users/'+usersname,
             type:'DELETE',
@@ -396,10 +390,10 @@ function deleteAppChatroomUsers(appUuid,groupuuid,usersname){
                 'Content-Type':'application/json'
             },
             error:function(){
-                alert('提示\n\n移除失败!');
+                alert($.i18n.prop('app_chatgroups_users_delete_confirm'));
             },
             success:function(respData){
-                alert('提示\n\n移除成功!');
+                alert($.i18n.prop('app_chatgroups_users_delete_confirm'));
                 location.replace(location.href);
             }
         });
@@ -410,7 +404,7 @@ function addChatgroupMember(appUuid, groupid, newmember) {
     var orgName = $.cookie('orgName');
     var access_token = $.cookie('access_token');
     if (newmember == ''){
-        $('#newmemberEMsg').text('请输入有效用户名!');
+        $('#newmemberEMsg').text($.i18n.prop('app_chatgroups_add_alert_user_invalid'));
     }else{
         $.ajax({
             url:baseUrl+'/'+ orgName +'/' + appUuid +'/users/' + newmember,
@@ -420,7 +414,7 @@ function addChatgroupMember(appUuid, groupid, newmember) {
                 'Content-Type':'application/json'
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('#newmemberEMsg').text('该用户不存在，请检查输入!');
+                $('#newmemberEMsg').text($.i18n.prop('app_chatgroups_add_alert_user_notfoud'));
             },
             success: function(respData, textStatus, jqXHR) {
                 var owner = $.cookie('owner');
@@ -433,16 +427,14 @@ function addChatgroupMember(appUuid, groupid, newmember) {
                             'Content-Type':'application/json'
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
-
                         },
                         success: function(respData, textStatus, jqXHR) {
-                            alert('添加成功');
-                            //getAppChatroomsuser(appUuid, groupid);
+                            alert($.i18n.prop('app_chatgroups_add_succ'));
                             location.replace(location.href);
                         }
                     });
                 }else{
-                    $('#newmemberEMsg').text('该用户已经是管理员不能添加!');
+                    $('#newmemberEMsg').text($.i18n.prop('app_chatgroups_add_alert_owner_duplicate'));
                 }
             }
         });
@@ -457,28 +449,28 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
     var maxusers = $('#maxusers').val();
 
     if (qunzuname == ''){
-        $('#groupnameSpan').text('群组名称不能为空!');
+        $('#groupnameSpan').text($.i18n.prop('app_chatgroups_add_alert_groupname_null'));
         return false;
     }
 
     if(qunzumiaosu ==''){
         $('#groupnameSpan').text('');
-        $('#groupdescSpan').text('群组描述不能为空!');
+        $('#groupdescSpan').text($.i18n.prop('app_chatgroups_add_alert_groupdesc_null'));
         return false;
     }
     var maxusersReg = /^[0-9]+$/;
     if (maxusers == ''){
         $('#groupnameSpan').text('');
         $('#groupdescSpan').text('');
-        $('#groupmaxuserSpan').text('请输入群组最大成员数!');
+        $('#groupmaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxusers_null'));
         return false;
     } else if(!(maxusersReg.test(maxusers) && parseInt(maxusers) >= 1)) {
-        $('#groupmaxuserSpan').text('群组最大成员数只能是>1的数值!');
+        $('#groupmaxuserSpan').text($.i18n.prop('app_chatgroups_add_alert_groupmaxuser_duration'));
     }else if(qunzuguan==''){
         $('#groupnameSpan').text('');
         $('#groupdescSpan').text('');
         $('#groupmaxuserSpan').text('');
-        $('#qunzuguanSpan').text('群组管理员不能为空');
+        $('#qunzuguanSpan').text($.i18n.prop('app_chatgroups_add_alert_groupowner_null'));
         return false;
     }else{
         $('#groupnameSpan').text('');
@@ -504,7 +496,7 @@ function createNewChatgroups(appUuid,qunzuname,qunzumiaosu,approval,publics,qunz
                 'Content-Type':'application/json'
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                $('#qunzuguanSpan').text('该用户不存在，请检查用户名!');
+                $('#qunzuguanSpan').text($.i18n.prop('app_chatgroups_add_alert_user_notfoud'));
             },
             success: function(respData, textStatus, jqXHR) {
                 $('#qunzuguanSpan').text('');
@@ -545,7 +537,7 @@ function deleteAppChatgroupsCheckBox(appUuid){
         }
     }
     if(num>0){
-        if(confirm('确定要删除这些群组吗?')){
+        if(confirm($.i18n.prop('app_chatgroups_delete_confirm'))){
             for (var i=0;i<checkbox.length;i++){
                 if(checkbox[i].checked){
                     deleteAppChatrooms(appUuid, checkbox[i].value);
@@ -554,7 +546,50 @@ function deleteAppChatgroupsCheckBox(appUuid){
             location.replace(location.href);
         }
     }else{
-        alert('至少选择一个群组!');
+        alert($.i18n.prop('app_chatgroups_delete_deleteNoteItem'));
     }
 }
 
+
+//单个消息发送
+function sendMessgeOne(appUuid,users){
+    $('#usernameMessage').val(users);
+    $('#appUuidMessage').val(appUuid);
+    $('#messegeContent').val('');
+    document.getElementById('messegeContent').style.display="block";
+    $('#img1').remove();
+    $('#share-secret').val('');
+    $('#file').val('');
+    $('#f_file').val('');
+    $('#sendMessageA').click();
+}
+
+//弹出发送消息
+function sendMessge(appUuid){
+    var checkbox=document.getElementsByName("checkbox");
+    var num=0;
+    for (var i=0;i<checkbox.length;i++){
+        if(checkbox[i].checked){
+            num++;
+        }
+    }
+    if(num>0){
+        var users = new Array();
+        for (var i=0;i<checkbox.length;i++){
+            if(checkbox[i].checked){
+                users.push(checkbox[i].value);
+            }
+        }
+        $('#usernameMessage').val(users);
+        $('#appUuidMessage').val(appUuid);
+        $('#messegeContent').val('');
+        document.getElementById('messegeContent').style.display = "block";
+        $('#img1').remove();
+        $('#share-secret').val('');
+        $('#file').val('');
+        $('#f_file').val('');
+        $('#sendMessageA').click();
+    }else{
+        alert($.i18n.prop('app_users_alert_deleteNoteItem'));
+    }
+}
