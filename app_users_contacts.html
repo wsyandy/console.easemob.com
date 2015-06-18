@@ -35,11 +35,17 @@
     <script src="assets/js/layer/layer.min.js"></script>
     <script language="JavaScript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
+        var owner_username = getQueryString('owner_username');
+        var Application = $.cookie('Application');
         $(function () {
+            $('#showName').text(Application);
+            $('#showUsername').text(owner_username);
+            getAppIMList(appUuid, owner_username);
+
             EasemobCommon.isSessionTimeOut();
 
-            I18NPropsLoader.loadCommon();
-            I18NPropsLoader.load_app_users_contacts();
+            I18NPropsLoader.loadPropertiesCommon();
+            I18NPropsLoader.loadPropertiesForPageAppUsersContacts();
         });
 
         // 上一页数据
@@ -55,24 +61,8 @@
         function removeAllSpace(str) {
             return str.replace(/\s+/g, "");
         }
-    </script>
-    <script type="text/javascript">
-        $(function () {
-            if (!getToken() || getToken() == '') {
-                logout();
-            }
 
-            var appUuid = getQueryString('appUuid');
-            var Application = $.cookie('Application');
-            $('#showName').text(Application);
-            var owner_username = getQueryString('owner_username');
-            $('#showUsername').text(owner_username);
-            getAppIMList(appUuid, owner_username);
-
-        });
         function showAddFriendHTML() {
-            var appUuid = getQueryString('appUuid');
-            var owner_username = getQueryString('owner_username');
             showAddFriend(appUuid, owner_username);
         }
 

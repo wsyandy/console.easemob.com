@@ -38,8 +38,8 @@
         $(function () {
             EasemobCommon.isSessionTimeOut();
 
-            I18NPropsLoader.loadCommon();
-            I18NPropsLoader.load_app_chatgroups_users();
+            I18NPropsLoader.loadPropertiesCommon();
+            I18NPropsLoader.loadPropertiesForPageAppChatgroupsUsers();
 
             appUuid = $.cookie('Application');
             $('#showName').text(appUuid);

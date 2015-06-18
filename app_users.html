@@ -17,11 +17,11 @@
 
             EasemobCommon.isSessionTimeOut();
 
-            I18NPropsLoader.loadCommon();
+            I18NPropsLoader.loadPropertiesCommon();
 
             getAppUserList(appUuid);
 
-            I18NPropsLoader.load_app_users();
+            I18NPropsLoader.loadPropertiesForPageAppUsers();
 
             $('#searchForm').submit(function () {
                 searchUserTmp();

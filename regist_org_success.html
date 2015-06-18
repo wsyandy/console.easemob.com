@@ -24,17 +24,12 @@
 
     <script language="JavaScript" charset="utf-8">
       $(function(){
-          //读取cookie
-          if($('#rememberme:checked').length>0){
-              $('#username').val($.cookie('tvs-cookies-userName'));
-              $('#password').val($.cookie('tvs-cookies-password'));
-          }
           var mailSuffix = getQueryString('mailSuffix');
           var regEmail = getQueryString('regEmail');
           $('#succEamil').text(regEmail);
 
-          I18NPropsLoader.loadCommon();
-          I18NPropsLoader.load_regist_org_success();
+          I18NPropsLoader.loadPropertiesCommon();
+          I18NPropsLoader.loadPropertiesForPageRegisterOrgSuccess();
       })
   </script>
 </head>

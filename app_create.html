@@ -11,8 +11,8 @@
         $(function () {
             EasemobCommon.isSessionTimeOut();
 
-            I18NPropsLoader.loadCommon();
-            I18NPropsLoader.load_app_create();
+            I18NPropsLoader.loadPropertiesCommon();
+            I18NPropsLoader.loadPropertiesForPageAppCreate();
 
             count = 0;
             if ($('#allow_open_registration1').attr('checked') == 'checked') {
