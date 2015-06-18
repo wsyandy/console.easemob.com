@@ -1,6 +1,6 @@
 //document.write("<script src='/assets/js/easemob/confs.js' language=javascript></script>")
 
-var baseUrl = 'http://a1.sdb.easemob.com';
+var baseUrl = 'https://a1.easemob.com';
 
 // 初始化加载
 $(function() {
