@@ -61,68 +61,6 @@
                 applyCountersAndDraw(this);
             });
         });
-
-
-        function applyCountersAndDraw(selector) {
-            var counterType = $(selector).children("option:selected").val();
-            $('#drawCountersChartsType').val(counterType);
-
-            var drawCountersChartsType = $('#drawCountersChartsType').val();
-            var chartTitle = $('#chartTitle');
-            switch(drawCountersChartsType){
-                case 'daily_active_users':
-                    chartTitle.text(chartTileDailyActiveUser);
-                    break;
-                case 'daily_chat_users':
-                    chartTitle.text(chartTileDailyChatUser);
-                    break;
-                case 'daily_new_active_users':
-                    chartTitle.text(chartTileDailyNewActiveUser);
-                    break;
-                default:
-                    break;
-            }
-
-            var peroid = $("input[name='chartsRadio1']:checked").val();
-            drawCountersCharts(peroid);
-        }
-
-        function preDrawCountersCharts(){
-            var peroid = $("input[name='chartsRadio1']:checked").val();
-            drawCountersCharts(peroid);
-        }
-
-        function showUsersChartTab() {
-            $('#userChartSelector').show();
-            $('#countersChartType').show();
-//            $('#chatmessagsChartSelector').hide();
-            $('#chatgroupsChartSelector').hide();
-            $('#drawCountersChartsType').val('register_users');
-
-            var peroid = $("input[name='chartsRadio1']:checked").val();
-            drawCountersCharts(peroid);
-            $('#chartTitle').text(chartTileUsers);
-        }
-
-        function showChatmessagsChartTab() {
-            $('#countersChartType').hide();
-//            $('#chatmessagsChartSelector').show();
-            $('#userChartSelector').hide();
-            $('#chatgroupsChartSelector').hide();
-            $('#drawCountersChartsType').val('msg_outgoing_chat');
-
-            var peroid = $("input[name='chartsRadio1']:checked").val();
-            drawCountersCharts(peroid);
-            $('#chartTitle').text(chartTileChatmessages);
-        }
-
-//        function showChatgroupsChartTab() {
-//            $('#userChartSelector').hide();
-//            $('#chatmessagsChartSelector').hide();
-//            $('#chatgroupsChartSelector').show();
-//            $('#drawCountersChartsType').val('');
-//        }
-
     </script>
 </head>
 
@@ -147,7 +85,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -163,8 +101,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -196,7 +134,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><font color="green"><span id="third_nav_counter">统计数据</span></font></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><font color="green"><span id="third_nav_counter">统计数据</span></font></a></li>
                     </ul>
                     <hr/>
                 </div>

@@ -26,61 +26,6 @@
             $('#saveAdminInfoBtn').hide();
             $('#cancelSaveAdminInfoBtn').hide();
         });
-
-        function showEdit() {
-            var companyName = $('#companyName').text();
-            var telephone = $('#telephone').text();
-            $('#showEditBtn').hide();
-            $('#companyName').hide();
-            $('#telephone').hide();
-            $('#saveAdminInfoBtn').show();
-            $('#cancelSaveAdminInfoBtn').show();
-            $('#companyNameInput').show();
-            $('#companyNameInputMsg').show();
-            $('#telephoneInput').show();
-            $('#telephoneInputMsg').show();
-
-            $('#companyNameInput').val(companyName);
-            $('#telephoneInput').val(telephone);
-        }
-
-        function cancelSaveAdminInfo() {
-            $('#showEditBtn').show();
-            $('#companyName').show();
-            $('#telephone').show();
-            $('#saveAdminInfoBtn').hide();
-            $('#cancelSaveAdminInfoBtn').hide();
-            $('#companyNameInput').hide();
-            $('#telephoneInput').hide();
-            $('#companyNameInput').val('');
-            $('#telephoneInput').val('');
-            $('#companyNameInputMsg').hide();
-            $('#telephoneInputMsg').hide();
-        }
-
-        function saveAdminInfo() {
-            var username = $('#username').text();
-            var companyNameInput = $('#companyNameInput').val();
-            var telephoneInput = $('#telephoneInput').val();
-
-            var companyNameInputRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
-            if (!companyNameInputRegex.test(companyNameInput)) {
-                $('#companyNameInputMsg').text('公司名称只能是汉字,字母,数字、横线、下划线及其组合!');
-                $('#companyNameInputMsg').css('color', 'red');
-                return;
-            }
-            $('#companyNameInputMsg').hide();
-
-            var telephoneInputRegex = /^[0-9]*$/;
-            if (telephoneInput != '' && !telephoneInputRegex.test(telephoneInput)) {
-                $('#telephoneInputMsg').text('联系电话号码只能是数字！');
-                $('#telephoneInputMsg').css('color', 'red');
-                return;
-            }
-            $('#telephoneInputMsg').hide();
-
-            updateAdminInfo(username, companyNameInput, telephoneInput);
-        }
     </script>
 </head>
 
@@ -105,7 +50,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -122,8 +67,8 @@
         </div>
         <ul class="nav nav-list">
             <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li class="active"><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li class="active"><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -136,11 +81,11 @@
         <div class="clearfix" id="page-content">
             <div class="pagination pagination-left">
                 <ul>
-                    <li><a href="admin_home.html"><font color="green"><span id="admin_home_second_nav_btn_accountInfo">个人信息</span></font></a></li>
+                    <li><a href="org_admin_home.html"><font color="green"><span id="admin_home_second_nav_btn_accountInfo">个人信息</span></font></a></li>
                 </ul>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <ul>
-                    <li><a href="admin_home_passwd.html"><span id="admin_home_second_nav_resetpassword">修改密码</span></a></li>
+                    <li><a href="org_admin_passwd.html"><span id="admin_home_second_nav_resetpassword">修改密码</span></a></li>
                 </ul>
             </div>
             <div class="row-fluid">

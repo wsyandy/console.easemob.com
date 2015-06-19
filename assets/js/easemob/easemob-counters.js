@@ -409,3 +409,63 @@ function formatTimeHour(timeST) {
     var dat = new Date(timeST);
     return (dat.getFullYear()) + "-" + (dat.getMonth() + 1) + "-" + (dat.getDate()) + " " + (dat.getHours()) + ":00:00";
 }
+
+function applyCountersAndDraw(selector) {
+    var counterType = $(selector).children("option:selected").val();
+    $('#drawCountersChartsType').val(counterType);
+
+    var drawCountersChartsType = $('#drawCountersChartsType').val();
+    var chartTitle = $('#chartTitle');
+    switch(drawCountersChartsType){
+        case 'daily_active_users':
+            chartTitle.text(chartTileDailyActiveUser);
+            break;
+        case 'daily_chat_users':
+            chartTitle.text(chartTileDailyChatUser);
+            break;
+        case 'daily_new_active_users':
+            chartTitle.text(chartTileDailyNewActiveUser);
+            break;
+        default:
+            break;
+    }
+
+    var peroid = $("input[name='chartsRadio1']:checked").val();
+    drawCountersCharts(peroid);
+}
+
+function preDrawCountersCharts(){
+    var peroid = $("input[name='chartsRadio1']:checked").val();
+    drawCountersCharts(peroid);
+}
+
+function showUsersChartTab() {
+    $('#userChartSelector').show();
+    $('#countersChartType').show();
+//            $('#chatmessagsChartSelector').hide();
+    $('#chatgroupsChartSelector').hide();
+    $('#drawCountersChartsType').val('register_users');
+
+    var peroid = $("input[name='chartsRadio1']:checked").val();
+    drawCountersCharts(peroid);
+    $('#chartTitle').text(chartTileUsers);
+}
+
+function showChatmessagsChartTab() {
+    $('#countersChartType').hide();
+//            $('#chatmessagsChartSelector').show();
+    $('#userChartSelector').hide();
+    $('#chatgroupsChartSelector').hide();
+    $('#drawCountersChartsType').val('msg_outgoing_chat');
+
+    var peroid = $("input[name='chartsRadio1']:checked").val();
+    drawCountersCharts(peroid);
+    $('#chartTitle').text(chartTileChatmessages);
+}
+
+//        function showChatgroupsChartTab() {
+//            $('#userChartSelector').hide();
+//            $('#chatmessagsChartSelector').hide();
+//            $('#chatgroupsChartSelector').show();
+//            $('#drawCountersChartsType').val('');
+//        }

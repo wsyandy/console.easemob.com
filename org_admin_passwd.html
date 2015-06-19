@@ -12,7 +12,6 @@
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAdminHomePassword();
         });
-
     </script>
 </head>
 
@@ -37,7 +36,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -54,8 +53,8 @@
         </div>
         <ul class="nav nav-list">
             <li><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li class="active"><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li class="active"><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -69,11 +68,11 @@
             <div class="row-fluid">
                 <div class="pagination pagination-left">
                     <ul>
-                        <li><a href="admin_home.html"><span id="admin_home_password_second_nav_btn_accountInfo">个人信息</span></a></li>
+                        <li><a href="org_admin_home.html"><span id="admin_home_password_second_nav_btn_accountInfo">个人信息</span></a></li>
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="admin_home_passwd.html"><font color="green"><span id="admin_home_password_second_nav_resetpassword">修改密码</span></font></a></li>
+                        <li><a href="org_admin_passwd.html"><font color="green"><span id="admin_home_password_second_nav_resetpassword">修改密码</span></font></a></li>
                     </ul>
                 </div>
                 <div class="row-fluid">
@@ -120,7 +119,7 @@
                                         </div>
                                     </div>
                                     <div class="form-actions">
-                                        <a href="admin_home.html" class="btn btn-small btn-success"><i
+                                        <a href="org_admin_home.html" class="btn btn-small btn-success"><i
                                                 class="icon-arrow-left icon-on-right bigger-110"></i> <span id="admin_home_password_form_back">返回</span></a>
                                         <a href="javascript:void(0);" onclick="updateAdminPasswd();" class="btn btn-small btn-success"><span id="admin_home_password_form_confirm">确定</span><i
                                                 class="icon-arrow-right icon-on-right bigger-110"></i> </a>

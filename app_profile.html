@@ -28,19 +28,6 @@
 
             getAppProfile(appUuid);
         });
-
-        //显示修改缩略图
-        function showImage() {
-            $('#imageWidth').val('' + $('#imageHeightHide').val());
-            $('#imageHeight').val('' + $('#imageWidthHide').val());
-            $('#showUpdateImage').click();
-        }
-
-        //修改缩略图
-        function updateImageHTML() {
-            updateImage(appUuid);
-        }
-
     </script>
 </head>
 
@@ -64,7 +51,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -81,8 +68,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -114,7 +101,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>

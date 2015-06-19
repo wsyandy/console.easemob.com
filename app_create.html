@@ -30,26 +30,6 @@
                 $('#allowOpenMsg').text('只有企业管理员或者应用管理员才能注册用户');
             });
         });
-
-        function check() {
-            if (count == 0) {
-                count++;
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function saveNewAppPre() {
-            if (check()) {
-                count = 0;
-                saveNewApp();
-            }
-        }
-
-        function removeAllSpace(str) {
-            return str.replace(/\s+/g, '');
-        }
     </script>
 </head>
 
@@ -74,7 +54,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -91,8 +71,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>

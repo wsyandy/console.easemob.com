@@ -27,140 +27,6 @@
                 return false;
             });
         });
-
-        // 搜索群组
-        function searchChatgroup() {
-            var groupidV = $('#groupid').val().trim();
-            if (groupidV == '' || groupidV == null) {
-                alert($.i18n.prop('app_chatgroups_btn_search_placeholder'));
-            } else {
-                getAppChatgroups(appUuid, groupidV);
-            }
-        }
-
-        //删除选定的群组
-        function deleteAppChatgroupBox() {
-            deleteAppChatgroupsCheckBox(appUuid);
-        }
-
-        // 去除字符串中所有空格
-        function removeAllSpace(str) {
-            return str.replace(/\s+/g, "");
-        }
-        //发送消息
-        function showSendMessge() {
-            sendMessge(appUuid);
-        }
-
-        function checkAll() {
-            var ischeck = document.getElementById('checkAll');
-            var checkbox = document.getElementsByName('checkbox');
-            if (ischeck.checked) {
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].checked = true;
-                }
-            } else {
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].checked = false;
-                }
-            }
-        }
-
-        //发送消息判断
-        function sendMessage() {
-            var uploadResspan = $('#uploadresspan').text();
-            var messageContent = $('#messegeContent').val();
-            if (uploadResspan == '等待上传图片' && messageContent == '') {
-            } else if (uploadResspan != '等待上传图片' && messageContent == '') {
-                sendUserImgMessages();
-            } else if (uploadResspan == '等待上传图片' && messageContent != '') {
-                sendUserMessages();
-            } else if (uploadResspan != '等待上传图片' && messageContent != '') {
-                sendUserMessages();
-                sendUserImgMessages();
-            }
-        }
-
-        function check() {
-            if (count == 0) {
-                count++;
-                return true;
-            } else {
-                count = 0;
-                return false;
-            }
-        }
-
-        //添加群组
-        var publics = true;
-        var approval = true;
-        function createNewChatgroupPre() {
-            if (check()) {
-                var groupName = $("#groupName").val().trim();
-                var groupDesc = $("#groupDesc").val().trim();
-                var groupOwner = $("#groupOwner").val().trim();
-                var maxusers = $("#maxusers").val().trim();
-                var res = createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
-                if (!res) {
-                    count = 0;
-                }
-            }
-        }
-
-        //判断是否是公开群
-        function nums() {
-            publics = true;
-            $('#validation').show();
-        }
-        function numss() {
-            publics = false;
-            $('#validation').hide();
-        }
-
-        //判断是否需要验证
-        function approvalon() {
-            approval = true;
-        }
-        function approvals() {
-            approval = false;
-        }
-
-
-        function imgMessage() {
-            $('#uploadresspan').text('图片上传中...');
-            var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1);
-            img = img.toLowerCase();
-            if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
-                var access_token = $.cookie('access_token');
-                var orgName = $.cookie('orgName');
-                var ajax_option = {
-                    url: baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
-                    headers: {
-                        'Accept': 'application/json',
-                        'restrict-access': true,
-                        'Accept-Encoding': 'gzip,deflate',
-                        'Authorization': 'Bearer ' + access_token,
-                    },
-                    success: function (respData) {
-                        $('#uploadresspan').text('图片上传成功 !');
-                        var str = $('#file').val() + "," + respData.entities[0]['share-secret'];
-                        $('#share-secret').val(str);
-                        $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/' + respData.entities[0].uuid);
-                    },
-                    error: function (respData) {
-                    }
-                }
-
-                $('#myForm').ajaxSubmit(ajax_option);
-            } else {
-                alert('您要上传的文件不是图片！请选择图片!');
-            }
-
-        }
-
-        function clsupSpan() {
-            $('#uploadresspan').text('等待上传图片');
-        }
     </script>
 </head>
 
@@ -184,7 +50,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -200,8 +66,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -233,7 +99,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>
@@ -487,7 +353,7 @@
             <div class="span12">
                 <form id="myForm" method="POST" enctype="multipart/form-data" action="">
                     <div class="control-group">
-                        <label class="control-label" for="messageContent"><span id="app_chatgroups_sendMsg_label_selectPicture">选择图片</span>：</label>
+                        <label class="control-label" for="app_chatgroups_sendMsg_label_selectPicture"><span id="app_chatgroups_sendMsg_label_selectPicture">选择图片</span>：</label>
                         <div class="controls" id="div1">
                             <input type="text" readonly="readonly" id="f_file"/>
                             <input type="button" value="选择..." class="btn btn-mini btn-primary" onClick="file.click()"/>

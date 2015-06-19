@@ -25,92 +25,6 @@
 
             getAppNotifiers(appUuid);
         });
-        // 上一页数据
-        function getPrevAppNotifiers() {
-            getAppNotifiers(appUuid, 'forward');
-        }
-        // 下一页数据
-        function getNextAppNotifiers() {
-            getAppNotifiers(appUuid, 'next');
-        }
-        function check() {
-            if (count == 0) {
-                count++;
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        function changeform() {
-            if (check()) {
-                var access_token = $.cookie('access_token');
-                var orgName = $.cookie('orgName');
-
-                var notifierName = $('#name').val();
-                var passphrase = $('#passphrase').val();
-                var notifierNameRegx = /^[A-Za-z0-9-_]*$/;
-                if (!notifierNameRegx.test(notifierName)) {
-                    alert('证书名称只能是字母数字横线下划线的组合!');
-                    return;
-                }
-                if (!validateSuffix($('#file').val())) {
-                    return;
-                }
-                if (passphrase == '') {
-                    alert('请填写证书密码!');
-                    return;
-                }
-
-                var ajax_option = {
-                    url: baseUrl + '/' + orgName + '/' + appUuid + '/notifiers',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Accept-Encoding': 'gzip,deflate',
-                        'Authorization': 'Bearer ' + access_token,
-                    },
-                    success: function (data) {
-                        layer.close(layerNum);
-                        alert("证书添加成功!");
-                        //clear form
-                        $('#name').val('');
-                        $('#passphrase').val('');
-
-                        getAppNotifiers(appUuid);
-                    },
-                    error: function (data) {
-                        layer.close(layerNum);
-                        alert("证书添加失败!");
-                    }
-                }
-                var layerNum = layer.load('正在上传...', 3);
-                $('#myForm').ajaxSubmit(ajax_option);
-            }
-        }
-
-        // 文件后缀校验
-        function validateSuffix(fileName) {
-            var fileExt = fileName.substr(fileName.lastIndexOf(".")).toLowerCase();
-            var allowExt = '.p12';
-            if (allowExt != fileExt) {
-                alert("警告!\n该文件类型不允许上传。请上传'.p12'类型的文件，当前文件类型为" + fileExt);
-                return false;
-            }
-            return true;
-        }
-
-        //显示制作证书按钮
-        function displayCertificate() {
-            $('#certificate').show();
-            document.getElementById("div").style.width = 240 + "px";
-        }
-        //隐藏制作证书按钮
-        function hideCertificate() {
-            $('#certificate').hide();
-            document.getElementById("div").style.width = 80 + "px";
-        }
-
-        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -134,7 +48,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -151,8 +65,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -184,7 +98,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>

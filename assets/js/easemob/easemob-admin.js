@@ -259,7 +259,7 @@ function disConnAdminAndOrg(adminUserName){
                             var orgname = respData.data.name;
                             if(orgName == orgname){
                                 alert('移出管理员成功!');
-                                window.location.href = 'admin_list.html';
+                                window.location.href = '../../../org_admin_list.html';
                             }
                         }
                     });
@@ -431,7 +431,7 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
                                     var orgname = respData.data.name;
                                     if(orgName == orgname){
                                         alert('添加管理员成功!\n请查收邮件并激活该账户,确保正常使用!');
-                                        window.location.href = 'admin_list.html';
+                                        window.location.href = '../../../org_admin_list.html';
                                     }
                                 }
                             });
@@ -444,4 +444,253 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
 }
 
 
+
+function saveNewAdminUser() {
+    var adminUsernameInput = $('#admin_create_adminUserName').val();
+    var adminEmailInput = $('#admin_create_adminEmail').val();
+    var adminPasswordInput = $('#admin_create_adminPassword').val();
+    var adminCompanyInput = $('#admin_create_adminCompany').val();
+    var adminTelInput = $('#admin_create_adminTel').val();
+
+    saveNewAdminUserSubmit(adminUsernameInput, adminPasswordInput, adminEmailInput, adminCompanyInput, adminTelInput);
+}
+
+function check() {
+    if (count == 0) {
+        count++;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function saveNewAdminUserPre() {
+    if (check()) {
+        count = 0;
+        saveNewAdminUser();
+    }
+}
+
+
+//　用户名输入框失焦检测
+function onBlurAdminUserNameCheck() {
+    $('#admin_create_adminUserName').val($('#admin_create_adminUserName').val().trim());
+
+    var adminUserName = $('#admin_create_adminUserName').val();
+    if (adminUserName == '') {
+        $('#admin_create_adminUserNameMsg').show();
+        $('#admin_create_adminUserNameEEMsg').hide();
+        $('#admin_create_adminUserNameEMsg').hide();
+        $('#admin_create_adminUserNameOMsg').hide();
+        return;
+    }
+
+    var adminUserNameRegex = /^[0-9a-zA-Z]*$/;
+    if (adminUserName != '' && !adminUserNameRegex.test(adminUserName)) {
+        $('#admin_create_adminUserNameMsg').hide();
+        $('#admin_create_adminUserNameEEMsg').hide();
+        $('#admin_create_adminUserNameOMsg').hide();
+        $('#admin_create_adminUserNameEMsg').show();
+        return;
+    }
+
+    $('#admin_create_adminUserNameMsg').hide();
+    $('#admin_create_adminUserNameOMsg').show();
+    $('#admin_create_adminUserNameEEMsg').hide();
+    $('#admin_create_adminUserNameEMsg').hide();
+}
+
+//　密码输入框失焦检测
+function onBlurAdminPasswordCheck() {
+    $('#admin_create_adminPassword').val($('#admin_create_adminPassword').val().trim());
+
+    var adminPassword = $('#admin_create_adminPassword').val();
+
+    if (adminPassword == '') {
+        $('#admin_create_adminPasswordMsg').hide();
+        $('#admin_create_adminPasswordEMsg').show();
+        $('#admin_create_adminPasswordOMsg').hide();
+        return;
+    }
+
+    $('#admin_create_adminPasswordMsg').hide();
+    $('#admin_create_adminPasswordEMsg').hide();
+    $('#admin_create_adminPasswordOMsg').show();
+}
+
+//　重复密码输入框失焦检测
+function onBlurAdminRePasswordCheck() {
+    $('#admin_create_adminRePassword').val($('#admin_create_adminRePassword').val().trim());
+
+    var adminRePassword = $('#admin_create_adminRePassword').val();
+    var adminPassword = $('#admin_create_adminPassword').val();
+    if (adminRePassword == '') {
+        if(adminPassword != ''){
+            $('#admin_create_adminRePasswordMsg').hide();
+            $('#admin_create_adminRePasswordEMsg').show();
+            $('#admin_create_adminRePasswordOMsg').hide();
+        } else {
+            $('#admin_create_adminRePasswordMsg').show();
+            $('#admin_create_adminRePasswordEMsg').hide();
+            $('#admin_create_adminRePasswordOMsg').hide();
+        }
+        return;
+    }
+
+    if ('' != adminRePassword && adminPassword != adminRePassword) {
+        $('#admin_create_adminRePasswordMsg').hide();
+        $('#admin_create_adminRePasswordEMsg').show();
+        $('#admin_create_adminRePasswordOMsg').hide();
+        return;
+    }
+
+    $('#admin_create_adminRePasswordMsg').hide();
+    $('#admin_create_adminRePasswordEMsg').hide();
+    $('#admin_create_adminRePasswordOMsg').show();
+}
+
+//　邮箱输入框失焦检测
+function onBlurAdminEmailCheck() {
+    $('#admin_create_adminEmail').val($('#admin_create_adminEmail').val().trim());
+    var adminEmail = $('#admin_create_adminEmail').val();
+
+    if (adminEmail == '') {
+        $('#admin_create_adminEmailMsg').show();
+        $('#admin_create_adminEmailEMsg').hide();
+        $('#admin_create_adminEmailEEMsg').hide();
+        $('#admin_create_adminEmailOMsg').hide();
+        return;
+    }
+
+    var adminEmailRegex = /^([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\-|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z0-9]{1,10}$/;
+    if (adminEmail != '' && !adminEmailRegex.test(adminEmail)) {
+        $('#admin_create_adminEmailMsg').hide();
+        $('#admin_create_adminEmailEMsg').show();
+        $('#admin_create_adminEmailEEMsg').hide();
+        $('#admin_create_adminEmailOMsg').hide();
+        return;
+    }
+
+    $('#admin_create_adminEmailMsg').hide();
+    $('#admin_create_adminEmailEMsg').hide();
+    $('#admin_create_adminEmailEEMsg').hide();
+    $('#admin_create_adminEmailOMsg').show();
+}
+
+//　联系电话输入框失焦检测
+function onBlurAdminTelCheck() {
+    $('#admin_create_adminTel').val($('#admin_create_adminTel').val().trim());
+    var regTel = $('#admin_create_adminTel').val();
+    if (regTel == '') {
+        $('#admin_create_adminTelMsg').show();
+        $('#admin_create_adminTelEMsg').hide();
+        $('#admin_create_adminTelOMsg').hide();
+        return;
+    }
+
+    if (regTel != '' && !checkTel(regTel)) {
+        $('#admin_create_adminTelMsg').hide();
+        $('#admin_create_adminTelEMsg').show();
+        $('#admin_create_adminTelOMsg').hide();
+        return;
+    }
+
+    $('#admin_create_adminTelMsg').hide();
+    $('#admin_create_adminTelEMsg').hide();
+    $('#admin_create_adminTelOMsg').show();
+}
+
+//　公司名称输入框失焦检测
+function onBlurAdminCompanyCheck() {
+    $('#admin_create_adminCompany').val($('#admin_create_adminCompany').val().trim());
+    var adminCompany = $('#admin_create_adminCompany').val();
+
+    if (adminCompany == '') {
+        $('#admin_create_adminCompanyMsg').show();
+        $('#admin_create_adminCompanyEMsg').hide();
+        $('#admin_create_adminCompanyOMsg').hide();
+        return;
+    }
+
+    var adminCompanyRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
+    if (adminCompany != '' && !adminCompanyRegex.test(adminCompany)) {
+        $('#admin_create_adminCompanyMsg').hide();
+        $('#admin_create_adminCompanyEMsg').show();
+        $('#admin_create_adminCompanyOMsg').hide();
+        return;
+    }
+
+    $('#admin_create_adminCompanyMsg').hide();
+    $('#admin_create_adminCompanyEMsg').hide();
+    $('#admin_create_adminCompanyOMsg').show();
+}
+
+function toOrgAdminUserList() {
+    window.location.href = 'org_admin_list.html';
+}
+
+// 点击返回列表,清空表单数据
+function clearNewAdminUserBox() {
+    $('#admin_create_adminUserName').val('');
+    $('#admin_create_adminPassword').val('');
+    $('#admin_create_adminRePassword').val('');
+    $('#admin_create_adminEmail').val('');
+    $('#admin_create_adminTel').val('');
+    $('#admin_create_adminCompany').val('');
+}
+
+function showEdit() {
+    var companyName = $('#companyName').text();
+    var telephone = $('#telephone').text();
+    $('#showEditBtn').hide();
+    $('#companyName').hide();
+    $('#telephone').hide();
+    $('#saveAdminInfoBtn').show();
+    $('#cancelSaveAdminInfoBtn').show();
+    $('#companyNameInput').show();
+    $('#companyNameInputMsg').show();
+    $('#telephoneInput').show();
+    $('#telephoneInputMsg').show();
+
+    $('#companyNameInput').val(companyName);
+    $('#telephoneInput').val(telephone);
+}
+
+function cancelSaveAdminInfo() {
+    $('#showEditBtn').show();
+    $('#companyName').show();
+    $('#telephone').show();
+    $('#saveAdminInfoBtn').hide();
+    $('#cancelSaveAdminInfoBtn').hide();
+    $('#companyNameInput').hide();
+    $('#telephoneInput').hide();
+    $('#companyNameInput').val('');
+    $('#telephoneInput').val('');
+    $('#companyNameInputMsg').hide();
+    $('#telephoneInputMsg').hide();
+}
+
+function saveAdminInfo() {
+    var username = $('#username').text();
+    var companyNameInput = $('#companyNameInput').val();
+    var telephoneInput = $('#telephoneInput').val();
+
+    var companyNameInputRegex = /^[0-9a-zA-Z\-_\u4e00-\u9faf]*$/;
+    if (!companyNameInputRegex.test(companyNameInput)) {
+        $('#companyNameInputMsg').text('公司名称只能是汉字,字母,数字、横线、下划线及其组合!');
+        $('#companyNameInputMsg').css('color', 'red');
+        return;
+    }
+    $('#companyNameInputMsg').hide();
+
+    var telephoneInputRegex = /^[0-9]*$/;
+    if (telephoneInput != '' && !telephoneInputRegex.test(telephoneInput)) {
+        $('#telephoneInputMsg').text('联系电话号码只能是数字！');
+        $('#telephoneInputMsg').css('color', 'red');
+        return;
+    }
+    $('#telephoneInputMsg').hide();
+
+    updateAdminInfo(username, companyNameInput, telephoneInput);
+}
 

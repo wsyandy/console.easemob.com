@@ -6,6 +6,7 @@ var I18NPropsLoader = function(){
 
     var resourceFilePrefix = 'easemob-i18n';
     var resourceFilePath = '/assets/resources/';
+    var resourcePropertiesMode = 'map';
 
     return {
         getNavigatorLanguage: function() {
@@ -23,7 +24,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode: 'map',
+                mode: resourcePropertiesMode,
                 language: this.getNavigatorLanguage(),
                 callback: function () {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -51,7 +52,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -85,12 +86,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in admin_create.html page
+        // load resources used in org_admin_create.html page
         loadPropertiesForPageAdminCreate: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -131,12 +132,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in admin_home.html page
+        // load resources used in org_admin_home.html page
         loadPropertiesForPageAdminHome: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -162,7 +163,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -181,12 +182,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in admin_list.html page
+        // load resources used in org_admin_list.html page
         loadPropertiesForPageAdminList: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -212,8 +213,8 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
-                language : 'en',
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -234,7 +235,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -285,12 +286,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in app_collection_counters.html page
+        // load resources used in app_counters.html page
         loadPropertiesForPageAppCollectionCounters: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -321,7 +322,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -350,8 +351,8 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
-                language : this.getNavigatorLanguage,
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -371,7 +372,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -406,7 +407,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -439,7 +440,7 @@ var I18NPropsLoader = function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -513,12 +514,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in app_users_contacts.html page
+        // load resources used in app_user_contacts.html page
         loadPropertiesForPageAppUsersContacts: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -539,12 +540,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in app_users_create.html page
+        // load resources used in app_user_create.html page
         loadPropertiesForPageAppUsersCreate: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -562,12 +563,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in confirm_failure.html page
+        // load resources used in index_confirm_failure.html page
         loadPropertiesForPageConfirmFailure: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -577,12 +578,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in confirm_success.html page
+        // load resources used in index_confirm_success.html page
         loadPropertiesForPageConfirmSuccess: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -592,12 +593,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in regist_org_success.html page
+        // load resources used in index_regist_org_success.html page
         loadPropertiesForPageRegisterOrgSuccess: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -607,13 +608,13 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in resetpw_failure.html page
+        // load resources used in index_resetpw_failure.html page
         loadPropertiesForPageResetpwFailure: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
-                language : 'en',
+                mode: resourcePropertiesMode,
+                language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#resetpw_failure_alert').text($.i18n.prop('resetpw_failure_alert'));
@@ -622,12 +623,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in resetpw_input.html page
+        // load resources used in index_resetpw_input.html page
         loadPropertiesForPageResetpwInput: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
@@ -638,12 +639,12 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load resources used in resetpw_success.html page
+        // load resources used in index_resetpw_success.html page
         loadPropertiesForPageResetpwSuccess: function(){
             $.i18n.properties({
                 name: resourceFilePrefix,
                 path: resourceFilePath,
-                mode : 'map',
+                mode: resourcePropertiesMode,
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));

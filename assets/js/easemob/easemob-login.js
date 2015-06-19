@@ -568,7 +568,7 @@ function formSubmit(){
                 $('#login-box').addClass('visible');
                 $('#username').val(regUserName);
 
-                window.location.href = 'regist_org_success.html?mailSuffix='+mailSuffix+'&regEmail='+regEmail;
+                window.location.href = 'index_regist_org_success.html?mailSuffix='+mailSuffix+'&regEmail='+regEmail;
             },
             error: function(respData, textStatus, jqXHR) {
                 var str = JSON.stringify(respData.responseText).replace('}','').replace('{','').split(',');

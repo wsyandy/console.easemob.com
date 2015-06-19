@@ -593,3 +593,187 @@ function sendMessge(appUuid){
         alert($.i18n.prop('app_users_alert_deleteNoteItem'));
     }
 }
+
+
+function checkMaxusers() {
+    var ii = 0;
+    var maxusers = 0;
+    $('#appIMBody').find("tr").each(function (i) {
+        ii++;
+    });
+
+    var orgName = $.cookie('orgName');
+    var access_token = $.cookie('access_token');
+    $.ajax({
+        url: baseUrl + '/' + orgName + "/" + appUuid + '/chatgroups/' + groupid,
+        type: 'GET',
+        async: false,
+        headers: {
+            'Authorization': 'Bearer ' + access_token,
+            'Content-Type': 'application/json'
+        },
+        error: function (respData) {
+        },
+        success: function (respData) {
+            maxusers = respData.data[0].maxusers;
+        }
+    });
+    if (ii >= maxusers) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function addChatgroupMemberPre() {
+    var newmember = $('#newmember').val().trim();
+    if (checkMaxusers()) {
+        $('#newmemberEMsg').text('');
+        addChatgroupMember(appUuid, groupid, newmember)
+    } else {
+        $('#newmemberEMsg').text('抱歉，该群已满，不能继续添加成员');
+    }
+}
+
+// 去除字符串中所有空格
+function removeAllSpace(str) {
+    return str.replace(/\s+/g, "");
+}
+//发送消息
+function showSendMessge() {
+    sendMessge(appUuid);
+}
+
+// 搜索群组
+function searchChatgroup() {
+    var groupidV = $('#groupid').val().trim();
+    if (groupidV == '' || groupidV == null) {
+        alert($.i18n.prop('app_chatgroups_btn_search_placeholder'));
+    } else {
+        getAppChatgroups(appUuid, groupidV);
+    }
+}
+
+//删除选定的群组
+function deleteAppChatgroupBox() {
+    deleteAppChatgroupsCheckBox(appUuid);
+}
+
+// 去除字符串中所有空格
+function removeAllSpace(str) {
+    return str.replace(/\s+/g, "");
+}
+//发送消息
+function showSendMessge() {
+    sendMessge(appUuid);
+}
+
+function checkAll() {
+    var ischeck = document.getElementById('checkAll');
+    var checkbox = document.getElementsByName('checkbox');
+    if (ischeck.checked) {
+        for (var i = 0; i < checkbox.length; i++) {
+            checkbox[i].checked = true;
+        }
+    } else {
+        for (var i = 0; i < checkbox.length; i++) {
+            checkbox[i].checked = false;
+        }
+    }
+}
+
+//发送消息判断
+function sendMessage() {
+    var uploadResspan = $('#uploadresspan').text();
+    var messageContent = $('#messegeContent').val();
+    if (uploadResspan == '等待上传图片' && messageContent == '') {
+    } else if (uploadResspan != '等待上传图片' && messageContent == '') {
+        sendUserImgMessages();
+    } else if (uploadResspan == '等待上传图片' && messageContent != '') {
+        sendUserMessages();
+    } else if (uploadResspan != '等待上传图片' && messageContent != '') {
+        sendUserMessages();
+        sendUserImgMessages();
+    }
+}
+
+function check() {
+    if (count == 0) {
+        count++;
+        return true;
+    } else {
+        count = 0;
+        return false;
+    }
+}
+
+//添加群组
+var publics = true;
+var approval = true;
+function createNewChatgroupPre() {
+    if (check()) {
+        var groupName = $("#groupName").val().trim();
+        var groupDesc = $("#groupDesc").val().trim();
+        var groupOwner = $("#groupOwner").val().trim();
+        var maxusers = $("#maxusers").val().trim();
+        var res = createNewChatgroups(appUuid, groupName, groupDesc, approval, publics, groupOwner);
+        if (!res) {
+            count = 0;
+        }
+    }
+}
+
+//判断是否是公开群
+function nums() {
+    publics = true;
+    $('#validation').show();
+}
+function numss() {
+    publics = false;
+    $('#validation').hide();
+}
+
+//判断是否需要验证
+function approvalon() {
+    approval = true;
+}
+function approvals() {
+    approval = false;
+}
+
+
+function imgMessage() {
+    $('#uploadresspan').text('图片上传中...');
+    var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1);
+    img = img.toLowerCase();
+    if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
+        var access_token = $.cookie('access_token');
+        var orgName = $.cookie('orgName');
+        var ajax_option = {
+            url: baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
+            headers: {
+                'Accept': 'application/json',
+                'restrict-access': true,
+                'Accept-Encoding': 'gzip,deflate',
+                'Authorization': 'Bearer ' + access_token,
+            },
+            success: function (respData) {
+                $('#uploadresspan').text('图片上传成功 !');
+                var str = $('#file').val() + "," + respData.entities[0]['share-secret'];
+                $('#share-secret').val(str);
+                $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/' + respData.entities[0].uuid);
+            },
+            error: function (respData) {
+            }
+        }
+
+        $('#myForm').ajaxSubmit(ajax_option);
+    } else {
+        alert('您要上传的文件不是图片！请选择图片!');
+    }
+
+}
+
+function clsupSpan() {
+    $('#uploadresspan').text('等待上传图片');
+}

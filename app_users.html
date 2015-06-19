@@ -29,128 +29,6 @@
             });
 
         });
-
-        // 图片上传
-        function imgMessage() {
-            $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_pending'));
-            var img = $('#file').val().substr($('#file').val().lastIndexOf('.') + 1);
-            img = img.toLowerCase();
-            if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
-                var access_token = $.cookie('access_token');
-                var orgName = $.cookie('orgName');
-                var ajax_option = {
-                    url: baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
-                    headers: {
-                        'Accept': 'application/json',
-                        'restrict-access': true,
-                        'Accept-Encoding': 'gzip,deflate',
-                        'Authorization': 'Bearer ' + access_token
-                    },
-                    success: function (respData) {
-                        $('#sndBtn').removeAttr('disabled');
-                        $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_saved'));
-                        var str = $('#file').val() + "," + respData.entities[0]['share-secret'];
-                        $('#share-secret').val(str);
-                        $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/' + respData.entities[0].uuid);
-                    },
-                    error: function (respData) {
-                        $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_failure'));
-                        $('#sndBtn').attr('disabled', "true");
-                    }
-                }
-
-                $('#myForm').ajaxSubmit(ajax_option);
-            } else {
-                alert($.i18n.prop('app_users_alert_upload_picture_wrongtype'));
-            }
-        }
-
-        // 上一页数据
-        function getPrevAppUserList() {
-            getAppUserList(appUuid, 'forward');
-        }
-
-        // 下一页数据
-        function getNextAppUserList() {
-            getAppUserList(appUuid, 'next');
-        }
-
-        // 搜索用户
-        function searchUserTmp() {
-            var username = $('#userInbox').val();
-            if (username == '' || username == null) {
-                alert($.i18n.prop('app_users_text_search_box_placeholder'));
-            } else {
-                searchUser(appUuid, username);
-            }
-        }
-        // 注册用户
-        function addNewAppUsers() {
-            window.location.href = 'app_users_create.html?appUuid=' + appUuid;
-        }
-
-        // 删除选定的用户
-        function deleteAppUsersBox() {
-            deleteAppUserCheckBox(appUuid);
-        }
-
-        //发送消息
-        function showSendMessge() {
-            sendMessge(appUuid);
-        }
-
-        // 去除字符串中所有空格
-        function removeAllSpace(str) {
-            return str.replace(/\s+/g, "");
-        }
-
-        //发送消息判断
-        function sendMessage() {
-            var waiting = $.i18n.prop('app_users_alert_upload_picture_waiting');
-            var uploadresspan = $('#app_users_alert_upload_picture_waiting').text();
-            var messageContent = $('#messegeContent').val();
-            if (uploadresspan == waiting && messageContent == '') {
-            } else if (uploadresspan != waiting && messageContent == '') {
-                sendUserImgMessage();
-            } else if (uploadresspan == waiting && messageContent != '') {
-                sendUserMessage();
-            } else if (uploadresspan != waiting && messageContent != '') {
-                sendUserMessage1();
-                sendUserImgMessage();
-            }
-        }
-
-        //免打扰时段显示隐藏
-        function showTimeDiv(num) {
-            if (num) {
-                document.getElementById('notification_time_div').style.display = 'block';
-            } else {
-                document.getElementById('notification_time_div').style.display = 'none';
-            }
-        }
-
-        //修改信息
-        function updateInfoHTML() {
-            updateInfo(appUuid);
-        }
-
-        function checkAll() {
-            var ischeck = document.getElementById('checkAll');
-            var checkbox = document.getElementsByName('checkbox');
-            if (ischeck.checked) {
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].checked = true;
-                }
-            } else {
-                for (var i = 0; i < checkbox.length; i++) {
-                    checkbox[i].checked = false;
-                }
-            }
-        }
-
-        function clsupSpan() {
-            $('#app_users_alert_upload_picture_waiting').text($.i18n.prop('app_users_alert_upload_picture_waiting'));
-        }
     </script>
 </head>
 
@@ -175,7 +53,7 @@
                         class="icon-caret-down"></i> </a>
                     <ul id="user_menu" class="pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-closer">
                         <li class="divider"></li>
-                        <li><a href="admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
+                        <li><a href="org_admin_home.html"> <i class="icon-user"></i><span id="nav_account">账户</span></a></li>
                         <li><a onClick="EasemobCommon.logOut();" href="javascript:void(0);"> <i class="icon-off"></i><span id="nav_signout">退出</span></a></li>
                     </ul>
                 </li>
@@ -191,8 +69,8 @@
         </div>
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
-            <li><a href="admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
-            <li><a href="admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
+            <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>
+            <li><a href="org_admin_home.html" target="_self"> <i class="icon-user"></i><span id="left_nav_userInfo">个人信息</span></a></li>
         </ul>
         <div id="sidebar-collapse"><i class="icon-double-angle-left"></i></div>
     </div>
@@ -224,7 +102,7 @@
                     </ul>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <ul>
-                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCollectionCounters()"><span id="third_nav_counter">统计数据</span></a></li>
+                        <li><a href="javascript:EasemobCommon.disPatcher.toPageAppCounters()"><span id="third_nav_counter">统计数据</span></a></li>
                     </ul>
                     <hr/>
                 </div>

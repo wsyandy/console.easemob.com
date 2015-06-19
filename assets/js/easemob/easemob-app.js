@@ -351,3 +351,35 @@ function changeAllowOpen(){
     });
 }
 
+
+function check() {
+    if (count == 0) {
+        count++;
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function saveNewAppPre() {
+    if (check()) {
+        count = 0;
+        saveNewApp();
+    }
+}
+
+function removeAllSpace(str) {
+    return str.replace(/\s+/g, '');
+}
+
+//显示修改缩略图
+function showImage() {
+    $('#imageWidth').val('' + $('#imageHeightHide').val());
+    $('#imageHeight').val('' + $('#imageWidthHide').val());
+    $('#showUpdateImage').click();
+}
+
+//修改缩略图
+function updateImageHTML() {
+    updateImage(appUuid);
+}

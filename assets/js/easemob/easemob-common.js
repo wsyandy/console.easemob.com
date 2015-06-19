@@ -222,32 +222,47 @@ var EasemobCommon = function() {
             toPageIndex: function () {
                 window.location.href = 'index.html';
             },
-            toPageAppProfile: function() {
-                window.location.href = 'app_profile.html?appUuid=' + appUuid;
-            },
             toPageAppList: function() {
                 window.location.href = "app_list.html";
+            },
+            toPageAppCreate: function() {
+                window.location.href = "app_create.html";
+            },
+            toPageOrgAdminCreate: function() {
+                window.location.href = "org_admin_create.html";
+            },
+            toPageOrgAdminHome: function() {
+                window.location.href = "org_admin_home.html";
+            },
+            toPageOrgAdminList: function() {
+                window.location.href = "org_admin_list.html";
+            },
+            toPageOrgAdminPassword: function() {
+                window.location.href = "org_admin_password.html";
+            },
+            toPageAppProfile: function() {
+                window.location.href = 'app_profile.html?appUuid=' + appUuid;
             },
             toPageAppUsers: function() {
                 window.location.href = 'app_users.html?appUuid=' + appUuid;
             },
             toPageAppUserContacts: function(owner_username) {
-                window.location.href = 'app_users_contacts.html?appUuid=' + appUuid + '&owner_username=' + owner_username;
+                window.location.href = 'app_user_contacts.html?appUuid=' + appUuid + '&owner_username=' + owner_username;
+            },
+            toPageAppUserCreate: function(username) {
+                window.location.href = 'app_user_create.html?appUuid=' + appUuid + '&username=' + username;
             },
             toPageAppChatGroups: function() {
                 window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
             },
+            toPageAppChatGroupUsers: function(groupId) {
+                window.location.href = 'app_chatgroup_users.html?appUuid=' + appUuid;
+            },
             toPageAppNotifiers: function() {
                 window.location.href = 'app_notifiers.html?appUuid=' + appUuid;
             },
-            toPageAppCollectionCounters: function() {
-                window.location.href = 'app_collection_counters.html?appUuid=' + appUuid;
-            },
-            toPageAppAdminCreate: function() {
-                window.location.href = 'app_admin_create.html?appUuid=' + appUuid;
-            },
-            toPageAppUsersAdmin: function() {
-                window.location.href = 'app_users_admin.html?appUuid=' + appUuid;
+            toPageAppCounters: function() {
+                window.location.href = 'app_counters.html?appUuid=' + appUuid;
             },
             sessionTimeOut: function () {
                 this.logOut();
