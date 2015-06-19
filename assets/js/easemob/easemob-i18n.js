@@ -4,6 +4,9 @@
 
 var I18NPropsLoader = function(){
 
+    var resourceFilePrefix = 'easemob-i18n';
+    var resourceFilePath = '/assets/resources/';
+
     return {
         getNavigatorLanguage: function() {
             var language = navigator.userLanguage?
@@ -15,11 +18,11 @@ var I18NPropsLoader = function(){
                 return 'en';
             }
         },
-        // load properties used in every page
+        // load resources used in every page
         loadPropertiesCommon: function(){
             $.i18n.properties({
-                name: 'easemob-i18n',
-                path: '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode: 'map',
                 language: this.getNavigatorLanguage(),
                 callback: function () {
@@ -43,11 +46,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in index.html page
+        // load resources used in index.html page
         loadPropertiesForPageIndex: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -82,11 +85,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in admin_create.html page
+        // load resources used in admin_create.html page
         loadPropertiesForPageAdminCreate: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -128,11 +131,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in admin_home.html page
+        // load resources used in admin_home.html page
         loadPropertiesForPageAdminHome: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -154,11 +157,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in admin_home_password.html page
+        // load resources used in admin_home_password.html page
         loadPropertiesForPageAdminHomePassword: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -178,11 +181,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in admin_list.html page
+        // load resources used in admin_list.html page
         loadPropertiesForPageAdminList: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -204,11 +207,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_chatgroups_users.html page
+        // load resources used in app_chatgroups_users.html page
         loadPropertiesForPageAppChatgroupsUsers: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : 'en',
                 callback : function() {
@@ -226,11 +229,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_chatgroups.html page
+        // load resources used in app_chatgroups.html page
         loadPropertiesForPageAppChatgroups: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -282,11 +285,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_collection_counters.html page
+        // load resources used in app_collection_counters.html page
         loadPropertiesForPageAppCollectionCounters: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -313,11 +316,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_create.html page
+        // load resources used in app_create.html page
         loadPropertiesForPageAppCreate: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -342,13 +345,13 @@ var I18NPropsLoader = function(){
         }
         ,
 
-        // load properties used in app_list.html page
+        // load resources used in app_list.html page
         loadPropertiesForPageAppList: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
-                language : 'en',
+                language : this.getNavigatorLanguage,
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
@@ -363,11 +366,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_notifiers.html page
+        // load resources used in app_notifiers.html page
         loadPropertiesForPageAppNotifiers: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -398,11 +401,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_profile.html page
+        // load resources used in app_profile.html page
         loadPropertiesForPageAppProfile: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -431,11 +434,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_users.html page
+        // load resources used in app_users.html page
         loadPropertiesForPageAppUsers: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -510,11 +513,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_users_contacts.html page
+        // load resources used in app_users_contacts.html page
         loadPropertiesForPageAppUsersContacts: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -536,11 +539,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in app_users_create.html page
+        // load resources used in app_users_create.html page
         loadPropertiesForPageAppUsersCreate: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -559,11 +562,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in confirm_failure.html page
+        // load resources used in confirm_failure.html page
         loadPropertiesForPageConfirmFailure: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -574,11 +577,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in confirm_success.html page
+        // load resources used in confirm_success.html page
         loadPropertiesForPageConfirmSuccess: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -589,11 +592,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in regist_org_success.html page
+        // load resources used in regist_org_success.html page
         loadPropertiesForPageRegisterOrgSuccess: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -604,11 +607,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in resetpw_failure.html page
+        // load resources used in resetpw_failure.html page
         loadPropertiesForPageResetpwFailure: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : 'en',
                 callback : function() {
@@ -619,11 +622,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in resetpw_input.html page
+        // load resources used in resetpw_input.html page
         loadPropertiesForPageResetpwInput: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {
@@ -635,11 +638,11 @@ var I18NPropsLoader = function(){
             });
         },
 
-        // load properties used in resetpw_success.html page
+        // load resources used in resetpw_success.html page
         loadPropertiesForPageResetpwSuccess: function(){
             $.i18n.properties({
-                name : 'easemob-i18n',
-                path : '/assets/i18n/',
+                name: resourceFilePrefix,
+                path: resourceFilePath,
                 mode : 'map',
                 language : this.getNavigatorLanguage(),
                 callback : function() {

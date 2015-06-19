@@ -19,6 +19,7 @@ function onBlurCheckIMUsername(imUsername){
     $('#imUsernameMsg').text('');
     return true;
 }
+
 // 一次密码
 function onBlurCheckIMPassword(password){
     var passwordReg =  /^[\s\S]*$/;
@@ -50,7 +51,7 @@ function onBlurCheckIMConfirmPassword(confirmPassword){
     return true;
 }
 
-// 提交表单
+// save new im user
 function saveNewIMUser(appUuid){
     var imUsername = $('#imUsername').val();
     var password = $('#password').val();
@@ -62,13 +63,13 @@ function saveNewIMUser(appUuid){
     var flag = onBlurCheckIMUsername(imUsername) && onBlurCheckIMPassword(password) && onBlurCheckIMConfirmPassword(confirmPassword);
     if(flag){
         // Create a user
-        var d ={
+        var d = {
             username:imUsername,
             password:password
         };
         $.ajax({
             url:baseUrl + '/' + orgName + '/' + appUuid + '/users',
-            type:'POST',
+            type:EasemobCommon.httpMethod.POST,
             data:JSON.stringify(d),
             headers:{
                 'Authorization':'Bearer ' + token,
@@ -76,7 +77,7 @@ function saveNewIMUser(appUuid){
             },
             success:function(respData){
                 alert($.i18n.prop('app_users_form_msg_username_saved'));
-                window.location.href = 'app_users.html?appUuid=' + appUuid;
+                EasemobCommon.disPatcher.toPageAppUsers();
             },
             error:function(data){
                 var str = JSON.stringify(data.responseText).replace('}','').replace('{','').split(',');
@@ -112,8 +113,6 @@ function selectAppUser(sel,appUuid,username){
         sendMessgeOne(appUuid, username);
     }else if(value == 'deleteUAdmin'){
         deleteAppUser(appUuid, username);
-    }else if(value == 'excute'){
-        excute(appUuid, username);
     }
 }
 
@@ -217,7 +216,7 @@ function getAppUserList(appUuid, pageAction){
                             '<ul class="nav-pills" style="list-style-type:none">'+
                             '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_users_selections_operation') + '<b class="caret"></b></a>'+
                             '<ul class="dropdown-menu">'+
-                            '<li data-filter-camera-type="all"><a href="javascript:toAppIMList(\''+username+'\')">' + $.i18n.prop('app_users_selections_contacts') + '</a></li>'+
+                            '<li data-filter-camera-type="all"><a href="javascript:EasemobCommon.disPatcher.toPageAppUserContacts(\''+username+'\')">' + $.i18n.prop('app_users_selections_contacts') + '</a></li>'+
                             '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+appUuid+'\',\''+username+'\')">' + $.i18n.prop('app_users_selections_modify') + '</span></a></li>'+
                             '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+appUuid+'\',\''+username+'\')">' + $.i18n.prop("app_users_selections_delete") + '</a></li>'+
                             '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + appUuid + '\',\''+ username +'\');" data-toggle="modal" role="button">'+$.i18n.prop('app_users_selections_resetpassword')+'</a></li>'+
@@ -337,7 +336,7 @@ function searchUser(appUuid, queryString){
                         '<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
                         '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_users_search_selections_operation">操作</span><b class="caret"></b></a>'+
                         '<ul class="dropdown-menu">'+
-                        '<li data-filter-camera-type="all"><a href="javascript:toAppIMList(\''+username+'\')"><span id="app_users_search_selections_contacts">查看用户好友</span></a></li>'+
+                        '<li data-filter-camera-type="all"><a href="javascript:EasemobCommon.disPatcher.toPageAppUserContacts(\''+username+'\')"><span id="app_users_search_selections_contacts">查看用户好友</span></a></li>'+
                         '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + appUuid + '\',\''+ username +'\');" data-toggle="modal" role="button"><span id="app_users_search_selections_resetpassword">重置密码</span></a></li>'+
                         '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+appUuid+'\',\''+username+'\')"><span id="app_users_search_selections_modify">修改信息</span></a></li>'+
                         '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+appUuid+'\',\''+username+'\')"><span id="app_users_search_selections_delete">删除</span></a></li>'+
@@ -654,11 +653,6 @@ function sendUserImgMessage(){
 
 }
 
-
-// 用户好友列表
-function toAppIMList(owner_username){
-    window.location.href = 'app_users_contacts.html?appUuid=' + appUuid + '&owner_username=' + owner_username;
-}
 
 //获取用户好友列表
 function getAppIMList(appUuid, owner_username){

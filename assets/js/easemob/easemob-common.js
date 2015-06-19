@@ -2,8 +2,9 @@
  * Created by kenshinn on 15-6-15.
  */
 
-document.write("<script src='/assets/js/easemob/confs.js' language=javascript></script>")
+document.write("<script src='/assets/js/easemob/config.js' language=javascript></script>")
 
+var Console = Console || {};
 
 // 初始化加载
 $(function() {
@@ -28,20 +29,6 @@ $(function() {
     }
 });
 
-// 全角转换成半角
-function ToCDB(str) {
-    var tmp = "";
-    for(var i=0;i<str.length;i++) {
-        if(str.charCodeAt(i)>65248&&str.charCodeAt(i)<65375) {
-            tmp += String.fromCharCode(str.charCodeAt(i)-65248);
-        } else {
-            tmp += String.fromCharCode(str.charCodeAt(i));
-        }
-    }
-
-    return tmp
-}
-
 // 获取url参数
 function getQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
@@ -49,11 +36,7 @@ function getQueryString(name) {
     if (r != null) return unescape(r[2]); return null;
 }
 
-// 获得token
-function getToken() {
-    var access_token = $.cookie('access_token');
-    return access_token;
-}
+
 
 
 // 设置新密码
@@ -75,7 +58,7 @@ function resetPasswdReq(token,uuid){
             },
             success:function(respData){
                 alert('提示!\n重置密码成功!');
-                window.location.href = 'index.html';
+                EasemobCommon.disPatcher.toPageIndex();
             },
             error:function(data){
                 alert('提示!\n重置密码失败!');
@@ -111,12 +94,6 @@ function format(timeST){
     var mm = time.getMinutes();
     var s = time.getSeconds();
     return y+'-'+add0(m)+'-'+add0(d)+' '+add0(h)+':'+add0(mm)+':'+add0(s);
-}
-
-
-// app列表页
-function toAppList(){
-    window.location.href = "app_list.html";
 }
 
 
@@ -181,12 +158,11 @@ function setUsername(appUuid,username){
 }
 
 
-
 //调用方法
 function deleteAppUsers(appUuid,username){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
-    var flag ;
+    var flag = false;
     $.ajax({
         async: false,
         url:baseUrl + '/' + orgName +'/' + appUuid + '/users/' + username,
@@ -196,7 +172,6 @@ function deleteAppUsers(appUuid,username){
             'Content-Type':'application/json'
         },
         error:function(){
-            flag =false;
         },
         success:function(respData){
             flag =true;
@@ -206,36 +181,43 @@ function deleteAppUsers(appUuid,username){
 }
 
 
-// 退出登录
-function logout() {
-    // 销毁cookie
-    $.cookie("access_token",null,{path:"/"});
-    $.cookie("cuser",null,{path:"/"});
-    $.cookie("cuserName",null,{path:"/"});
-    $.cookie("orgName",null,{path:"/"});
-    $.cookie("email",null,{path:"/"});
-    $.cookie("companyName",null,{path:"/"});
-    $.cookie("telephone",null,{path:"/"});
-    // 转到登陆页面
-    window.location.href = "index.html";
-}
-
-
-
-String.prototype.Trim = function() {
-    var m = this.match(/^\s*(\S+(\s+\S+)*)\s*$/);
-    return (m == null) ? "" : m[1];
-}
-String.prototype.isMobile = function() {
-    return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/.test(this.Trim()));
-}
-String.prototype.isTel = function() {
-    //"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)"
-    return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(this.Trim()));
-}
-
 var EasemobCommon = function() {
+    // fetch token from cookie
+    var getToken = function () {
+        var access_token = $.cookie('access_token');
+        return access_token;
+    };
+
+    // responsive logo
+    var handleResponsiveLogo = function () {
+        window.onresize = window.onload = function () {
+            var w, h;
+            if (!!(window.attachEvent && !window.opera)) {
+                h = document.documentElement.clientHeight;
+                w = document.documentElement.clientWidth;
+            } else {
+                h = window.innerHeight;
+                w = window.innerWidth;
+            }
+
+            $("#logo_home").width(w / 6.5).height(h / 16);
+        }
+    };
+
+    var isSessionTimeOut = function() {
+        if (!getToken() || getToken() == '') {
+            this.logOut();
+        }
+    };
+
     return {
+        httpMethod: {
+            POST : 'POST',
+            GET : 'GET',
+            DELETE : 'DELETE',
+            PUT : 'PUT'
+        },
+
         disPatcher: {
             toPageIndex: function () {
                 window.location.href = 'index.html';
@@ -243,8 +225,14 @@ var EasemobCommon = function() {
             toPageAppProfile: function() {
                 window.location.href = 'app_profile.html?appUuid=' + appUuid;
             },
+            toPageAppList: function() {
+                window.location.href = "app_list.html";
+            },
             toPageAppUsers: function() {
                 window.location.href = 'app_users.html?appUuid=' + appUuid;
+            },
+            toPageAppUserContacts: function(owner_username) {
+                window.location.href = 'app_users_contacts.html?appUuid=' + appUuid + '&owner_username=' + owner_username;
             },
             toPageAppChatGroups: function() {
                 window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
@@ -265,11 +253,7 @@ var EasemobCommon = function() {
                 this.logOut();
             }
         },
-        isSessionTimeOut: function() {
-            if (!getToken() || getToken() == '') {
-                this.logOut();
-            }
-        },
+
         logOut: function() {
             // 销毁cookie
             $.cookie("access_token",null,{path:"/"});
@@ -282,19 +266,22 @@ var EasemobCommon = function() {
 
             this.disPatcher.toPageIndex();
         },
-        reSizeLogo: function () {
-            window.onresize = window.onload = function () {
-                var w, h;
-                if (!!(window.attachEvent && !window.opera)) {
-                    h = document.documentElement.clientHeight;
-                    w = document.documentElement.clientWidth;
-                } else {
-                    h = window.innerHeight;
-                    w = window.innerWidth;
-                }
 
-                $("#logo_home").width(w / 6.5).height(h / 16);
-            }
+        init: function() {
+            isSessionTimeOut();
+            handleResponsiveLogo();
         }
     }
 }();
+
+String.prototype.Trim = function() {
+    var m = this.match(/^\s*(\S+(\s+\S+)*)\s*$/);
+    return (m == null) ? "" : m[1];
+}
+String.prototype.isMobile = function() {
+    return (/^(?:13\d|15[89])-?\d{5}(\d{3}|\*{3})$/.test(this.Trim()));
+}
+String.prototype.isTel = function() {
+    //"兼容格式: 国家代码(2到3位)-区号(2到3位)-电话号码(7到8位)-分机号(3位)"
+    return (/^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/.test(this.Trim()));
+}

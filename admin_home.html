@@ -9,7 +9,7 @@
 
     <script language="JavaScript" charset="utf-8">
         $(function () {
-            EasemobCommon.isSessionTimeOut();
+            EasemobCommon.init();
 
             loginAdminInfo();
 
@@ -81,8 +81,6 @@
 
             updateAdminInfo(username, companyNameInput, telephoneInput);
         }
-
-        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -90,7 +88,7 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>

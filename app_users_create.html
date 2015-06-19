@@ -11,7 +11,7 @@
         var Application = $.cookie('Application');
         var count = 0;
         $(function () {
-            EasemobCommon.isSessionTimeOut();
+            EasemobCommon.init();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppUsersCreate();
@@ -49,11 +49,9 @@
                 saveNewIMUser(appUuid);
             }
         }
-
-        EasemobCommon.reSizeLogo();
     </script>
     <!-- 邮箱提示 -->
-    <script src="assets/js/email.js"></script>
+    <script src="assets/js/easemob/email.js"></script>
     <style type="text/css">
         .out_box {
             border: 1px solid #ccc;
@@ -82,7 +80,7 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png"/></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png"/></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>

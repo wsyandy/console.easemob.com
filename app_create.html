@@ -9,12 +9,13 @@
     <script language="JavaScript" charset="utf-8">
         var count = 0;
         $(function () {
-            EasemobCommon.isSessionTimeOut();
+            EasemobCommon.init();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppCreate();
 
             count = 0;
+            var isAllowOpenRegitration1 = $('#allow_open_registration1');
             if ($('#allow_open_registration1').attr('checked') == 'checked') {
                 $('#allowOpenMsg').text('允许在该应用下自由注册新用户');
             }
@@ -49,8 +50,6 @@
         function removeAllSpace(str) {
             return str.replace(/\s+/g, '');
         }
-
-        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -58,7 +57,7 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
@@ -172,7 +171,7 @@
                                             </div>
                                         </div>
                                         <div class="form-actions">
-                                            <button onclick="toAppList();" href="javascript:void(0);"
+                                            <button onclick="EasemobCommon.disPatcher.toPageAppList();" href="javascript:void(0);"
                                                     class="btn btn-small btn-success"><i class="icon-arrow-left icon-on-right bigger-110"></i><span id="app_create_form_backlist">返回列表</span>
                                             </button>
                                             <button onclick="saveNewAppPre();" href="javascript:void(0);"

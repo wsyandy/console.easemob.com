@@ -85,18 +85,15 @@ function keyLogin() {
         return;
     }
     if (getBrowser() == 'Firefox') {
-        //判断IE还是火狐浏览器;
         $("html").die().live("keydown", function (event) {
             if (event.keyCode == 13) {
-                //调用登陆方法;
-                $('#loginBtn').click();//调用登录按钮的登录事件
+                $('#loginBtn').click();
                 $('#loginBtn').attr('disable', 'true');
             }
         });
     } else if (getBrowser() == 'MSIE' || getBrowser() == 'Chrome') {
         if (event.keyCode == 13) {
-            //调用登陆方法;
-            $('#loginBtn').click();//调用登录按钮的登录事件
+            $('#loginBtn').click();
         }
     }
 }
@@ -251,18 +248,6 @@ function onBlurCheckResetEmail() {
 
 function login() {
     orgAdminLogin();
-}
-
-function app_org() {
-    var adminType = $('#loginRole').find('option:selected').val();
-    if (adminType == 'app') {
-        $('#qiyeid').show();
-        $('#yingyongname').show();
-        //appAdminLogin();
-    } else if (adminType == 'org') {
-        $('#qiyeid').hide();
-        $('#yingyongname').hide();
-    }
 }
 
 // 点击返回登录清空注册数据
@@ -633,6 +618,7 @@ function loginFormValidate(){
     return true;
 }
 
+
 // ORG管理员登录
 function orgAdminLogin() {
     var loginUser = $('#username').val();
@@ -698,8 +684,8 @@ function orgAdminLogin() {
                 });
 
                 if(orgName == '') {
-                    alert('抱歉,系统找不到该用户对应的企业ID.\n请联系系统管理员!');
-                    window.location.href = 'index.html';
+                    alert('抱歉,系统找不到该账户对应的企业ID.\n请联系系统管理员!');
+                    EasemobCommon.disPatcher.toPageIndex();
                 } else {
                     var date = new Date();
                     date.setTime(date.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -711,8 +697,7 @@ function orgAdminLogin() {
                     $.cookie('companyName', companyName,{path:'/',expires:date});
                     $.cookie('telephone', telephone,{path:'/',expires:date});
 
-                    window.location.href = 'app_list.html';
-                    location.replace('app_list.html');
+                    EasemobCommon.disPatcher.toPageAppList();
                 }
             }
         });

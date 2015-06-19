@@ -15,7 +15,7 @@
         $(function () {
             $('#showName').text(Application);
 
-            EasemobCommon.isSessionTimeOut();
+            EasemobCommon.init();
 
             I18NPropsLoader.loadPropertiesCommon();
 
@@ -151,8 +151,6 @@
         function clsupSpan() {
             $('#app_users_alert_upload_picture_waiting').text($.i18n.prop('app_users_alert_upload_picture_waiting'));
         }
-
-        EasemobCommon.reSizeLogo();
     </script>
 </head>
 
@@ -160,7 +158,7 @@
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/images/logo_home.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
