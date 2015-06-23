@@ -2,12 +2,13 @@
  * Created by kenshinn on 15-6-2.
  */
 
+var Console = Console || {};
 
 //初始开始时间段
 //记录当前时间
 var nowTime;
 var nowTimeSec;
-var timePikerInput = function(){
+timePikerInput = function(){
 
     return {
         init:function(){
@@ -264,13 +265,13 @@ function drawCountersChartsPeroidSearch() {
     var timeDifference = endTimeTime - startTimeTime;
     var days = Math.floor(timeDifference / (24 * 3600 * 1000));
     if (days > 30) {
-        alert("时间范围只能在30天之内,请重新选择时间");
+        alert($.i18n.prop('app_collection_counters_searchAlert_with30days'));
         return;
     } else if (days == 0) {
-        alert("开始时间必须小于结束时间,请重新选择时间.");
+        alert($.i18n.prop('app_collection_counters_searchAlert_startLessThanEnd'));
         return;
     } else if(textEndTime > nowTime){
-        alert("结束日期不能大于本日日期,请重新选择结束日期.");
+        alert($.i18n.prop('app_collection_counters_searchAlert_endMustLessThanToday'));
         return;
     }
 

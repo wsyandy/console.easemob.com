@@ -16,18 +16,19 @@
 
             count = 0;
             var isAllowOpenRegitration1 = $('#allow_open_registration1');
-            if ($('#allow_open_registration1').attr('checked') == 'checked') {
-                $('#allowOpenMsg').text('允许在该应用下自由注册新用户');
+            var isAllowOpenRegitration2 = $('#allow_open_registration2');
+            if (isAllowOpenRegitration1.attr('checked') == 'checked') {
+                $('#allowOpenMsg').text($.i18n.prop('app_create_form_registrationModel_allowOpenMsgOpen'));
             }
-            if ($('#allow_open_registration2').attr('checked') == 'checked') {
-                $('#allowOpenMsg').text('只有企业管理员或者应用管理员才能注册用户');
+            if (isAllowOpenRegitration2.attr('checked') == 'checked') {
+                $('#allowOpenMsg').text($.i18n.prop('app_create_form_registrationModel_allowOpenMsgAuth'));
             }
 
-            $('#allow_open_registration1').click(function () {
-                $('#allowOpenMsg').text('允许在该应用下自由注册新用户');
+            isAllowOpenRegitration1.click(function () {
+                $('#allowOpenMsg').text($.i18n.prop('app_create_form_registrationModel_allowOpenMsgOpen'));
             });
-            $('#allow_open_registration2').click(function () {
-                $('#allowOpenMsg').text('只有企业管理员或者应用管理员才能注册用户');
+            isAllowOpenRegitration2.click(function () {
+                $('#allowOpenMsg').text($.i18n.prop('app_create_form_registrationModel_allowOpenMsgAuth'));
             });
         });
     </script>
@@ -79,7 +80,7 @@
     <div class="clearfix" id="main-content">
         <div id="breadcrumbs">
             <ul class="breadcrumb">
-                <li><i class="icon-home"></i><span id="second_nav_myapp">我的应用</span></li>
+                <li><i class="icon-home"></i>&nbsp;&nbsp;<span id="second_nav_myapp">我的应用</span></li>
             </ul>
         </div>
         <div class="clearfix" id="page-content">

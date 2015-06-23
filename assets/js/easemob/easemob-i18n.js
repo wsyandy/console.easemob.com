@@ -335,6 +335,7 @@ var I18NPropsLoader = function(){
                     $('#app_create_form_productName').text($.i18n.prop('app_create_form_productName'));
                     $('#app_create_form_productNameMsg').text($.i18n.prop('app_create_form_productNameMsg'));
                     $('#app_create_form_registrationModel').text($.i18n.prop('app_create_form_registrationModel'));
+                    $('#allowOpenMsg').text($.i18n.prop('app_create_form_registrationModel_open'));
                     $('#app_create_form_registrationModel_open').text($.i18n.prop('app_create_form_registrationModel_open'));
                     $('#app_create_form_registrationModel_auth').text($.i18n.prop('app_create_form_registrationModel_auth'));
                     $('#app_create_form_appDesc').text($.i18n.prop('app_create_form_appDesc'));
