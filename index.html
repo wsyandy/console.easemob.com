@@ -116,6 +116,8 @@
 
     <script language="JavaScript" charset="utf-8">
         $(function(){
+            $.cookie("locale", null, {path:"/"});
+
             //读取cookie
             if($('#rememberme:checked').length > 0){
                 $('#username').val($.cookie('tvs-cookies-userName'));
@@ -132,8 +134,11 @@
 <div id="main-container" class="container-fluid">
     <div id="main-content">
         <div class="row-fluid">
+            <div style="float:right;">
+                <button type="button" class="btn btn-primary" id="i18nBtnEnglish" onclick="EasemobCommon.setLocale('en')">English</button>
+                <button type="button" class="btn btn-primary" id="i18nBtnChinese" onclick="EasemobCommon.setLocale('zh')">中文</button>
+            </div>
             <div class="span12"><p>
-
                 <div class="login-container">
                     <div class="row-fluid">
                         <div class="center" style="float:left;">

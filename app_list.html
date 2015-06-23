@@ -33,6 +33,12 @@
                     <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
+
+            <div style="float:right;">
+                <button type="button" class="btn btn-primary" id="i18nBtnEnglish" onclick="EasemobCommon.setLocale('en')">English</button>
+                <button type="button" class="btn btn-primary" id="i18nBtnChinese" onclick="EasemobCommon.setLocale('zh')">中文</button>
+            </div>
+            
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
                 <li class="light-blue user-profile"><a class="user-menu dropdown-toggle" href="javascript:void(0);"
                                                        data-toggle="dropdown"> <span id="user_info"></span> <i
@@ -54,6 +60,7 @@
             <div style="min-height: 40px;" id="sidebar-shortcuts-large"></div>
             <div style="min-height: 40px;" id="sidebar-shortcuts-mini"></div>
         </div>
+
         <ul class="nav nav-list">
             <li class="active"><a href="app_list.html" target="_self"><i class="icon-ambulance"></i><span id="left_nav_myapp">我的应用</span> </a></li>
             <li><a href="org_admin_list.html" target="_self"> <i class="icon-home"></i><span id="left_nav_orgInfo">企业信息</span></a></li>

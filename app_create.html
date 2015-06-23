@@ -39,17 +39,20 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png" /></a>
-
-            <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
+            <div id="headhref" class="lianjie" style="width:60%; margin-left:20%;">
                 <ol>
-                    <li style="width:20%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.imgeek.org" target="_blank"><h5 id="nav_community">社区</h5></a></li>
-                    <li style="width:20%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
+                    <li style="width:15%;"><a href="http://www.easemob.com" target="_blank"><h5 id="nav_index">主页</h5></a></li>
+                    <li style="width:15%;"><a href="http://www.easemob.com/docs/gettingstart" target="_blank"><h5 id="nav_doc">文档</h5></a></li>
+                    <li style="width:15%;"><a href="http://www.easemob.com/Support" target="_blank"><h5 id="nav_help">帮助</h5></a></li>
+                    <li style="width:15%;"><a href="http://www.imgeek.org" target="_blank"><h5 id="nav_community">社区</h5></a></li>
+                    <li style="width:15%;"><a href="http://www.easemob.com/sdk" target="_blank"><h5 id="nav_download">下载SDK</h5></a></li>
                 </ol>
             </div>
-            <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
+            <div style="float:right;">
+                <button type="button" class="btn btn-primary" id="i18nBtnEnglish" onclick="EasemobCommon.setLocale('en')">English</button>
+                <button type="button" class="btn btn-primary" id="i18nBtnChinese" onclick="EasemobCommon.setLocale('zh')">中文</button>
+            </div>
+            <ul class="nav ace-nav pull-right" style="margin-top:0; margin-right:5%">
                 <li class="light-blue user-profile"><a class="user-menu dropdown-toggle" href="javascript:void(0);"
                                                        data-toggle="dropdown"> <span id="user_info"></span> <i
                         class="icon-caret-down"></i> </a>

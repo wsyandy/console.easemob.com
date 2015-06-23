@@ -260,6 +260,17 @@ var EasemobCommon = function() {
         init: function() {
             isSessionTimeOut();
             handleResponsiveLogo();
+        },
+
+        setLocale: function(localeStr){
+            if(!localeStr){
+                localeStr = 'en';
+            }
+
+            var date = new Date();
+            date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
+            $.cookie('locale', localeStr, {path:'/',expires:date});
+            location.replace(location.href);
         }
     }
 }();

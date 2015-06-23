@@ -10,13 +10,17 @@ var I18NPropsLoader = function(){
 
     return {
         getNavigatorLanguage: function() {
-            var language = navigator.userLanguage?
-                navigator.userLanguage:
-                navigator.language;
-            if (language.indexOf('zh') > -1) {
-                return 'zh';
+            var language = navigator.userLanguage? navigator.userLanguage: navigator.language;
+            var locale = $.cookie('locale');
+
+            if(locale) {
+                return locale;
             } else {
-                return 'en';
+                if (language.indexOf('zh') > -1) {
+                    return 'zh';
+                } else {
+                    return 'en';
+                }
             }
         },
         // load resources used in every page
