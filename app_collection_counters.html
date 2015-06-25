@@ -45,7 +45,7 @@
 
     <script src="assets/js/easemob/easemob-counters.js"></script>
 
-    <script tyep="text/javascript" charset="utf-8">
+    <script language="javascript" charset="utf-8">
         var appUuid = getQueryString('appUuid');
         var Application = $.cookie('Application');
 
@@ -72,12 +72,12 @@
 
             // 下拉菜单变化
             $('#userChartSelector').change(function() {
-                timePikerInput.init();
+                //timePikerInput.init();
                 applyCountersAndDraw(this);
             });
 
             $('#chatmessagsChartSelector').change(function() {
-                timePikerInput.init();
+                //timePikerInput.init();
                 applyCountersAndDraw(this);
             });
         });
@@ -117,11 +117,23 @@
             $('#countersChartType').show();
 //            $('#chatmessagsChartSelector').hide();
             $('#chatgroupsChartSelector').hide();
+
+            showUserChartSelectorRegisterUsers();
+
             $('#drawCountersChartsType').val('register_users');
 
             var peroid = $("input[name='chartsRadio1']:checked").val();
             drawCountersCharts(peroid);
+
             $('#chartTitle').text(chartTileUsers);
+        }
+
+        function showUserChartSelectorRegisterUsers() {
+            var userChartSelector = $('#userChartSelector option:selected');
+            var userChartSelectorVal = userChartSelector.val();
+            if (userChartSelectorVal != 'register_users') {
+                $('#userChartSelector option[value="register_users"]').attr('selected', true);
+            }
         }
 
         function showChatmessagsChartTab() {
