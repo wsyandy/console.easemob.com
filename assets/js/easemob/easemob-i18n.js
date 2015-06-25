@@ -9,6 +9,15 @@ var I18NPropsLoader = function(){
     var resourcePropertiesMode = 'map';
 
     return {
+        getPageName: function(){
+            var pathname = window.location.pathname;
+            var r = (pathname.match(/\/([^\/?#]+)$/i) || [,''])[1];
+            if (r != null)
+                return r.split('.html')[0];
+
+            return null;
+        },
+
         getNavigatorLanguage: function() {
             var language = navigator.userLanguage? navigator.userLanguage: navigator.language;
             var locale = $.cookie('locale');
@@ -23,6 +32,96 @@ var I18NPropsLoader = function(){
                 }
             }
         },
+
+        loadPropertiesByPage: function(pageName){
+            switch(pageName){
+                case 'app_chatgroups':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppChatgroups();
+                    break;
+                case 'app_chatgroup_users':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppChatgroupsUsers();
+                    break;
+                case 'org_admin_passwd':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAdminHomePassword();
+                    break;
+                case 'org_admin_list':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAdminList();
+                    break;
+                case 'org_admin_create':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAdminCreate();
+                    break;
+                case 'org_admin_home':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAdminHome();
+                    break;
+                case 'index_resetpw_success':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageResetpwSuccess();
+                    break;
+                case 'index_resetpw_input':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageResetpwInput();
+                    break;
+                case 'index_resetpw_failure':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageResetpwFailure();
+                    break;
+                case 'index_regist_org_success':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageRegisterOrgSuccess();
+                    break;
+                case 'index':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageIndex();
+                    break;
+                case 'index_confirm_success':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageConfirmSuccess();
+                    break;
+                case 'index_confirm_failure':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageConfirmFailure();
+                    break;
+                case 'app_user_create':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppUsersCreate();
+                    break;
+                case 'app_list':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppList();
+                    break;
+                case 'app_profile':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppProfile();
+                    break;
+                case 'app_user_contacts':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppUsersContacts();
+                    break;
+                case 'app_counters':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppCollectionCounters();
+                    break;
+                case 'app_create':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppCreate()();
+                    break;
+                case 'app_users':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppUsers();
+                    break;
+                case 'app_notifiers':
+                    this.loadPropertiesCommon();
+                    this.loadPropertiesForPageAppNotifiers();
+                    break;
+            }
+        },
+
         // load resources used in every page
         loadPropertiesCommon: function(){
             $.i18n.properties({
@@ -32,8 +131,6 @@ var I18NPropsLoader = function(){
                 language: this.getNavigatorLanguage(),
                 callback: function () {
                     $('#index_title').text($.i18n.prop('index_title'));
-                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
-                    $('#logo_home').text($.i18n.prop('logo_home'));
                     $('#nav_index').text($.i18n.prop('nav_index'));
                     $('#nav_doc').text($.i18n.prop('nav_doc'));
                     $('#nav_help').text($.i18n.prop('nav_help'));
@@ -60,6 +157,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_index').attr('src', $.i18n.prop('logo_index'));
                     $('#index_span_login').text($.i18n.prop('index_span_login'));
                     $('#index_span_register').text($.i18n.prop('index_span_register'));
                     $('#index_login_username').text($.i18n.prop('index_login_username'));
@@ -99,6 +197,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -145,6 +244,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -171,6 +271,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -195,6 +296,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -221,6 +323,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#second_nav_chatgroups').text($.i18n.prop('second_nav_chatgroups'));
                     $('#second_nav_chatgroupmembers').text($.i18n.prop('second_nav_chatgroupmembers'));
@@ -243,6 +346,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -299,6 +403,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -330,6 +435,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -360,6 +466,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
@@ -381,6 +488,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -416,6 +524,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -449,6 +558,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -528,6 +638,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));
@@ -554,6 +665,7 @@ var I18NPropsLoader = function(){
                 language : this.getNavigatorLanguage(),
                 callback : function() {
                     $('#index_title').text($.i18n.prop('index_title'));
+                    $('#logo_home').attr('src', $.i18n.prop('logo_home'));
                     $('#left_nav_myapp').text($.i18n.prop('left_nav_myapp'));
                     $('#left_nav_userInfo').text($.i18n.prop('left_nav_userInfo'));
                     $('#left_nav_orgInfo').text($.i18n.prop('left_nav_orgInfo'));

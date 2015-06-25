@@ -6,7 +6,7 @@
 
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-app.js"></script>
-    <script language="JavaScript" charset="utf-8">
+    <script charset="utf-8">
         $(function () {
             EasemobCommon.init();
 
@@ -18,11 +18,11 @@
     </script>
 </head>
 
-<body>
+<body onbeforeunload="return EasemobCommon.clearLocale()">
 <div class="navbar navbar-inverse">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home.png" /></a>
+            <a class="brand" href="javascript:void(0);"><img id="logo_home" src="assets/img/logo_home_zh.png" /></a>
 
             <div id="headhref" class="lianjie" style="width:40%; margin-left:20%;">
                 <ol>
@@ -38,7 +38,7 @@
                 <button type="button" class="btn btn-primary" id="i18nBtnEnglish" onclick="EasemobCommon.setLocale('en')">English</button>
                 <button type="button" class="btn btn-primary" id="i18nBtnChinese" onclick="EasemobCommon.setLocale('zh')">中文</button>
             </div>
-            
+
             <ul class="nav ace-nav pull-right" style="top:5px; margin-right:0">
                 <li class="light-blue user-profile"><a class="user-menu dropdown-toggle" href="javascript:void(0);"
                                                        data-toggle="dropdown"> <span id="user_info"></span> <i

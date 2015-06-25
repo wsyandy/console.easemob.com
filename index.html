@@ -114,10 +114,8 @@
     <script src="assets/js/easemob/email.js"></script>
     <script src="assets/js/easemob/easemob-login.js"></script>
 
-    <script language="JavaScript" charset="utf-8">
+    <script charset="utf-8">
         $(function(){
-            $.cookie("locale", null, {path:"/"});
-
             //读取cookie
             if($('#rememberme:checked').length > 0){
                 $('#username').val($.cookie('tvs-cookies-userName'));
@@ -126,6 +124,8 @@
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageIndex();
+
+            EasemobCommon.clearLocale();
         })
     </script>
 </head>

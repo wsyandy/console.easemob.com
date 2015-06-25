@@ -8,7 +8,7 @@ var Console = Console || {};
 //记录当前时间
 var nowTime;
 var nowTimeSec;
-timePikerInput = function(){
+var timePikerInput = function(){
 
     return {
         init:function(){

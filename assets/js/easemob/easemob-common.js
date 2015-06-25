@@ -262,6 +262,13 @@ var EasemobCommon = function() {
             handleResponsiveLogo();
         },
 
+        clearLocale: function() {
+            $(window).bind('unload',function(){
+                $.cookie('locale', null, {path:'/'});
+                return '';
+            });
+        },
+
         setLocale: function(localeStr){
             if(!localeStr){
                 localeStr = 'en';
@@ -270,7 +277,8 @@ var EasemobCommon = function() {
             var date = new Date();
             date.setTime(date.getTime() + (24 * 60 * 60 * 1000));
             $.cookie('locale', localeStr, {path:'/',expires:date});
-            location.replace(location.href);
+            var pageName = I18NPropsLoader.getPageName();
+            I18NPropsLoader.loadPropertiesByPage(pageName);
         }
     }
 }();
