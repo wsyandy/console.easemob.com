@@ -1,4 +1,4 @@
-//document.write("<script src='/assets/js/easemob/confs.js' language=javascript></script>")
+//document.write("<script src='/assets/js/easemob/config.js' language=javascript></script>")
 
 var baseUrl = 'https://a1.easemob.com';
 
