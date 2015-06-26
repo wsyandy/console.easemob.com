@@ -96,7 +96,7 @@ function saveNewApp(){
                 success: function(respData, textStatus, jqXHR) {
                     alert($.i18n.prop('app_create_form_succ'));
                     $(respData.entities).each(function(){
-                        window.location.href = 'app_profile.html?appUuid=' + this.uuid;
+                        window.location.href = 'app_profile.html?appName=' + this.uuid;
                     });
                 }
             });
@@ -133,10 +133,10 @@ function getAppList(){
                 var uuidArr = [];
                 var nameArr = [];
                 var option = '';
-                $.each(appData, function(key,value){
+                $.each(appData, function(key, value){
                     nameArr.push(key);
                     uuidArr.push(value);
-                    key = key.substring(key.indexOf('/')+1);
+                    key = key.substring(key.indexOf('/') + 1);
                     userCount = 0;
                     $.ajax({
                         url:baseUrl+'/'+ orgName +'/' + value + '/counters?counter=application.collection.users&pad=true',
@@ -165,7 +165,7 @@ function getAppList(){
                         }
                     });
 
-                    option += '<tr><td class="text-center"><a href="app_profile.html?appUuid='+key+'&Application='+key+'">'+key+'</a></td>'+
+                    option += '<tr><td class="text-center"><a href="app_profile.html?appName='+key+'&appName='+key+'">'+key+'</a></td>'+
                         '<td class="text-center">'+userCount+'</td>'+
                         '<td class="text-center">' + $.i18n.prop('app_list_appstatus_content') +'</td>'+
                         '</tr>';
@@ -173,10 +173,9 @@ function getAppList(){
                 });
                 $('#tr_loading').remove();
                 $('#appListBody').append(option);
-                // 无数据
                 var tbody = document.getElementsByTagName("tbody")[0];
                 if(!tbody.hasChildNodes()){
-                    var option = '<tr><td class="text-center" colspan="7">无数据!</td></tr>';
+                    var option = '<tr><td class="text-center" colspan="7">'+$.i18n.prop('table_data_nodata')+'</td></tr>';
                     $('#appListBody').append(option);
                 }
             }
@@ -186,17 +185,18 @@ function getAppList(){
 
 
 // 获取app详情
-function getAppProfile(appUuid){
+function getAppOverView(){
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         // 获取app基本信息
         $.ajax({
-            url:baseUrl + '/management/organizations/' + orgName + '/applications/' + appUuid,
+            url:baseUrl + '/management/organizations/' + orgName + '/applications/' + appName,
             type:'GET',
             headers:{
                 'Authorization':'Bearer ' + access_token,
@@ -239,7 +239,7 @@ function getAppProfile(appUuid){
         });
 
         $.ajax({
-            url: baseUrl + '/' + orgName + '/' + appUuid + '/credentials',
+            url: baseUrl + '/' + orgName + '/' + appName + '/credentials',
             type:'GET',
             headers:{
                 'Authorization':'Bearer ' + access_token,
@@ -258,10 +258,11 @@ function getAppProfile(appUuid){
 
 
 //修改缩略图大小
-function updateImage(appUuid){
+function updateImage(){
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     var imgReg =  /^[0-9]*$/;
     var imgwidth = $('#imageWidth').val();
     var imgheight = $('#imageHeight').val();
@@ -289,7 +290,7 @@ function updateImage(appUuid){
             image_thumbnail_height:parseInt(imgheight)
         };
         $.ajax({
-            url: baseUrl + '/' + orgName + '/' + appUuid ,
+            url: baseUrl + '/' + orgName + '/' + appName ,
             type:'PUT',
             data:JSON.stringify(d),
             headers:{
@@ -381,5 +382,5 @@ function showImage() {
 
 //修改缩略图
 function updateImageHTML() {
-    updateImage(appUuid);
+    updateImage();
 }

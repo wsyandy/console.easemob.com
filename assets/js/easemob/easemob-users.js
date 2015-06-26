@@ -52,13 +52,14 @@ function onBlurCheckIMConfirmPassword(confirmPassword){
 }
 
 // save new im user
-function saveNewIMUser(appUuid){
+function saveNewIMUser(){
     var imUsername = $('#imUsername').val();
     var password = $('#password').val();
     var confirmPassword = $('#confirmPassword').val();
 
     var token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
 
     var flag = onBlurCheckIMUsername(imUsername) && onBlurCheckIMPassword(password) && onBlurCheckIMConfirmPassword(confirmPassword);
     if(flag){
@@ -68,7 +69,7 @@ function saveNewIMUser(appUuid){
             password:password
         };
         $.ajax({
-            url:baseUrl + '/' + orgName + '/' + appUuid + '/users',
+            url:baseUrl + '/' + orgName + '/' + appName + '/users',
             type:EasemobCommon.httpMethod.POST,
             data:JSON.stringify(d),
             headers:{
@@ -102,22 +103,20 @@ function saveNewIMUser(appUuid){
 }
 
 
-function selectAppUser(sel,appUuid,username){
+function selectAppUser(sel,username){
     var value = sel.value;
 
-    if(value == 'appIMList'){
-        toAppIMList(username);
-    }else if(value == 'setUsername'){
-        setUsername(appUuid, username);
+    if(value == 'setUsername'){
+        setUsername(username);
     }else if(value == 'sendMsg'){
-        sendMessgeOne(appUuid, username);
+        sendMessgeOne(username);
     }else if(value == 'deleteUAdmin'){
-        deleteAppUser(appUuid, username);
+        deleteAppUser(username);
     }
 }
 
 // 获取某个app下的用户
-function getAppUserList(appUuid, pageAction){
+function getAppUserList(pageAction){
 
     fakePageOne = 1;
 
@@ -127,6 +126,7 @@ function getAppUserList(appUuid, pageAction){
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -148,7 +148,7 @@ function getAppUserList(appUuid, pageAction){
             temp = '&cursor=' + cursors[pageNo];
         }
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users?limit=10' + temp,
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users?limit=10' + temp,
             type:'GET',
             headers:{
                 'Authorization':'Bearer ' + access_token,
@@ -217,10 +217,10 @@ function getAppUserList(appUuid, pageAction){
                             '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_users_selections_operation') + '<b class="caret"></b></a>'+
                             '<ul class="dropdown-menu">'+
                             '<li data-filter-camera-type="all"><a href="javascript:EasemobCommon.disPatcher.toPageAppUserContacts(\''+username+'\')">' + $.i18n.prop('app_users_selections_contacts') + '</a></li>'+
-                            '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+appUuid+'\',\''+username+'\')">' + $.i18n.prop('app_users_selections_modify') + '</span></a></li>'+
-                            '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+appUuid+'\',\''+username+'\')">' + $.i18n.prop("app_users_selections_delete") + '</a></li>'+
-                            '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + appUuid + '\',\''+ username +'\');" data-toggle="modal" role="button">'+$.i18n.prop('app_users_selections_resetpassword')+'</a></li>'+
-                            '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+username+'\')">' + $.i18n.prop('app_users_selections_sendMessages') + '</a></li>'+
+                            '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+username+'\')">' + $.i18n.prop('app_users_selections_modify') + '</span></a></li>'+
+                            '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+username+'\')">' + $.i18n.prop("app_users_selections_delete") + '</a></li>'+
+                            '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\''+ username +'\');" data-toggle="modal" role="button">'+$.i18n.prop('app_users_selections_resetpassword')+'</a></li>'+
+                            '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+username+'\')">' + $.i18n.prop('app_users_selections_sendMessages') + '</a></li>'+
                             '</ul>'+
                             '</li>'+
                             '</ul>'+
@@ -230,7 +230,6 @@ function getAppUserList(appUuid, pageAction){
                     $('#tr_loading').remove();
                     $('#appUserBody').append(selectOptions);
                 }
-                // 无数据
                 var tbody = document.getElementsByTagName("tbody")[0];
                 if(!tbody.hasChildNodes()){
                     var option = '<tr><td class="text-center" colspan="9">' + $.i18n.prop('table_data_nodata') + '</td></tr>';
@@ -272,18 +271,19 @@ function getAppUserList(appUuid, pageAction){
 }
 
 // 搜索IM用户
-function searchUser(appUuid, queryString){
+function searchUser(queryString){
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
 
     if(!access_token || access_token=='') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
 
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + queryString,
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users/' + queryString,
             type:'GET',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -337,10 +337,10 @@ function searchUser(appUuid, queryString){
                         '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span id="app_users_search_selections_operation">操作</span><b class="caret"></b></a>'+
                         '<ul class="dropdown-menu">'+
                         '<li data-filter-camera-type="all"><a href="javascript:EasemobCommon.disPatcher.toPageAppUserContacts(\''+username+'\')"><span id="app_users_search_selections_contacts">查看用户好友</span></a></li>'+
-                        '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\'' + appUuid + '\',\''+ username +'\');" data-toggle="modal" role="button"><span id="app_users_search_selections_resetpassword">重置密码</span></a></li>'+
-                        '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+appUuid+'\',\''+username+'\')"><span id="app_users_search_selections_modify">修改信息</span></a></li>'+
-                        '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+appUuid+'\',\''+username+'\')"><span id="app_users_search_selections_delete">删除</span></a></li>'+
-                        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+appUuid+'\',\''+username+'\')"><span id="app_users_search_selections_sendMessages">发送消息</span></a></li>'+
+                        '<li data-filter-camera-type="Alpha"><a href="#passwordMondify" id="passwdMod${status.index }" onclick="setUsername(\''+ username +'\');" data-toggle="modal" role="button"><span id="app_users_search_selections_resetpassword">重置密码</span></a></li>'+
+                        '<li data-filter-camera-type="Zed"><a href="javascript:showUpdateInfo(\''+username+'\')"><span id="app_users_search_selections_modify">修改信息</span></a></li>'+
+                        '<li data-filter-camera-type="Zed"><a href="javascript:deleteAppUser(\''+username+'\')"><span id="app_users_search_selections_delete">删除</span></a></li>'+
+                        '<li data-filter-camera-type="Zed"><a href="javascript:sendMessgeOne(\''+username+'\')"><span id="app_users_search_selections_sendMessages">发送消息</span></a></li>'+
                         '</ul>'+
                         '</li>'+
                         '</ul>'+
@@ -360,7 +360,7 @@ function updateAppUserPassword(){
     var username = $('#usernameMondify').val();
     var orgName = $.cookie('orgName');
     var token = $.cookie('access_token');
-    var appUuid = $('#appUuidHidd').val();
+    var appName = $('#appNameHide').val();
 
     var pwdMondifyVal = $('#pwdMondify').val();
     var pwdMondifytwoVal = $('#pwdMondifytwo').attr('value');
@@ -394,7 +394,7 @@ function updateAppUserPassword(){
             };
             var layerNum = layer.load('app_users_passwordModify_layer_pending');
             $.ajax({
-                url:baseUrl + '/' + orgName + '/' + appUuid + '/users/' + username + '/password',
+                url:baseUrl + '/' + orgName + '/' + appName + '/users/' + username + '/password',
                 type:'POST',
                 data:JSON.stringify(d),
                 headers:{
@@ -421,13 +421,15 @@ function updateAppUserPassword(){
 }
 
 // 删除app下的用户
-function deleteAppUser(appUuid,username){
+function deleteAppUser(username){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
+
     if(confirm($.i18n.prop('app_users_confirm_delete_user'))){
         var layerNum = layer.load($.i18n.prop('app_users_delete_layer_user'));
         $.ajax({
-            url:baseUrl + '/' + orgName +'/' + appUuid + '/users/' + username,
+            url:baseUrl + '/' + orgName +'/' + appName + '/users/' + username,
             type:'DELETE',
             headers:{
                 'Authorization':'Bearer ' + access_token,
@@ -440,13 +442,13 @@ function deleteAppUser(appUuid,username){
             success:function(respData){
                 layer.close(layerNum);
                 alert($.i18n.prop('app_users_delete_alert_deleted'));
-                getAppUserList(appUuid, 'no');
+                getAppUserList('no');
             }
         });
     }
 }
 //批量删除app下的用户
-function deleteAppUserCheckBox(appUuid){
+function deleteAppUserCheckBox(){
     var checkbox=document.getElementsByName("checkbox");
     var num=0;
     for (var i=0;i<checkbox.length;i++){
@@ -461,7 +463,7 @@ function deleteAppUserCheckBox(appUuid){
             var fail = 0;
             for (var i=0;i<checkbox.length;i++){
                 if(checkbox[i].checked){
-                    var flag = deleteAppUsers(appUuid,checkbox[i].value);
+                    var flag = deleteAppUsers(checkbox[i].value);
                     if(flag){
                         success ++;
                     }else{
@@ -471,7 +473,7 @@ function deleteAppUserCheckBox(appUuid){
             }
             layer.close(layerNum);
             alert($.i18n.prop('app_users_delete_alert_deleteNoteDone'))
-            getAppUserList(appUuid);
+            getAppUserList();
         }
     }else{
         alert($.i18n.prop('app_users_alert_deleteNoteItem'));
@@ -480,7 +482,7 @@ function deleteAppUserCheckBox(appUuid){
 
 
 //弹出发送消息
-function sendMessge(appUuid){
+function sendMessge(){
     var checkbox=document.getElementsByName("checkbox");
     var num=0;
     for (var i=0;i<checkbox.length;i++){
@@ -496,7 +498,7 @@ function sendMessge(appUuid){
             }
         }
         $('#usernameMessage').val(users);
-        $('#appUuidMessage').val(appUuid);
+        $('#appNameMessage').val($.cookie('appName'));
         $('#messegeContent').val('');
         document.getElementById('messegeContent').style.display = "block";
         $('#img1').remove();
@@ -510,9 +512,9 @@ function sendMessge(appUuid){
 }
 
 //单个消息发送
-function sendMessgeOne(appUuid,users){
+function sendMessgeOne(users){
     $('#usernameMessage').val(users);
-    $('#appUuidMessage').val(appUuid);
+    $('#appNameMessage').val($.cookie('appName'));
     $('#messegeContent').val('');
     document.getElementById('messegeContent').style.display="block";
     $('#img1').remove();
@@ -525,10 +527,11 @@ function sendMessgeOne(appUuid,users){
 //发送消息
 function sendUserMessage1(){
     var users = document.getElementById('usernameMessage').value;
-    var appUuid = document.getElementById('appUuidMessage').value;
+    var appName = document.getElementById('appNameMessage').value;
     var orgName = $.cookie('orgName');
     var token = $.cookie('access_token');
     var messageContent = $('#messegeContent').val().trim();
+
     var target = users.split(',');
     if ( messageContent ==''){
         alert($.i18n.prop('app_users_sendMessage_label_nomsg'));
@@ -544,7 +547,7 @@ function sendUserMessage1(){
         }
         var layerNum = layer.load($.i18n.prop('app_users_sendMessage_layer_pending'));
         $.ajax({
-            url:baseUrl + '/'+ orgName + "/" + appUuid + '/messages',
+            url:baseUrl + '/'+ orgName + "/" + appName + '/messages',
             type:'POST',
             headers:{
                 'Authorization':'Bearer '+token,
@@ -566,7 +569,7 @@ function sendUserMessage1(){
 //发送消息
 function sendUserMessage(){
     var users = document.getElementById('usernameMessage').value;
-    var appUuid = document.getElementById('appUuidMessage').value;
+    var appName = document.getElementById('appNameMessage').value;
     var orgName = $.cookie('orgName');
     var token = $.cookie('access_token');
     var messageContent = $('#messegeContent').val().trim();
@@ -585,7 +588,7 @@ function sendUserMessage(){
         };
         var layerNum = layer.load($.i18n.prop('app_users_sendMessage_layer_pending'));
         $.ajax({
-            url:baseUrl+'/'+ orgName + "/" + appUuid + '/messages',
+            url:baseUrl+'/'+ orgName + "/" + appName + '/messages',
             type:'POST',
             headers:{
                 'Authorization':'Bearer '+token,
@@ -615,8 +618,8 @@ function sendUserImgMessage(){
     if( shareSecret == '' || shareSecret == null){
         alert($.i18n.prop('app_users_sendMessage_selectPicture'));
     } else {
-        var users = document.getElementById('usernameMessage').value;
-        var appUuid = document.getElementById('appUuidMessage').value;
+        var users = $('#usernameMessage').val();
+        var appName = $('appNameMessage').val();
         var orgName = $.cookie('orgName');
         var token = $.cookie('access_token');
         var target = users.split(',');
@@ -630,7 +633,7 @@ function sendUserImgMessage(){
         };
         var layerContent = layer.load($.i18n.prop('app_users_sendMessage_layer_pending'));
         $.ajax({
-            url:baseUrl+'/'+ orgName + "/" + appUuid + '/messages',
+            url:baseUrl+'/'+ orgName + "/" + appName + '/messages',
             type:'POST',
             headers:{
                 'Authorization':'Bearer '+token,
@@ -655,11 +658,13 @@ function sendUserImgMessage(){
 
 
 //获取用户好友列表
-function getAppIMList(appUuid, owner_username){
+function getAppIMList( owner_username){
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
+
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
@@ -667,7 +672,7 @@ function getAppIMList(appUuid, owner_username){
         $('#appIMBody').empty();
         $('#appIMBody').append(loading);
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/'+owner_username+'/contacts/users',
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users/'+owner_username+'/contacts/users',
             type:'GET',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -687,7 +692,7 @@ function getAppIMList(appUuid, owner_username){
                         '<ul class="text-center" class="nav-pills" style="list-style-type:none">'+
                         '<li class="dropdown all-camera-dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">' + $.i18n.prop('app_users_contacts_table_operation') + '<b class="caret"></b></a>'+
                         '<ul class="dropdown-menu" style="left:150px;">'+
-                        '<li><a href="javascript:deleteAppIMFriend(\''+appUuid+'\', \''+owner_username+'\',\''+respData.data[i]+'\')">' + $.i18n.prop('app_users_contacts_table_disconn') + '</a></li>'+
+                        '<li><a href="javascript:deleteAppIMFriend(\''+appName+'\', \''+owner_username+'\',\''+respData.data[i]+'\')">' + $.i18n.prop('app_users_contacts_table_disconn') + '</a></li>'+
                         '</ul>'+
                         '</li>'+
                         '</ul>'+
@@ -713,16 +718,18 @@ function getAppIMList(appUuid, owner_username){
 
 
 //删除某个好友
-function deleteAppIMFriend(appUuid, owner_username, friend_username){
+function deleteAppIMFriend(owner_username, friend_username){
     //获取token
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     var access_token = $.cookie('access_token');
+
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         if(window.confirm($.i18n.prop('app_users_contacts_delete_confirm'))){
             $.ajax({
-                url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/'+owner_username+'/contacts/users/'+friend_username,
+                url:baseUrl+'/'+ orgName +'/' + appName + '/users/'+owner_username+'/contacts/users/'+friend_username,
                 type:'DELETE',
                 headers:{
                     'Authorization':'Bearer '+access_token,
@@ -740,9 +747,9 @@ function deleteAppIMFriend(appUuid, owner_username, friend_username){
 }
 
 //弹出添加好友页面
-function showAddFriend(appUuid,username){
+function showAddFriend(username){
     $('#usernameFriend').val(username);
-    $('#appUuidFriend').val(appUuid);
+    $('#appNameFriend').val($.cookie('appName'));
     $('#friendUsername').val('');
     $('#showAddFriend').click();
 }
@@ -752,14 +759,14 @@ function addIMFriend(){
     var orgName = $.cookie('orgName');
     var access_token = $.cookie('access_token');
     var owner_username = $('#usernameFriend').val();
-    var appUuid = $('#appUuidFriend').val();
+    var appName = $('#appNameFriend').val();
     var friend_username = $('#friendUsername').val();
     if (friend_username == ''){
         alert($.i18n.prop('app_users_contacts_add_alert_needusername'));
     }else{
         var layerNum = layer.load($.i18n.prop('app_users_contacts_add_layer_pending'));
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid +'/users/' + friend_username,
+            url:baseUrl+'/'+ orgName +'/' + appName +'/users/' + friend_username,
             type:'POST',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -772,7 +779,7 @@ function addIMFriend(){
             success: function(respData, textStatus, jqXHR) {
                 var layerNum = layer.load($.i18n.prop('app_users_contacts_add_layer_pending'));
                 $.ajax({
-                    url:baseUrl + '/' + orgName +'/' + appUuid + '/users/' + owner_username + '/contacts/users/' + friend_username,
+                    url:baseUrl + '/' + orgName +'/' + appName + '/users/' + owner_username + '/contacts/users/' + friend_username,
                     type:'POST',
                     headers:{
                         'Authorization':'Bearer '+access_token,
@@ -802,11 +809,12 @@ function updateIMPageStatus(owner_username){
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('orgName');
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/'+owner_username+'/contacts/users?limit=1000',
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users/'+owner_username+'/contacts/users?limit=1000',
             type:'GET',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -842,17 +850,18 @@ function updateIMPageStatus(owner_username){
 
 
 //弹出修改信息框
-function showUpdateInfo(appUuid, username){
+function showUpdateInfo(username){
     // 获取token
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
 
     if(!access_token || access_token=='') {
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users/' + username,
             type:'GET',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -898,10 +907,11 @@ function showUpdateInfo(appUuid, username){
 }
 
 //修改信息
-function updateInfo(appUuid){
+function updateInfo(){
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     var username =$('#username').text();
     var notification_display_style;
     if(document.getElementById('messageType_0').checked){
@@ -949,7 +959,7 @@ function updateInfo(appUuid){
                 var layerNum = layer.load($.i18n.prop('app_users_infoModify_layer_content'));
                 if(flag){
                     $.ajax({
-                        url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+                        url:baseUrl+'/'+ orgName +'/' + appName + '/users/' + username,
                         type:'PUT',
                         headers:{
                             'Authorization':'Bearer '+access_token,
@@ -964,7 +974,7 @@ function updateInfo(appUuid){
                             layer.close(layerNum);
                             alert($.i18n.prop('app_users_infoModify_layer_saved'));
                             $('#infoCloseButn').click();
-                            getAppUserList(appUuid,'no');
+                            getAppUserList('no');
                         }
                     });
                 }else{
@@ -988,7 +998,7 @@ function updateInfo(appUuid){
         };
         if(flag){
             $.ajax({
-                url:baseUrl+'/'+ orgName +'/' + appUuid + '/users/' + username,
+                url:baseUrl+'/'+ orgName +'/' + appName + '/users/' + username,
                 type:'PUT',
                 headers:{
                     'Authorization':'Bearer '+access_token,
@@ -1001,7 +1011,7 @@ function updateInfo(appUuid){
                 success: function(respData, textStatus, jqXHR) {
                     alert($.i18n.prop('app_users_infoModify_layer_saved'));
                     $('#infoCloseButn').click();
-                    getAppUserList(appUuid,'no');
+                    getAppUserList('no');
                 }
             });
         }else{
@@ -1012,11 +1022,11 @@ function updateInfo(appUuid){
 
 // 上一页数据
 function getPrevAppUserList() {
-    getAppUserList(appUuid, 'forward');
+    getAppUserList('forward');
 }
 // 下一页数据
 function getNextAppUserList() {
-    getAppUserList(appUuid, 'next');
+    getAppUserList('next');
 }
 
 // 去除字符串中所有空格
@@ -1025,7 +1035,7 @@ function removeAllSpace(str) {
 }
 
 function showAddFriendHTML() {
-    showAddFriend(appUuid, owner_username);
+    showAddFriend(owner_username);
 }
 
 function check() {
@@ -1039,7 +1049,7 @@ function check() {
 function preSaveNewIMUser() {
     if (check()) {
         count = 0;
-        saveNewIMUser(appUuid);
+        saveNewIMUser();
     }
 }
 
@@ -1052,8 +1062,9 @@ function imgMessage() {
     if (img == 'jpg' || img == 'png' || img == 'bmp' || img == 'gif' || img == 'jpeg') {
         var access_token = $.cookie('access_token');
         var orgName = $.cookie('orgName');
+        var appName = $.cookie('appName');
         var ajax_option = {
-            url: baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles',
+            url: baseUrl + '/' + orgName + '/' + appName + '/chatfiles',
             headers: {
                 'Accept': 'application/json',
                 'restrict-access': true,
@@ -1065,7 +1076,7 @@ function imgMessage() {
                 $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_saved'));
                 var str = $('#file').val() + "," + respData.entities[0]['share-secret'];
                 $('#share-secret').val(str);
-                $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appUuid + '/chatfiles/' + respData.entities[0].uuid);
+                $('#imgUuid').val(baseUrl + '/' + orgName + '/' + appName + '/chatfiles/' + respData.entities[0].uuid);
             },
             error: function (respData) {
                 $('#uploadresspan').text($.i18n.prop('app_users_alert_upload_picture_failure'));
@@ -1085,22 +1096,18 @@ function searchUserTmp() {
     if (username == '' || username == null) {
         alert($.i18n.prop('app_users_text_search_box_placeholder'));
     } else {
-        searchUser(appUuid, username);
+        searchUser(username);
     }
-}
-// 注册用户
-function addNewAppUsers() {
-    window.location.href = 'app_users_create.html?appUuid=' + appUuid;
 }
 
 // 删除选定的用户
 function deleteAppUsersBox() {
-    deleteAppUserCheckBox(appUuid);
+    deleteAppUserCheckBox();
 }
 
 //发送消息
 function showSendMessge() {
-    sendMessge(appUuid);
+    sendMessge();
 }
 
 //发送消息判断
@@ -1130,7 +1137,7 @@ function showTimeDiv(num) {
 
 //修改信息
 function updateInfoHTML() {
-    updateInfo(appUuid);
+    updateInfo();
 }
 
 function checkAll() {

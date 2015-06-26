@@ -217,7 +217,7 @@ function getOrgAdminList(){
                 $('#orgadminsBody').append(selectOptions);
                 var tbody = document.getElementsByTagName("tbody")[0];
                 if(!tbody.hasChildNodes()){
-                    var option = '<tr><td class="text-center" colspan="9">无数据!</td></tr>';
+                    var option = '<tr><td class="text-center" colspan="9">'+$.i18n.prop('table_data_nodata')+'</td></tr>';
                     $('#tr_loading').remove();
                     $('#orgadminsBody').append(option);
                 }

@@ -7,26 +7,21 @@
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-app.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
-        var Application = getQueryString('Application');
-        if (Application != null) {
-            $.cookie('Application', Application);
-        }
-        if (appUuid == "undefined") {
-            appUuid = $.cookie('appName');
-        }
-        if (Application == null) {
-            Application = $.cookie('Application');
+        var appName = getQueryString('appName');
+        if (appName != null || appName != "undefined") {
+            $.cookie('appName', appName);
+        } else {
+            EasemobCommon.disPatcher.toPageAppList();
         }
         $(function () {
-            $('#showName').text(Application);
+            $('#showName').text(appName);
 
             EasemobCommon.init();
 
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppProfile();
 
-            getAppProfile(appUuid);
+            getAppOverView(appName);
         });
     </script>
 </head>
@@ -181,7 +176,7 @@
                             <span id="app_profile_form_thumbnail_long">长</span>：<input type="text" id="imageHeight" name="imageHeight" value=""/>&nbsp;px
                             <input type="hidden" id="imageHeightHide" name="imageHeightHide" value=""/>
                             <input type="hidden" id="usernameMessage" name="usernameMessage" value=""/>
-                            <input type="hidden" id="appUuidMessage" name="appUuidMessage" value=""/>
+                            <input type="hidden" id="appNameMessage" name="appNameMessage" value=""/>
                             <span style="color: red;" id="imageHeightSpan"></span>
                         </div>
                     </div>

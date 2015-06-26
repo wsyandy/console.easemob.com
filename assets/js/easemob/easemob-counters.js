@@ -228,7 +228,7 @@ function drawCountersCharts(peroid) {
     var endTimeSec = new Date(dt1Sec);
     var endTimeTimeSec = endTimeSec.getTime();
 
-    var chartDatas = applyCountersData(appUuid, queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
+    var chartDatas = applyCountersData(queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
     drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
 }
 
@@ -283,16 +283,16 @@ function drawCountersChartsPeroidSearch() {
     }
 
     var queryStr = getCounterNameFromHtml()
-    var chartDatas = applyCountersData(appUuid, queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
+    var chartDatas = applyCountersData(queryStr.counterName, resolution, startTimeTime, endTimeTimeSec, queryStr.restStr);
     drawChartFunction.draw(chartDatas.labels, chartDatas.datas);
 }
 
 
-function applyCountersData(appUuid, counterName, resolution, startTimeTime, endTimeMilSec, restStr) {
+function applyCountersData(counterName, resolution, startTimeTime, endTimeMilSec, restStr) {
     var applyRequest = {
         orgName: $.cookie('orgName'),
         access_token: $.cookie('access_token'),
-        appUuid: appUuid,
+        appName: $.cookie('appName'),
         start_time: '',
         end_time: '',
         pad: 'true',
@@ -315,7 +315,7 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
     if (counterName == 'application.collection.chatmessages') {
         // fetch credentials for app
         $.ajax({
-            url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/credentials',
+            url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appName + '/credentials',
             type: 'GET',
             async: false,
             headers: {
@@ -332,7 +332,7 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
 
         // fetch apptoken
         $.ajax({
-            url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/token',
+            url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appName + '/token',
             type: 'POST',
             async: false,
             data: JSON.stringify(payloadd),
@@ -350,7 +350,7 @@ function applyCountersData(appUuid, counterName, resolution, startTimeTime, endT
 
     // fetch counters
     $.ajax({
-        url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appUuid + '/counters?counter=' + counterName
+        url: baseUrl + '/' + applyRequest.orgName + '/' + applyRequest.appName + '/counters?counter=' + counterName
         + '&start_time=' + applyRequest.start_time + '&end_time=' + applyRequest.end_time + '&pad=' + applyRequest.pad
         + '&resolution=' + applyRequest.resolution + restStr,
         type: 'GET',

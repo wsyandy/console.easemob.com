@@ -33,7 +33,7 @@
 
     <script src="assets/js/easemob/easemob-chatgroups.js"></script>
     <script charset="utf-8">
-        var appUuid;
+        var appName = $.cookie('appName');
         var groupid = getQueryString('groupid');
         $(function () {
             EasemobCommon.init();
@@ -41,9 +41,9 @@
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppChatgroupsUsers();
 
-            appUuid = $.cookie('Application');
-            $('#showName').text(appUuid);
-            getAppChatroomsuser(appUuid, groupid);
+
+            $('#showName').text(appName);
+            getAppChatroomsuser(appName, groupid);
             $("#groupName").text(groupid);
             $('#addMemberForm').submit(function () {
                 addChatgroupMemberPre();

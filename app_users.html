@@ -9,17 +9,16 @@
     <script src="assets/js/easemob/easemob-users.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
-        var Application = $.cookie('Application');
+        var appName = getQueryString('appName');
 
         $(function () {
-            $('#showName').text(Application);
+            $('#showName').text(appName);
 
             EasemobCommon.init();
 
             I18NPropsLoader.loadPropertiesCommon();
 
-            getAppUserList(appUuid);
+            getAppUserList(appName);
 
             I18NPropsLoader.loadPropertiesForPageAppUsers();
 
@@ -185,7 +184,7 @@
                                placeholder="请输入新密码(1位以上字母或数字)" onKeyUp="value=removeAllSpace(value)"
                                onBlur="value=removeAllSpace(value)" onpaste='return false' oncopy='return false'/>
                         <input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
-                        <input type="hidden" id="appUuidHidd" name="appUuidHidd" value=""/>
+                        <input type="hidden" id="appNameHide" name="appNameHide" value=""/>
                         <span style="color: red;" id="pwdMondifySpan"></span>
                     </div>
                 </div>
@@ -249,7 +248,7 @@
                         <textarea style="width:500px; height:100px;" id="messegeContent"
                                   name="messegeContent"></textarea>
                         <input type="hidden" id="usernameMessage" name="usernameMessage" value=""/>
-                        <input type="hidden" id="appUuidMessage" name="appUuidMessage" value=""/>
+                        <input type="hidden" id="appNameMessage" name="appNameMessage" value=""/>
                     </div>
                 </div>
             </div>
@@ -278,7 +277,7 @@
                     <label class="control-label" for="username"><span id="app_users_infoModify_form_label_username">用户名</span>：</label>
                     <div class="controls">
                         <span id="username" name="username"></span>
-                        <input type="hidden" id="appUuidInfo" name="appUuidInfo" value=""/>
+                        <input type="hidden" id="appNameInfo" name="appNameInfo" value=""/>
                     </div>
                 </div>
                 <div class="control-group">

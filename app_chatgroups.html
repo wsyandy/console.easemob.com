@@ -9,8 +9,7 @@
     <script src="assets/js/easemob/easemob-chatgroups.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
-        var Application = $.cookie('Application');
+        var appName = getQueryString('appName');
         var count = 0;
         $(function () {
             EasemobCommon.init();
@@ -19,8 +18,8 @@
             I18NPropsLoader.loadPropertiesForPageAppChatgroups();
 
             count = 0;
-            $('#showName').text(Application);
-            getAppChatrooms(appUuid);
+            $('#showName').text(appName);
+            getAppChatrooms(appName);
 
             $('#searchForm').submit(function () {
                 searchChatgroup();
@@ -171,7 +170,7 @@
                     <div class="controls">
                         <input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
                         <input type="hidden" id="usernameMondify" name="usernameMondify" value=""/>
-                        <input type="hidden" id="appUuidHide" name="appUuidHide" value=""/>
+                        <input type="hidden" id="appNameHide" name="appNameHide" value=""/>
                         <span style="color: red;" id="groupnameSpan"></span>
                     </div>
                 </div>
@@ -265,7 +264,7 @@
                     <div class="controls">
                         <input type="text" id="groupName" name="groupName" value="" placeholder="请输入群组名称"/>
                         <input type="hidden" id="usernameModify" name="usernameModify" value=""/>
-                        <input type="hidden" id="appUuidHide" name="appUuidHide" value=""/>
+                        <input type="hidden" id="appNameHide" name="appNameHide" value=""/>
                         <span style="color: red;" id="app_chatgroups_form_modify_groupNameSpan"></span>
                     </div>
                 </div>
@@ -378,7 +377,7 @@
                         <textarea style="width:500px; height:100px;" id="messegeContent"
                                   name="messegeContent"></textarea>
                         <input type="hidden" id="usernameMessage" name="usernameMessage" value=""/>
-                        <input type="hidden" id="appUuidMessage" name="appUuidMessage" value=""/>
+                        <input type="hidden" id="appNameMessage" name="appNameMessage" value=""/>
                     </div>
                 </div>
 

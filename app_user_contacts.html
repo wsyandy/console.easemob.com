@@ -34,13 +34,12 @@
     <script src="assets/js/easemob/easemob-users.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
+        var appName = getQueryString('appName');
         var owner_username = getQueryString('owner_username');
-        var Application = $.cookie('Application');
         $(function () {
-            $('#showName').text(Application);
+            $('#showName').text(appName);
             $('#showUsername').text(owner_username);
-            getAppIMList(appUuid, owner_username);
+            getAppIMList(appName, owner_username);
 
             EasemobCommon.init();
 
@@ -174,7 +173,7 @@
                     <div class="controls">
                         <input type="text" id="friendUsername" name="friendUsername" value="" />
                         <input type="hidden" id="usernameFriend" name="usernameFriend" value="" />
-                        <input type="hidden" id="appUuidFriend" name="appUuidFriend" value="" />
+                        <input type="hidden" id="appNameFriend" name="appNameFriend" value="" />
                     </div>
                 </div>
             </div>

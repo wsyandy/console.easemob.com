@@ -80,11 +80,12 @@ function updateUsersPageStatus(){
     var access_token = $.cookie('access_token');
     var cuser = $.cookie('cuser');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     if(!access_token || access_token==''){
         EasemobCommon.disPatcher.sessionTimeOut();
     } else {
         $.ajax({
-            url:baseUrl+'/'+ orgName +'/' + appUuid + '/users?limit=1000',
+            url:baseUrl+'/'+ orgName +'/' + appName + '/users?limit=1000',
             type:'GET',
             headers:{
                 'Authorization':'Bearer '+access_token,
@@ -120,21 +121,22 @@ function updateUsersPageStatus(){
 }
 
 
-function setUsername(appUuid,username){
+function setUsername(username){
     $('#usernameMondify').val(username);
-    $('#appUuidHidd').val(appUuid);
+    $('#appNameHide').val($.cookie('appName'));
     $('#pwdMondify').val('');
 }
 
 
 //调用方法
-function deleteAppUsers(appUuid,username){
+function deleteAppUsers(username){
     var access_token = $.cookie('access_token');
     var orgName = $.cookie('orgName');
+    var appName = $.cookie('appName');
     var flag = false;
     $.ajax({
         async: false,
-        url:baseUrl + '/' + orgName +'/' + appUuid + '/users/' + username,
+        url:baseUrl + '/' + orgName +'/' + appName + '/users/' + username,
         type:'DELETE',
         headers:{
             'Authorization':'Bearer ' + access_token,
@@ -216,28 +218,28 @@ var EasemobCommon = function() {
                 window.location.href = "org_admin_password.html";
             },
             toPageAppProfile: function() {
-                window.location.href = 'app_profile.html?appUuid=' + appUuid;
+                window.location.href = 'app_profile.html?appName=' + appName;
             },
             toPageAppUsers: function() {
-                window.location.href = 'app_users.html?appUuid=' + appUuid;
+                window.location.href = 'app_users.html?appName=' + appName;
             },
             toPageAppUserContacts: function(owner_username) {
-                window.location.href = 'app_user_contacts.html?appUuid=' + appUuid + '&owner_username=' + owner_username;
+                window.location.href = 'app_user_contacts.html?appName=' + appName + '&owner_username=' + owner_username;
             },
             toPageAppUserCreate: function(username) {
-                window.location.href = 'app_user_create.html?appUuid=' + appUuid + '&username=' + username;
+                window.location.href = 'app_user_create.html?appName=' + appName + '&username=' + username;
             },
             toPageAppChatGroups: function() {
-                window.location.href = 'app_chatgroups.html?appUuid=' + appUuid;
+                window.location.href = 'app_chatgroups.html?appName=' + appName;
             },
             toPageAppChatGroupUsers: function(groupId) {
-                window.location.href = 'app_chatgroup_users.html?appUuid=' + appUuid;
+                window.location.href = 'app_chatgroup_users.html?appName=' + appName;
             },
             toPageAppNotifiers: function() {
-                window.location.href = 'app_notifiers.html?appUuid=' + appUuid;
+                window.location.href = 'app_notifiers.html?appName=' + appName;
             },
             toPageAppCounters: function() {
-                window.location.href = 'app_counters.html?appUuid=' + appUuid;
+                window.location.href = 'app_counters.html?appName=' + appName;
             },
             sessionTimeOut: function () {
                 this.logOut();

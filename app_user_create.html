@@ -7,8 +7,7 @@
     <script src="/assets/js/easemob/easemob-header.js"></script>
     <script src="assets/js/easemob/easemob-users.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
-        var Application = $.cookie('Application');
+        var appName = getQueryString('appName');
         var count = 0;
         $(function () {
             EasemobCommon.init();
@@ -17,8 +16,8 @@
             I18NPropsLoader.loadPropertiesForPageAppUsersCreate();
 
             count = 0;
-            $('#showName').text(Application);
-            getAppUserList(appUuid);
+            $('#showName').text(appName);
+            getAppUserList(appName);
         });
     </script>
     <!-- 邮箱提示 -->

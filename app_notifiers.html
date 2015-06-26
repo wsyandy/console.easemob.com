@@ -4,18 +4,16 @@
     <meta charset="utf-8">
     <title id="page_title">环信开发者中心</title>
 
-    <script src="assets/js/jquery.form.js"></script>
     <script src="/assets/js/easemob/easemob-header.js"></script>
+    <script src="assets/js/jquery.form.js"></script>
     <script src="assets/js/easemob/easemob-notifiers.js"></script>
     <script src="assets/js/layer/layer.min.js"></script>
     <script charset="utf-8">
-        var appUuid = getQueryString('appUuid');
-        var Application = $.cookie('Application');
+        var appName = getQueryString('appName');
         var count = 0;
         $(function () {
             count = 0;
-            $('#showName').text(Application);
-            $('#fileAppKey').text(Application);
+            $('#showName').text(appName);
             $('#certificate').hide();
 
             EasemobCommon.init();
@@ -23,7 +21,7 @@
             I18NPropsLoader.loadPropertiesCommon();
             I18NPropsLoader.loadPropertiesForPageAppNotifiers();
 
-            getAppNotifiers(appUuid);
+            showAndroidPushCertificateTab();
         });
     </script>
 </head>
@@ -110,27 +108,55 @@
                 </div>
             </div>
 
+            <ul id="countersTab" class="nav nav-tabs">
+                <li class="active"><a href="javascript:void(0);" onclick="showAndroidPushCertificateTab()" data-toggle="tab">Android</a></li>
+                <li><a href="javascript:void(0);" onclick="showIOSPushCertificateTab()" data-toggle="tab">IOS</a></li>
+            </ul>
+
             <div class="row-fluid">
                 <div class="count">
-                    <div class="left" style="width:800px;height:320px;">
+                    <div id="tableCertificateAndroid" class="left" style="width:800px;height:320px;">
                         <div class="apply">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <thead>
-                                <p style="background-color:white;height:30px;font-size:16px;line-height:30px;overflow:hidden;" width="100%" align="center"><span id="app_notifiers_table_title">证书列表</span></p>
+                                <p style="background-color:white;height:30px;width:100%;font-size:16px;line-height:30px;overflow:hidden;" align="center"><span id="app_notifiers_tableAndroid_title">证书列表</span></p>
                                 <tr>
-                                    <th id="app_notifiers_table_th_notifierName">名称</th>
-                                    <th id="app_notifiers_table_th_notifierType">类型</th>
-                                    <th id="app_notifiers_table_th_created">创建日期</th>
-                                    <th id="app_notifiers_table_th_modified">最后修改日期</th>
-                                    <th id="app_notifiers_table_th_operation">操作</th>
+                                    <th id="app_notifiers_tableAndroid_th_notifierName">名称</th>
+                                    <th id="app_notifiers_tableAndroid_th_notifierType">类型</th>
+                                    <th id="app_notifiers_tableAndroid_th_notifierPassword">证书密码</th>
+                                    <th id="app_notifiers_tableAndroid_th_created">创建日期</th>
+                                    <th id="app_notifiers_tableAndroid_th_modified">最后修改日期</th>
+                                    <th id="app_notifiers_tableAndroid_th_operation">操作</th>
                                 </tr>
                                 </thead>
-                                <tbody bgcolor="#FFFFFF" id="appCredentialBody">
+                                <tbody bgcolor="#FFFFFF" id="appCredentialBodyAndroid">
                                 </tbody>
                             </table>
                         </div>
-                        <div id="paginau" class="pagination pagination-right">
-                            <span id="pageInfo"></span>
+                        <div id="paginauAndroid" class="pagination pagination-right">
+                            <span id="pageInfoAndroid"></span>
+                        </div>
+                    </div>
+
+                    <div id="tableCertificateIOS" class="left" style="width:800px;height:320px;">
+                        <div class="apply">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                <p style="background-color:white;height:30px;width:100%;font-size:16px;line-height:30px;overflow:hidden;" align="center"><span id="app_notifiers_tableIOS_title">证书列表</span></p>
+                                <tr>
+                                    <th id="app_notifiers_tableIOS_th_notifierName">名称</th>
+                                    <th id="app_notifiers_tableIOS_th_notifierType">类型</th>
+                                    <th id="app_notifiers_tableIOS_th_created">创建日期</th>
+                                    <th id="app_notifiers_tableIOS_th_modified">最后修改日期</th>
+                                    <th id="app_notifiers_tableIOS_th_operation">操作</th>
+                                </tr>
+                                </thead>
+                                <tbody bgcolor="#FFFFFF" id="appCredentialBodyIOS">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="paginauIOS" class="pagination pagination-right">
+                            <span id="pageInfoIOS"></span>
                         </div>
                     </div>
                 </div>
@@ -138,32 +164,32 @@
             <hr>
             <div class="row-fluid">
                 <div class="count">
-                    <div class="left" style="width:400px;">
-                        <div class="pagination pagination-left" id="div" onMouseOver="displayCertificate();"
+                    <div id="iosCertificateDiv" class="left" style="width:500px;">
+                        <div style="margin: 0 auto;width: 500px;" class="pagination pagination-left" id="whatIsIOSCertificate" onMouseOver="displayCertificate();"
                              onMouseOut="hideCertificate();">
                             <ul>
-                                <li><a href="javascript:void(0);"><span id="app_notifiers_form_addNewNotifier">新增证书</span></a></li>
+                                <li><a href="javascript:void(0);"><span id="app_notifiers_formIOS_addNewNotifier">新增证书</span></a></li>
                             </ul>
                             <ul id="certificate">
-                                <li><a href="http://www.easemob.com/docs/ios/push/certificate/" target="_blank"><span id="app_notifiers_href_makeNotifier">制作iOS推送证书</span></a></li>
+                                <li><a href="https://www.easemob.com/docs/ios/push/certificate/" target="_blank"><span id="app_notifiers_href_makeNotifier">制作iOS推送证书</span></a></li>
                             </ul>
                         </div>
                         <div class="apply">
                             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr>
-                                    <td align="left" width="80px"><strong id="app_notifiers_form_appName">应用名称&nbsp;&nbsp;&nbsp;:</strong></td>
-                                    <td bgcolor="#FFFFFF"><span id="fileAppKey"></span></td>
+                                    <td align="right" width="150px"><strong id="app_notifiers_formIOS_appName">应用名称&nbsp;&nbsp;&nbsp;</strong><font color='red'>&nbsp;&nbsp;</font>:</td>
+                                    <td bgcolor="#FFFFFF"><span id="appNameIOS"></span></td>
                                 </tr>
                             </table>
                         </div>
                         <div class="apply">
-                            <form id="myForm" method="POST" enctype="multipart/form-data" action="">
+                            <form id="certificateFormIOS" method="POST" enctype="multipart/form-data" action="">
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px"><strong id="app_notifiers_form_notifierName">证书名称</strong>
+                                            <td align="right" width="150px"><strong id="app_notifiers_formIOS_notifierName">证书名称</strong>
                                                 <font color='red'>&nbsp;*&nbsp;</font>:</td>
-                                            <td bgcolor="#FFFFFF"><input type="text" name="name" id="name" value=""
+                                            <td bgcolor="#FFFFFF"><input type="text" name="name" id="nameIOS" value=""
                                                                          placeholder="请输入证书名称(必填)"/></td>
                                         </tr>
                                     </table>
@@ -171,11 +197,11 @@
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px"><strong id="app_notifiers_form_notifier">证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书</strong><font
-                                                    color='red'>&nbsp;*&nbsp;</font>:</td>
+                                            <td align="right" width="150px"><strong id="app_notifiers_formIOS_notifier">证&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;书
+                                            </strong><font color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF">
                                                 <input type="text" readonly="readonly" id="f_file"/>
-                                                <input type="button" id="app_notifiers_form_button" value="浏览..." class="btn btn-mini btn-primary"
+                                                <input type="button" id="app_notifiers_formIOS_button" value="浏览..." class="btn btn-mini btn-primary"
                                                        onClick="file.click()"/>
                                                 <input type="file" name="file" id="file"
                                                        onChange="f_file.value=this.value;validateSuffix(this.value)"
@@ -184,36 +210,89 @@
                                         </tr>
                                     </table>
                                 </div>
+
                                 <div class="apply">
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                            <td align="left" width="80px;"><strong id="app_notifiers_form_notifierPassword">证书密码</strong><font color='red'>
-                                                &nbsp;*&nbsp;</font>:</td>
-                                            <td bgcolor="#FFFFFF" width="280px;">
-                                                <input type="password" name="passphrase" id="passphrase" value=""
-                                                       placeholder="请输入证书密码(必填)"/>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="apply">
-                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                                        <tr>
-                                            <td align="left" width="80px;"><strong id="app_notifiers_form_notifierType">证书类型</strong>
+                                            <td align="right" width="150px;"><strong id="app_notifiers_formIOS_notifierPassword">证书密码</strong>
                                                 <font color='red'>&nbsp;*&nbsp;</font>:</td>
                                             <td bgcolor="#FFFFFF">
-                                                <input type=radio value="DEVELOPMENT" name="environment" checked="checked"><span class="lbl" id="app_notifiers_form_notifierType_dev">开发环境</span>
-                                                <input type=radio value="PRODUCTION" name="environment"><span class="lbl" id="app_notifiers_form_notifierType_product">生产环境</span>
+                                                <input type="password" name="passphrase" id="passphraseIOS" value="" placeholder="请输入证书密码(必填)"/>
                                             </td>
                                         </tr>
                                     </table>
                                 </div>
-                                <input type="hidden" name="provider" id="provider" value="APNS"/>
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px;"><strong id="app_notifiers_formIOS_notifierType">证书类型</strong>
+                                                <font color='red'>&nbsp;*&nbsp;</font>:</td>
+                                            <td bgcolor="#FFFFFF">
+                                                <input type=radio value="DEVELOPMENT" name="environment" checked="checked"><span class="lbl" id="app_notifiers_formIOS_notifierType_dev">开发环境</span>
+                                                <input type=radio value="PRODUCTION" name="environment"><span class="lbl" id="app_notifiers_formIOS_notifierType_product">生产环境</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input type="hidden" name="provider" id="providerIOS" value="APNS"/>
                                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                     <tr>
-                                        <td align="left" width="80px;"><strong></strong></td>
-                                        <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_form_button_upload" class="btn btn-mini btn-primary"
-                                                                     value="上传" onClick="changeform()"/></td>
+                                        <td align="right" width="150px;"><strong></strong></td>
+                                        <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_formIOS_button_upload" class="btn btn-mini btn-primary"
+                                                                     value="上传" onClick="submitIOSCertificateForm()"/></td>
+                                    </tr>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Android Push Certificate-->
+                    <div id="androidCertificateDiv" class="left" style="width:500px;">
+                        <div style="margin: 0 auto;width: 500px;" class="pagination pagination-left" id="whatIsCertificate" onMouseOver="displayCertificate();"
+                             onMouseOut="hideCertificate();">
+                            <ul>
+                                <li><a href="javascript:void(0);"><span id="app_notifiers_formAndroid_addNewNotifier">新增证书</span></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="apply">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                    <td align="right" width="150px"><strong id="app_notifiers_formAndroid_appName">应用名称&nbsp;&nbsp;&nbsp;:</strong></td>
+                                    <td bgcolor="#FFFFFF"><span id="appNameAndroid"></span></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="apply">
+                            <form id="certificateFormAndroid" method="POST" enctype="multipart/form-data" action="">
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px"><strong id="app_notifiers_formAndroid_notifierName">证书名称</strong>
+                                                <font color='red'>&nbsp;*&nbsp;</font>:</td>
+                                            <td bgcolor="#FFFFFF"><input type="text" name="name" id="nameAndroid" value=""
+                                                                         placeholder="请输入证书名称(必填)"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="apply">
+                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                            <td align="right" width="150px;"><strong id="app_notifiers_formAndroid_notifierPassword">证书密码</strong>
+                                                <font color='red'>&nbsp;*&nbsp;</font>:</td>
+                                            <td bgcolor="#FFFFFF">
+                                                <input type="password" name="passphrase" id="passphraseAndroid" value="" placeholder="请输入证书密码(必填)"/>
+                                                <input type="hidden" value="PRODUCTION" name="environment" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <input type="hidden" name="provider" id="providerAndroid" value="Android"/>
+                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                        <td align="right" width="150px;"><strong></strong></td>
+                                        <td bgcolor="#FFFFFF"><input type="button" id="app_notifiers_formAndroid_button_upload" class="btn btn-mini btn-primary"
+                                                                     value="添加" onClick="submitAndroidCertificateForm()"/></td>
                                     </tr>
                                 </table>
                             </form>
