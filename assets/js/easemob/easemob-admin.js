@@ -443,7 +443,6 @@ function saveNewAdminUserSubmit(adminUsername, adminPassword, adminEmail, adminC
 }
 
 
-
 function saveNewAdminUser() {
     var adminUsernameInput = $('#admin_create_adminUserName').val();
     var adminEmailInput = $('#admin_create_adminEmail').val();
