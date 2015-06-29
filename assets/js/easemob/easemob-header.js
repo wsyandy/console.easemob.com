@@ -20,7 +20,7 @@ document.write(
     <![endif]-->\
     <link href="/assets/css/management.css" rel="stylesheet" type="text/css" media="screen"/>\
     <link href="/assets/css/manage.css" rel="stylesheet" type="text/css" media="screen"/>\
-    <script src="/assets/js/jquery-1.7.2.min.js"></script>\
+    <script src="/assets/js/jquery-1.9.1.min.js"></script>\
     <script src="/assets/js/bootstrap-2.3.2.min.js"></script>\
     <script src="/assets/js/jquery.cookie-1.3.js"></script>\
     <script src="/assets/js/json2.js"></script>\

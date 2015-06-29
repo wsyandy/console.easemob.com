@@ -109,7 +109,7 @@ var I18NPropsLoader = function(){
                     break;
                 case 'app_create':
                     this.loadPropertiesCommon();
-                    this.loadPropertiesForPageAppCreate()();
+                    this.loadPropertiesForPageAppCreate();
                     break;
                 case 'app_users':
                     this.loadPropertiesCommon();
